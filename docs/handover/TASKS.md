@@ -46,7 +46,9 @@ Design: `docs/handover/RESOURCE-DESIGN.md`. M raised 73 -> 101. Next leaf: `3.a.
 |---|---|---|
 | `3.a.i.zi` | songs: forks, invite-link, invites, posts | DONE |
 | `3.a.i.zo` | songs: tests and records | DONE (landed with `zi`) |
-| `3.a.ii.zi` | revisions: breakdown, mixdown, download-options, forks | NEXT |
+| `3.a.ii.zi` | revisions: breakdown, mixdown, download-options, forks | DONE |
+| `3.a.ii.zo` | revisions: tests and records | DONE (landed with `zi`) |
+| `3.a.iii.zi` | tracks: artist, download | NEXT |
 
 ---
 
@@ -65,7 +67,7 @@ Leaf IDs and ordering are unchanged; the sub-phases only group them.
 | **3.2** | Social and users | 20 | `3.d` messaging/communities/posts/images, `3.e` users/library/feeds | 128 | 41–60 |
 | **3.3** | Account, utility, commerce | 30 | `3.f` me/streaks/membership/payments/authorizations, `3.g` search/validation/passwords/collections/genres, `3.h` beats/distribution/promotion/pages/videos | 91 | 61–90 |
 
-**Gate status: 3.1 is OPEN.** Leaves 11–12 are DONE; 13–40 remain. Do not push to `main` until all
+**Gate status: 3.1 is OPEN.** Leaves 11–14 are DONE; 15–40 remain. Do not push to `main` until all
 30 leaves of 3.1 are complete.
 
 Every leaf here has APK evidence for its paths. Where `docs/research/apk-shapes.tsv` names the
@@ -98,7 +100,7 @@ Next leaf: `3.a.ii.zi`.
 
 ### 3.a.ii - revisions: breakdown, mixdown, download-options, forks
 
-**13 - `3.a.ii.zi` - revisions: breakdown, mixdown, download-options, forks: implement**
+**13 - `3.a.ii.zi` - revisions: breakdown, mixdown, download-options, forks: implement** *(DONE)*
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/resources/revisions.ts (extend)`:
 
@@ -113,6 +115,13 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/
 - `GET revisions/{id}?format=m4a` -> `com.bandlab.audio.downloader.api.SampleUri`
 
 **14 - `3.a.ii.zo` - revisions: breakdown, mixdown, download-options, forks: tests and records**
+
+Implemented in `3.a.ii.zi` (both halves landed together, since the `/revisions/{id}` collision needed
+its test in the same change). Outcome: 9 methods added to `src/resources/revisions.ts` — `retrieveArtist`,
+`listForksPosts`, `listLikesUsers`, `retrieveSharings`, `retrieveStudioBreakdown`, `listTrackVideoPosts`,
+`retrieveDownload`, `reprocessMixdown`, `updateContour`. New types `Artist`, `SampleUri`, `SharedKey`,
+`TrackRewindBreakdown`. Coverage is 134/134, no drift. See `sessions/3.a.ii.zi.md`.
+Next leaf: `3.a.iii.zi`.
 
 ### 3.a.iii - tracks
 

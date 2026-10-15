@@ -89,6 +89,15 @@ To check that `api.md` still matches the inventory snapshot, run `./scripts/cove
 | `spec` | GET | `/revisions/{revisionId}` | `client.revisions.retrieve()` | `src/resources/revisions.ts` |
 | `spec` | PATCH | `/revisions/{revisionId}` | `client.revisions.update()` | `src/resources/revisions.ts` |
 | `spec` | POST | `/revisions/{revisionId}/plays` | `client.revisions.addPlay()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/artist` | `client.revisions.retrieveArtist()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/forks/posts` | `client.revisions.listForksPosts()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/likes/users` | `client.revisions.listLikesUsers()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/sharings` | `client.revisions.retrieveSharings()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/studio-breakdown` | `client.revisions.retrieveStudioBreakdown()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}/track-videos/posts` | `client.revisions.listTrackVideoPosts()` | `src/resources/revisions.ts` |
+| `apk` | GET | `/revisions/{revisionId}` | `client.revisions.retrieveDownload()` | `src/resources/revisions.ts` |
+| `apk` | POST | `/revisions/{revisionId}/mixdown/reprocess` | `client.revisions.reprocessMixdown()` | `src/resources/revisions.ts` |
+| `apk` | PATCH | `/contour/{projectID}/{regionID}/{activeSampleID}` | `client.revisions.updateContour()` | `src/resources/revisions.ts` |
 | `spec` | GET | `/search` | `client.search.globalSearch()` | `src/resources/search.ts` |
 | `spec` | GET | `/search/bands` | `client.search.searchBands()` | `src/resources/search.ts` |
 | `spec` | GET | `/search/collections` | `client.search.searchCollections()` | `src/resources/search.ts` |

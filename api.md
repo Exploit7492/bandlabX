@@ -263,10 +263,14 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/revisions.ts">Artist</a></code>
 - <code><a href="./src/resources/revisions.ts">AudioSample</a></code>
 - <code><a href="./src/resources/revisions.ts">Mastering</a></code>
 - <code><a href="./src/resources/revisions.ts">Revision</a></code>
 - <code><a href="./src/resources/revisions.ts">RevisionCounters</a></code>
+- <code><a href="./src/resources/revisions.ts">SampleUri</a></code>
+- <code><a href="./src/resources/revisions.ts">SharedKey</a></code>
+- <code><a href="./src/resources/revisions.ts">TrackRewindBreakdown</a></code>
 
 Methods:
 
@@ -274,6 +278,15 @@ Methods:
 - <code title="get /revisions/{revisionId}">client.revisions.<a href="./src/resources/revisions.ts">retrieve</a>(revisionID) -> Revision</code>
 - <code title="patch /revisions/{revisionId}">client.revisions.<a href="./src/resources/revisions.ts">update</a>(revisionID, { ...params }) -> Revision</code>
 - <code title="post /revisions/{revisionId}/plays">client.revisions.<a href="./src/resources/revisions.ts">addPlay</a>(revisionID) -> void</code>
+- <code title="get /revisions/{revisionId}/artist">client.revisions.<a href="./src/resources/revisions.ts">retrieveArtist</a>(revisionID) -> Artist</code>
+- <code title="get /revisions/{revisionId}/forks/posts">client.revisions.<a href="./src/resources/revisions.ts">listForksPosts</a>(revisionID, { ...params }) -> PostList</code>
+- <code title="get /revisions/{revisionId}/likes/users">client.revisions.<a href="./src/resources/revisions.ts">listLikesUsers</a>(revisionID, { ...params }) -> UserSummaryList</code>
+- <code title="get /revisions/{revisionId}/sharings">client.revisions.<a href="./src/resources/revisions.ts">retrieveSharings</a>(revisionID) -> SharedKey</code>
+- <code title="get /revisions/{revisionId}/studio-breakdown">client.revisions.<a href="./src/resources/revisions.ts">retrieveStudioBreakdown</a>(revisionID) -> TrackRewindBreakdown</code>
+- <code title="get /revisions/{revisionId}/track-videos/posts">client.revisions.<a href="./src/resources/revisions.ts">listTrackVideoPosts</a>(revisionID, { ...params }) -> PostList</code>
+- <code title="get /revisions/{revisionId}">client.revisions.<a href="./src/resources/revisions.ts">retrieveDownload</a>(revisionID, { ...params }) -> SampleUri</code>
+- <code title="post /revisions/{revisionId}/mixdown/reprocess">client.revisions.<a href="./src/resources/revisions.ts">reprocessMixdown</a>(revisionID, { ...params }) -> void</code>
+- <code title="patch /contour/{projectID}/{regionID}/{activeSampleID}">client.revisions.<a href="./src/resources/revisions.ts">updateContour</a>(activeSampleID, { ...params }) -> void</code>
 
 # Invites
 

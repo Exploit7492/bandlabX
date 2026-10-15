@@ -45,13 +45,22 @@ import {
 } from './resources/passwords';
 import { ReportCreateParams, Reports } from './resources/reports';
 import {
+  Artist,
   AudioSample,
   Mastering,
   Revision,
   RevisionCounters,
   RevisionCreateParams,
+  RevisionListForksPostsParams,
+  RevisionListLikesUsersParams,
+  RevisionListTrackVideoPostsParams,
+  RevisionRetrieveDownloadParams,
+  RevisionUpdateContourParams,
   RevisionUpdateParams,
   Revisions,
+  SampleUri,
+  SharedKey,
+  TrackRewindBreakdown,
 } from './resources/revisions';
 import {
   Search,
@@ -968,12 +977,21 @@ export declare namespace BandlabSDK {
 
   export {
     Revisions as Revisions,
+    type Artist as Artist,
     type AudioSample as AudioSample,
     type Mastering as Mastering,
     type Revision as Revision,
     type RevisionCounters as RevisionCounters,
     type RevisionCreateParams as RevisionCreateParams,
+    type RevisionListForksPostsParams as RevisionListForksPostsParams,
+    type RevisionListLikesUsersParams as RevisionListLikesUsersParams,
+    type RevisionListTrackVideoPostsParams as RevisionListTrackVideoPostsParams,
+    type RevisionRetrieveDownloadParams as RevisionRetrieveDownloadParams,
+    type RevisionUpdateContourParams as RevisionUpdateContourParams,
     type RevisionUpdateParams as RevisionUpdateParams,
+    type SampleUri as SampleUri,
+    type SharedKey as SharedKey,
+    type TrackRewindBreakdown as TrackRewindBreakdown,
   };
 
   export { Invites as Invites, type InviteBatch as InviteBatch, type InviteSendParams as InviteSendParams };

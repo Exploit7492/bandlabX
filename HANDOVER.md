@@ -59,10 +59,10 @@ Phase        1, 2, 3, 4, 5
 
 **3.a ‚Äî Songs, revisions, tracks, bands, albums**
 
-- [ ] 11 ‚Äî `3.a.i.zi` songs: list, create, invite-link, collaborators (5 endpoints): implement
-- [ ] 12 ‚Äî `3.a.i.zo` songs: tests and records
-- [ ] 13 ‚Äî `3.a.ii.zi` revisions: breakdown, mixdown, download-options, forks (9 endpoints): implement
-- [ ] 14 ‚Äî `3.a.ii.zo` revisions: tests and records
+- [x] 11 ‚Äî `3.a.i.zi` songs: list, create, invite-link, collaborators (5 endpoints): implement
+- [x] 12 ‚Äî `3.a.i.zo` songs: tests and records
+- [x] 13 ‚Äî `3.a.ii.zi` revisions: breakdown, mixdown, download-options, forks (9 endpoints): implement
+- [x] 14 ‚Äî `3.a.ii.zo` revisions: tests and records
 - [ ] 15 ‚Äî `3.a.iii.zi` tracks (2 endpoints): implement
 - [ ] 16 ‚Äî `3.a.iii.zo` tracks: tests and records
 - [ ] 17 ‚Äî `3.a.iv.zi` bands: members, invites, follow-invitees, suggestions (7 endpoints): implement
@@ -178,7 +178,7 @@ Phase        1, 2, 3, 4, 5
 - [ ] 100 ‚Äî `5.b.i.zo` Owner steps document
 - [ ] 101 ‚Äî `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
 
-**Done so far: 10 of 101.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** after the bundle evidence showed 201 endpoints the spec never described; **raised to 101 on 2026-10-15** (`2.b.i.zo`) after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 344 endpoints with a verb for all of them and a real response shape for 265. Phase 3 was resplit from 26 domains / 52 leaves into 40 domains / 80 leaves (12 → 52 → 80), and Phase 4/5 renumbered behind it. No parent was superseded, so no leaf ID was retired.
+**Done so far: 14 of 101.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** after the bundle evidence showed 201 endpoints the spec never described; **raised to 101 on 2026-10-15** (`2.b.i.zo`) after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 344 endpoints with a verb for all of them and a real response shape for 265. Phase 3 was resplit from 26 domains / 52 leaves into 40 domains / 80 leaves (12 → 52 → 80), and Phase 4/5 renumbered behind it. No parent was superseded, so no leaf ID was retired.
 
 **Reporting rule:** a session that completes a leaf ends its final message with `N done ‚úÖ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed ‚Äî still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
 
@@ -187,15 +187,15 @@ Phase        1, 2, 3, 4, 5
 ## 1a. Current position
 
 ```yaml
-CURRENT_LEAF: 3.a.ii.zi
-CURRENT_LEAF_TITLE: G-revisions: breakdown, mixdown, download-options, forks — implement
-CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "3.a.ii.zi"  (read docs/handover/RESOURCE-DESIGN.md and docs/research/APK-EVIDENCE.md first)
-FOCUS_RUN: "11 done of 101"
-LAST_COMPLETED_LEAF: 3.a.i.zi
-MARKER_COMMIT_SUBJECT_PREFIX: "3.a.i.zi:"
+CURRENT_LEAF: 3.a.iii.zi
+CURRENT_LEAF_TITLE: tracks: artist and m4a download — implement
+CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "3.a.iii.zi"  (read docs/handover/RESOURCE-DESIGN.md and docs/research/APK-EVIDENCE.md first)
+FOCUS_RUN: "14 done of 101"
+LAST_COMPLETED_LEAF: 3.a.ii.zi
+MARKER_COMMIT_SUBJECT_PREFIX: "3.a.ii.zi:"
 SUB_PHASE: 3.1 (OPEN - push-gated; leaves 11-40, 125 endpoints; do NOT push until all 30 leaves DONE)
 STATUS: READY
-BLOCKERS: none blocking. `3.a.i.zi` is DONE (commit 8598258 on `main`). It added `songs.forks` and `songs.retrieveInviteLink`, typed the song invites list, and fixed a real defect: `songs.listPosts`, `songs.invites.listInvites` and `songs.invites.sendInvites` were calling the singular `/song/...` route, which has no matching route on the server. Coverage is now 125 rows, no drift. Known limits, recorded so no session overclaims - (1) REQUEST BODIES are evidenced only where the app method takes a `@c74` body parameter whose model is in the descriptor set; the rest stay `unknown` under D12 and are marked `apk-path-only`. 95 of 102 body models are obfuscated and unrecoverable from the APK; leaf `4.a.i.zi` closes them only when a capture arrives. (2) `@lik` = PUT is the one verb with realistic doubt (15/28 direct, resolved by in-file coherence); rows using it are flagged. (3) 79 of 344 paths have a verb but no response shape. (4) The AI/ML host groups (`SMART_COMPOSE`, `MIDI_GENERATE`, `AUTO_MIX`, `AUDIO_TO_MIDI`, `VOICE_CLEANER`, `OPEN_MIC`, `FX`, `REALTIME`, `AUDIO_SONG_STARTER`) are evidenced but their deployment host (staging vs production) is not. (5) `AMPLITUDE_*` and `BRANCH` host groups are third-party SDKs and are deliberately EXCLUDED. (6) Nothing has been run against BandLab; rows are `apk`, never `live-ok`. (7) `5.b.ii.zi` remains the owner's leaf. (8) OWNER-GATED: the REA/Chrome-CDP capture that would close (1) needs the owner's machine and account; deferred by the owner, no session should start it. (9) OUT OF SCOPE (D14): stripping ads or paywalls from the Android app and publishing a rebuilt APK is not done and will not be done - it is an entitlement bypass plus redistribution of proprietary software, and the gating is server-side so it would not work anyway.
+BLOCKERS: none blocking. Leaves 11-14 are DONE. `3.a.i.zi` (commit 8598258 on `origin/main`) added `songs.forks` and `songs.retrieveInviteLink`, typed the song invites list, and fixed a real defect: `songs.listPosts`, `songs.invites.listInvites` and `songs.invites.sendInvites` were calling the singular `/song/...` route, which has no matching route on the server. `3.a.ii.zi` (local, unpushed - the 3.1 gate) added 9 revisions methods. Coverage is now 134 rows, no drift. Known limits, recorded so no session overclaims - (1) REQUEST BODIES are evidenced only where the app method takes a `@c74` body parameter whose model is in the descriptor set; the rest stay `unknown` under D12 and are marked `apk-path-only`. 95 of 102 body models are obfuscated and unrecoverable from the APK; leaf `4.a.i.zi` closes them only when a capture arrives. (2) `@lik` = PUT is the one verb with realistic doubt (15/28 direct, resolved by in-file coherence); rows using it are flagged. (3) 79 of 344 paths have a verb but no response shape. (4) The AI/ML host groups (`SMART_COMPOSE`, `MIDI_GENERATE`, `AUTO_MIX`, `AUDIO_TO_MIDI`, `VOICE_CLEANER`, `OPEN_MIC`, `FX`, `REALTIME`, `AUDIO_SONG_STARTER`) are evidenced but their deployment host (staging vs production) is not. (5) `AMPLITUDE_*` and `BRANCH` host groups are third-party SDKs and are deliberately EXCLUDED. (6) Nothing has been run against BandLab; rows are `apk`, never `live-ok`. (7) `5.b.ii.zi` remains the owner's leaf. (8) OWNER-GATED: the REA/Chrome-CDP capture that would close (1) needs the owner's machine and account; deferred by the owner, no session should start it. (9) OUT OF SCOPE (D14): stripping ads or paywalls from the Android app and publishing a rebuilt APK is not done and will not be done - it is an entitlement bypass plus redistribution of proprietary software, and the gating is server-side so it would not work anyway. (10) PUSH GATE: Phase 3.1 is open, so local commits on `main` accumulate until all 30 leaves (11-40) are DONE; nothing is pushed before then (D10 exception).
 ```
 
 **Shape rule (added 2026-10-15, revised 2026-10-15 after the APK evidence, see rule D12).** Evidence proves a *path*; the APK also proves a *shape* wherever a kotlinx.serialization descriptor names the field. A session therefore types a response with the real field names when `docs/research/apk-shapes.tsv` has them, and uses `unknown` with status `apk-path-only` when it does not. A session must **not** invent field names, required flags, enum values or nested types. Request bodies are typed only where a `@c74` body model is in the descriptor set.

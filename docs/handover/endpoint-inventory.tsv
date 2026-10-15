@@ -55,6 +55,7 @@ delete	/passwords	passwords.
 post	/passwords	passwords.
 put	/passwords	passwords.
 get	/posts	posts.
+patch	/contour/{projectID}/{regionID}/{activeSampleID}	revisions.
 delete	/posts/{postId}	posts.
 get	/posts/{postId}	posts.
 patch	/posts/{postId}	posts.
@@ -71,6 +72,14 @@ post	/revisions	revisions.
 get	/revisions/{revisionId}	revisions.
 patch	/revisions/{revisionId}	revisions.
 post	/revisions/{revisionId}/plays	revisions.
+get	/revisions/{revisionId}	revisions.
+get	/revisions/{revisionId}/artist	revisions.
+get	/revisions/{revisionId}/forks/posts	revisions.
+get	/revisions/{revisionId}/likes/users	revisions.
+get	/revisions/{revisionId}/sharings	revisions.
+get	/revisions/{revisionId}/studio-breakdown	revisions.
+get	/revisions/{revisionId}/track-videos/posts	revisions.
+post	/revisions/{revisionId}/mixdown/reprocess	revisions.
 get	/search	search.
 get	/search/bands	search.
 get	/search/collections	search.
