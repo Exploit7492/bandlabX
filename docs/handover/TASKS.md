@@ -52,6 +52,22 @@ Design: `docs/handover/RESOURCE-DESIGN.md`. M raised 73 -> 101. Next leaf: `3.a.
 
 ## Phase 3 - Implementation by domain
 
+Phase 3 is worked as **three sub-phases**. Each sub-phase is a review gate: work lands on `main`
+only when every leaf in the sub-phase is DONE (owner directive, 2026-10-15 — this is the one
+standing exception to rule D10's push-directly-to-main rule). Commits accumulate locally while a
+sub-phase is open; the push happens once, at the end of the sub-phase.
+
+Leaf IDs and ordering are unchanged; the sub-phases only group them.
+
+| Sub-phase | Name | Leaves | Domains | Endpoints | Leaves' range |
+|---|---|---|---|---|---|
+| **3.1** | Core API: music, audio, AI | 30 | `3.a` songs/revisions/tracks/bands/albums, `3.b` effects/sounds/uploads/soundbanks, `3.c` AI/ai-videos/synced-lyrics/misc | 125 | 11–40 |
+| **3.2** | Social and users | 20 | `3.d` messaging/communities/posts/images, `3.e` users/library/feeds | 128 | 41–60 |
+| **3.3** | Account, utility, commerce | 30 | `3.f` me/streaks/membership/payments/authorizations, `3.g` search/validation/passwords/collections/genres, `3.h` beats/distribution/promotion/pages/videos | 91 | 61–90 |
+
+**Gate status: 3.1 is OPEN.** Leaves 11–12 are DONE; 13–40 remain. Do not push to `main` until all
+30 leaves of 3.1 are complete.
+
 Every leaf here has APK evidence for its paths. Where `docs/research/apk-shapes.tsv` names the
 response fields, type them; otherwise use `unknown` and mark the row `apk-path-only` (rule D12).
 Never invent a field name. Each `zi` leaf: the methods, request/response types, JSDoc carrying the
