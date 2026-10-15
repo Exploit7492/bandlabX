@@ -89,7 +89,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 - `GET songs/{id}/invites?accepted=false` -> `com.bandlab.invite.api.Invite`
 - `GET songs/{id}/posts` -> `com.bandlab.post.objects.Post`
 
-**12 - `3.a.i.zo` - songs: list, create, invite-link, collaborators: tests and records**
+**12 - `3.a.i.zo` - songs: list, create, invite-link, collaborators: tests and records** *(DONE)*
 
 Implemented in `3.a.i.zi` (both halves landed together, since the path fix needed a test in the same
 change). Outcome: `songs.forks`, `songs.retrieveInviteLink` added; `songs.invites.listInvites` typed
@@ -114,7 +114,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/
 - `GET revisions/{id}/track-videos/posts` -> `com.bandlab.post.objects.Post`
 - `GET revisions/{id}?format=m4a` -> `com.bandlab.audio.downloader.api.SampleUri`
 
-**14 - `3.a.ii.zo` - revisions: breakdown, mixdown, download-options, forks: tests and records**
+**14 - `3.a.ii.zo` - revisions: breakdown, mixdown, download-options, forks: tests and records** *(DONE)*
 
 Implemented in `3.a.ii.zi` (both halves landed together, since the `/revisions/{id}` collision needed
 its test in the same change). Outcome: 9 methods added to `src/resources/revisions.ts` — `retrieveArtist`,
