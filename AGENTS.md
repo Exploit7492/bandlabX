@@ -15,14 +15,15 @@ sequencing and rules.
 
 ## Commands
 
-| Command | Purpose |
-| ------- | ------- |
-| `./scripts/build` | full build |
-| `./scripts/format` | prettier write (run before `./scripts/lint`) |
-| `./scripts/lint` | tsc + eslint + Are The Types Wrong + publint |
-| `./scripts/coverage` | diff `api.md` against `docs/handover/endpoint-inventory.tsv` |
-| `npx jest` | TS test suite |
-| `python3 scripts/research/test_*.py` | python research tests (no pytest in this image) |
+| Command                              | Purpose                                                      |
+| ------------------------------------ | ------------------------------------------------------------ |
+| `./scripts/build`                    | full build                                                   |
+| `./scripts/format`                   | prettier write (run before `./scripts/lint`)                 |
+| `./scripts/lint`                     | tsc + eslint + Are The Types Wrong + publint                 |
+| `./scripts/coverage`                 | diff `api.md` against `docs/handover/endpoint-inventory.tsv` |
+| `./scripts/container-smoke`          | build the image, run its default command, check it is lean   |
+| `npx jest`                           | TS test suite                                                |
+| `python3 scripts/research/test_*.py` | python research tests (no pytest in this image)              |
 
 ## Test conventions
 
@@ -50,7 +51,16 @@ sequencing and rules.
   `'user' | 'band' | 'song'`), otherwise `tsc` rejects the generated test.
 - `test_har_to_endpoints.py` pins the number of distinct verb+path keys in `endpoint-status.md`
   (rows collapse when one route serves two operations, e.g. `GET /revisions/{id}` plain vs
-  `?format=m4a`). Bump it when a leaf adds rows.
+  `?format=m4a`). Bump it when a leaf adds rows. The loader regex must tolerate Prettier's column
+  padding and a hyphenated status (`apk-path-only`); it once used `\w+` and single spaces, which
+  silently dropped all 73 `apk-path-only` rows while the test still passed against the bad count.
+- `./scripts/format` runs Prettier over the markdown tables in `docs/` and `README.md`. Anything that
+  parses those tables must ignore padding, and `sync-endpoint-status.py --check` compares parsed
+  rows rather than raw text for exactly this reason.
+- The container image is built by `.github/workflows/container.yml`. Buildx rejects `push` and
+  `load` together, so the job builds into the local daemon, smoke-tests it, then pushes the tags.
+  GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`Zapier-codes`).
+  See `docs/handover/CONTAINER.md`.
 - `docs/handover/LEDGER.md` is append-only; never reorder lines.
 - Pushing needs `GITHUB_PUSH_TOKEN`; the default `GITHUB_TOKEN` is not authorized for this repo.
   Restore the plain remote URL after pushing.

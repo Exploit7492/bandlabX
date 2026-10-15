@@ -117,12 +117,22 @@ class PathTest(unittest.TestCase):
         # songs.retrieveInviteLink); +8 from leaf 3.a.ii.zi; +110 from the Phase 3.1 domains
         # that landed after it; +110 from the Phase 3.2 and 3.3 bulk pass (messaging, library,
         # feeds, streaks, membership, payments, beats, distro, promote, pages and the extended
-        # search/authorizations/validation/genres/videos/passwords/collection-likes methods).
-        # endpoint-status.md has 365 rows but the loader keys by verb+path, and 47 rows share a
+        # search/authorizations/validation/genres/videos/passwords/collection-likes methods);
+        # +63 from leaf 4.a.i.zo, which wrote down the methods Phase 3 added to sections that
+        # already existed (users, images, me, posts, communities) and the nested
+        # posts.reactions / posts.mentions / posts.polls sections, and dropped the four stale
+        # singular `/community/{communityId}/...` rows that leaf 3.a.i.zi had already fixed to
+        # the plural route.
+        # endpoint-status.md has 468 rows but the loader keys by verb+path, and 14 rows share a
         # key with another row (the same route serving two operations, e.g. `GET /revisions/{id}`
-        # plain vs `?format=m4a`), so 318 keys remain.
+        # plain vs `?format=m4a`), so 454 keys remain. Leaf 4.a.ii.zo raised this from the old 381:
+        # the row regex demanded single spaces and a `\w+` status, so Prettier's column padding and
+        # the hyphen in `apk-path-only` made the loader drop all 73 of those rows.
         # Bump this when a leaf adds a row to endpoint-status.md.
-        self.assertEqual(len(table), 318)
+        self.assertEqual(len(table), 454)
+        # Guard against the regex silently dropping a status kind again: every `apk-path-only` row
+        # was lost for a whole phase because `\w+` cannot match its hyphen.
+        self.assertEqual(table[ex.normalise("get", "/v0/similar")], "client.ai.listSimilarSounds()")
         self.assertEqual(table[ex.normalise("get", "/users/{id}/followers")], "client.users.followers.list()")
         self.assertEqual(table[ex.normalise("PUT", "/passwords")], "client.passwords.change()")
         self.assertNotIn(ex.normalise("get", "/messages"), table)

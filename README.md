@@ -355,6 +355,471 @@ Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
 
+## Container image
+
+A prebuilt image is published to GitHub Container Registry:
+
+```bash
+docker run --rm ghcr.io/zapier-codes/bandlab-sdk-typescript:latest
+```
+
+The SDK has no runtime dependencies, so the image carries the compiled package only — no
+`node_modules`, no toolchain. It is not a server: its default command loads the SDK from the image
+and asserts that a call reaches the right URL, so a successful run prints:
+
+```
+bandlab-sdk container smoke OK (17 exports)
+  http://127.0.0.1:9/validation/user
+  http://127.0.0.1:9/users/some-user
+```
+
+To build it yourself and run the same check:
+
+```bash
+./scripts/container-smoke
+```
+
+See [`docs/handover/CONTAINER.md`](./docs/handover/CONTAINER.md) for the build stages, the image
+layout, and the repository settings needed to publish.
+
 ## Contributing
 
 See [the contributing documentation](./CONTRIBUTING.md).
+
+<!-- BEGIN GENERATED RESOURCES -->
+
+## Resources
+
+Every top-level resource on the client. Each links into [api.md](api.md), which lists
+the full method set.
+
+| Resource                | Endpoints | Docs                                    |
+| ----------------------- | --------- | --------------------------------------- |
+| `client.users`          | 79        | [Users](api.md#users)                   |
+| `client.ai`             | 30        | [AI](api.md#ai)                         |
+| `client.sounds`         | 30        | [Sounds](api.md#sounds)                 |
+| `client.posts`          | 21        | [Posts](api.md#posts)                   |
+| `client.bands`          | 18        | [Bands](api.md#bands)                   |
+| `client.messaging`      | 18        | [Messaging](api.md#messaging)           |
+| `client.search`         | 17        | [Search](api.md#search)                 |
+| `client.beats`          | 16        | [Beats](api.md#beats)                   |
+| `client.albums`         | 15        | [Albums](api.md#albums)                 |
+| `client.communities`    | 15        | [Communities](api.md#communities)       |
+| `client.distro`         | 15        | [Distro](api.md#distro)                 |
+| `client.library`        | 15        | [Library](api.md#library)               |
+| `client.collections`    | 14        | [Collections](api.md#collections)       |
+| `client.feeds`          | 13        | [Feeds](api.md#feeds)                   |
+| `client.images`         | 13        | [Images](api.md#images)                 |
+| `client.me`             | 13        | [Me](api.md#me)                         |
+| `client.revisions`      | 13        | [Revisions](api.md#revisions)           |
+| `client.songs`          | 12        | [Songs](api.md#songs)                   |
+| `client.effects`        | 10        | [Effects](api.md#effects)               |
+| `client.promote`        | 9         | [Promote](api.md#promote)               |
+| `client.authorizations` | 6         | [Authorizations](api.md#authorizations) |
+| `client.membership`     | 6         | [Membership](api.md#membership)         |
+| `client.passwords`      | 6         | [Passwords](api.md#passwords)           |
+| `client.payments`       | 6         | [Payments](api.md#payments)             |
+| `client.aiVideos`       | 5         | [AI Videos](api.md#ai-videos)           |
+| `client.misc`           | 5         | [Misc](api.md#misc)                     |
+| `client.videos`         | 5         | [Videos](api.md#videos)                 |
+| `client.invites`        | 4         | [Invites](api.md#invites)               |
+| `client.logins`         | 4         | [Logins](api.md#logins)                 |
+| `client.settings`       | 4         | [Settings](api.md#settings)             |
+| `client.uploads`        | 4         | [Uploads](api.md#uploads)               |
+| `client.pages`          | 3         | [Pages](api.md#pages)                   |
+| `client.streaks`        | 3         | [Streaks](api.md#streaks)               |
+| `client.validation`     | 3         | [Validation](api.md#validation)         |
+| `client.emails`         | 2         | [Emails](api.md#emails)                 |
+| `client.genres`         | 2         | [Genres](api.md#genres)                 |
+| `client.push`           | 2         | [Push](api.md#push)                     |
+| `client.syncedLyrics`   | 2         | [Synced Lyrics](api.md#synced-lyrics)   |
+| `client.tracks`         | 2         | [Tracks](api.md#tracks)                 |
+| `client.versions`       | 2         | [Versions](api.md#versions)             |
+| `client.badges`         | 1         | [Badges](api.md#badges)                 |
+| `client.feedback`       | 1         | [Feedback](api.md#feedback)             |
+| `client.labels`         | 1         | [Labels](api.md#labels)                 |
+| `client.reports`        | 1         | [Reports](api.md#reports)               |
+| `client.skills`         | 1         | [Skills](api.md#skills)                 |
+| `client.soundbanks`     | 1         | [Soundbanks](api.md#soundbanks)         |
+
+### Examples
+
+One call per domain. Each example prefers a read (`GET`); a resource with no read endpoint
+shows its first call instead.
+
+```ts
+// users
+const result = await client.users.retrieve('user-id');
+```
+
+```ts
+// users.blocks.users
+const result = await client.users.blocks.users.list('user-id', {});
+```
+
+```ts
+// users.contacts
+const result = await client.users.contacts.listBands('user-id', {});
+```
+
+```ts
+// users.followers
+const result = await client.users.followers.list('user-id', {});
+```
+
+```ts
+// users.following
+const result = await client.users.following.list('user-id', {});
+```
+
+```ts
+// users.invites
+const result = await client.users.invites.list('user-id', {});
+```
+
+```ts
+// users.notifications
+const result = await client.users.notifications.list('user-id', {});
+```
+
+```ts
+// users.recommendations
+const result = await client.users.recommendations.listUsers('user-id', {});
+```
+
+```ts
+// ai
+const result = await client.ai.retrieveDailyLimits();
+```
+
+```ts
+// sounds
+const result = await client.sounds.listInstruments({});
+```
+
+```ts
+// posts
+const result = await client.posts.list({});
+```
+
+```ts
+// posts.comments
+const result = await client.posts.comments.list('post-id', {});
+```
+
+```ts
+// posts.likes
+const result = await client.posts.likes.list('post-id', {});
+```
+
+```ts
+// posts.mentions
+const result = await client.posts.mentions.listSuggestions({});
+```
+
+```ts
+// posts.polls
+const result = await client.posts.polls.removeVote('option-id', {});
+```
+
+```ts
+// posts.reactions
+const result = await client.posts.reactions.listUsers('post-id', {});
+```
+
+```ts
+// bands
+const result = await client.bands.retrieve('band-id');
+```
+
+```ts
+// bands.invites
+const result = await client.bands.invites.list('band-id', {});
+```
+
+```ts
+// bands.members
+const result = await client.bands.members.list('band-id', {});
+```
+
+```ts
+// messaging.channels
+const result = await client.messaging.channels.retrieve('channel-id', {});
+```
+
+```ts
+// messaging.conversations
+const result = await client.messaging.conversations.list('current-user-id', {});
+```
+
+```ts
+// messaging.conversations.attachments
+const result = await client.messaging.conversations.attachments.retrieveUploadState('attachment-id', {});
+```
+
+```ts
+// messaging.conversations.blocks
+const result = await client.messaging.conversations.blocks.blockMember('member-id', {});
+```
+
+```ts
+// messaging.conversations.members
+const result = await client.messaging.conversations.members.list('conversation-id');
+```
+
+```ts
+// messaging.conversations.messages
+const result = await client.messaging.conversations.messages.list('conversation-id', {});
+```
+
+```ts
+// messaging.conversations.readReceipts
+const result = await client.messaging.conversations.readReceipts.list('conversation-id', {});
+```
+
+```ts
+// search
+const result = await client.search.globalSearch({});
+```
+
+```ts
+// beats
+const result = await client.beats.list({});
+```
+
+```ts
+// albums
+const result = await client.albums.retrieve('album-id');
+```
+
+```ts
+// communities
+const result = await client.communities.retrieve('community-id');
+```
+
+```ts
+// communities.invites
+const result = await client.communities.invites.list('community-id', {});
+```
+
+```ts
+// communities.members
+const result = await client.communities.members.list('community-id', {});
+```
+
+```ts
+// communities.posts
+const result = await client.communities.posts.list('community-id', {});
+```
+
+```ts
+// distro
+const result = await client.distro.retrieveOverview('user-id');
+```
+
+```ts
+// library
+const result = await client.library.listLikedCollections('user-id', {});
+```
+
+```ts
+// collections
+const result = await client.collections.retrieve('collection-id');
+```
+
+```ts
+// collections.likes
+const result = await client.collections.likes.list('collection-id', {});
+```
+
+```ts
+// collections.posts
+const result = await client.collections.posts.retrieve('post-id', {});
+```
+
+```ts
+// feeds
+const result = await client.feeds.retrieveForYou('user-id', {});
+```
+
+```ts
+// images
+const result = await client.images.createPost('image-id', {});
+```
+
+```ts
+// me
+const result = await client.me.retrieve();
+```
+
+```ts
+// revisions
+const result = await client.revisions.retrieve('revision-id');
+```
+
+```ts
+// songs
+const result = await client.songs.retrieve('song-id');
+```
+
+```ts
+// songs.collaborators
+const result = await client.songs.collaborators.list('song-id', {});
+```
+
+```ts
+// songs.invites
+const result = await client.songs.invites.listInvites('song-id', {});
+```
+
+```ts
+// songs.revisions
+const result = await client.songs.revisions.list('song-id', {});
+```
+
+```ts
+// effects
+const result = await client.effects.retrievePresetByLink('link-token');
+```
+
+```ts
+// promote
+const result = await client.promote.listBeatsPromoBanners({});
+```
+
+```ts
+// authorizations
+const result = await client.authorizations.listTwoFactorMethods({});
+```
+
+```ts
+// membership
+const result = await client.membership.retrieveCoinsTokenBalance('user-id');
+```
+
+```ts
+// passwords
+const result = await client.passwords.change({});
+```
+
+```ts
+// payments
+const result = await client.payments.createBeatPaymentIntent({});
+```
+
+```ts
+// aiVideos
+const result = await client.aiVideos.retrieveTokenPrice();
+```
+
+```ts
+// misc
+const result = await client.misc.retrieveBeatsFilters();
+```
+
+```ts
+// videos
+const result = await client.videos.retrieve('video-id', {});
+```
+
+```ts
+// invites
+const result = await client.invites.retrieve('invite-id');
+```
+
+```ts
+// logins
+const result = await client.logins.list();
+```
+
+```ts
+// settings.notifications.email
+const result = await client.settings.notifications.email.retrieve();
+```
+
+```ts
+// settings.notifications.push
+const result = await client.settings.notifications.push.retrieve();
+```
+
+```ts
+// uploads
+const result = await client.uploads.createSpatialProject({});
+```
+
+```ts
+// pages
+const result = await client.pages.retrieveBio('user-id');
+```
+
+```ts
+// streaks
+const result = await client.streaks.retrieve();
+```
+
+```ts
+// validation
+const result = await client.validation.validate('user', {});
+```
+
+```ts
+// emails.confirmations
+const result = await client.emails.confirmations.confirm({});
+```
+
+```ts
+// genres
+const result = await client.genres.list();
+```
+
+```ts
+// push.registrations
+const result = await client.push.registrations.create({});
+```
+
+```ts
+// syncedLyrics
+const result = await client.syncedLyrics.retrieve('post-id');
+```
+
+```ts
+// tracks
+const result = await client.tracks.retrieveArtist('track-id');
+```
+
+```ts
+// versions
+const result = await client.versions.retrieve('client-id');
+```
+
+```ts
+// badges
+const result = await client.badges.list();
+```
+
+```ts
+// feedback
+const result = await client.feedback.create({});
+```
+
+```ts
+// labels
+const result = await client.labels.list();
+```
+
+```ts
+// reports
+const result = await client.reports.create({});
+```
+
+```ts
+// skills
+const result = await client.skills.list();
+```
+
+```ts
+// soundbanks
+const result = await client.soundbanks.list();
+```
+
+<!-- END GENERATED RESOURCES -->

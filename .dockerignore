@@ -1,0 +1,31 @@
+# Keep the build context to the inputs `scripts/build` actually reads. A smaller context means a
+# faster upload and no chance of baking a local secret or a stale dist/ into a layer.
+
+# Dependencies are installed inside the image from the lockfile.
+node_modules
+dist
+dist-deno
+
+# Version control and local tooling state.
+.git
+.gitignore
+.github
+.devcontainer
+.idea
+.eslintcache
+*.tgz
+
+# Build output of the Deno/Prism side paths; the Docker build does not need them.
+.prism.log
+codegen.log
+Brewfile.lock.json
+
+# Raw research captures can contain credentials and must never enter an image (see
+# docs/research/HAND-BACK.md and .gitignore).
+docs/research/raw
+*.raw.har
+__pycache__
+
+# Documentation the runtime image does not use.
+docs
+tests

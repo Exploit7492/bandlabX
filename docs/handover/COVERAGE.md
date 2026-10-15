@@ -126,21 +126,36 @@ is 467 operations.
 
 ### 4.0 Phase 3 implementation status
 
-**Phase 3 is complete.** All 40 domains are implemented and every leaf in leaves 11-90 is ticked in
+**Phase 3 is complete, and the Phase 4 consistency pass has closed the documentation gap it left
+behind.** All 40 domains are implemented and every leaf in leaves 11-90 is ticked in
 `HANDOVER.md`.
 
 | Check                                          | Result                                                   |
 | ---------------------------------------------- | -------------------------------------------------------- |
 | APK-evidenced paths with a `this._client` call | **341 of 341** (`scripts/research/evidence-coverage.py`) |
-| `api.md` endpoints                             | 377                                                      |
-| `docs/handover/endpoint-inventory.tsv` rows    | 377, drift none (`./scripts/coverage`)                   |
-| `docs/endpoint-status.md` rows                 | 365 (201 `apk`, 47 `apk-path-only`, 117 `spec`)          |
+| `api.md` endpoints                             | 468                                                      |
+| `src/resources/**` methods                     | 459, every one present in `api.md`                       |
+| `docs/handover/endpoint-inventory.tsv` rows    | 468, drift none (`./scripts/coverage`)                   |
+| `docs/endpoint-status.md` rows                 | 468 (271 `apk`, 73 `apk-path-only`, 124 `spec`)          |
 | jest                                           | 38 suites / 492 passed, 0 failed                         |
 | python research tests                          | 51 OK                                                    |
 
-Two paths (`GET /validation/band`, `GET /validation/user`) are served by the generic
-`validation.validate(entityType)` method and are recorded through a `COVERED_BY_GENERIC` exception
-in the coverage script rather than a dedicated method each.
+Leaf `4.a.i.zo` found that `api.md` had been left at 377 rows: Phase 3 appended the _new_ domains
+but never wrote down the methods added to sections that already existed (`users`, `images`, `me`,
+`posts`, `communities`), and three nested sections (`posts.reactions`, `posts.mentions`,
+`posts.polls`) had no section at all. That is 95 methods, now documented by
+`scripts/research/gen-34-api.py`. The inventory snapshot and the pinned key count in
+`test_har_to_endpoints.py` were regenerated with it, and four stale singular
+`/community/{communityId}/...` rows that leaf `3.a.i.zi` had already corrected to the plural route
+were dropped. That pinned count is now 454 keys over 468 rows; the `4.a.ii.zo` audit found the
+loader had been reading only 381 of them (see §4.2, "Loader bug").
+
+The counts above now agree three ways: the `this._client` calls in `src/resources/**`, the rows in
+`api.md`, and the rows in `endpoint-status.md` are 459, 468 and 468. The difference is structural,
+not a gap: one method can serve more than one path (`validation.validate(entityType)` serves
+`GET /validation/user` and `GET /validation/band`, recorded through the `COVERED_BY_GENERIC`
+exception), and one path can carry more than one operation (`GET /revisions/{id}` plain versus
+`?format=m4a`).
 
 ### 4.1 Methods recovered
 
@@ -162,6 +177,59 @@ the spec and by in-file coherence; `@lik` = PUT is the one entry with realistic 
 Nothing here stops any Phase 3 leaf: each implements the evidenced path and marks the row
 `apk` or `apk-path-only`.
 
+#### Status-label discrepancy found by the `4.a.ii.zo` audit
+
+Of the 344 APK paths, 79 have no response shape and 265 do. Cross-checking those two sets against
+the Status column in `docs/endpoint-status.md` shows the labels are consistent for 336 of them
+(71 shapeless rows are `apk-path-only`, 250 shaped rows are `apk`). The remaining 8 are worth an
+owner glance, because a wrong `apk` label reads as more evidence than exists:
+
+| Path                                | Verb     | Shape in `apk-endpoints.md` | Status recorded |
+| ----------------------------------- | -------- | --------------------------- | --------------- |
+| `/contour/{id}/{id}/{id}`           | `PATCH`  | none                        | `apk`           |
+| `/revisions/{id}/mixdown/reprocess` | `POST`   | none                        | `apk`           |
+| `/songs/{id}/invites`               | `POST`   | none                        | `apk`           |
+| `/users/{id}/uploads/samples/{id}`  | `DELETE` | none                        | `apk`           |
+| `/users/{id}/packs/{id}`            | `PUT`    | none                        | `apk`           |
+| `/users/{id}/samples/{id}`          | `PUT`    | none                        | `apk`           |
+| `/search/albums`                    | `GET`    | present                     | `spec`          |
+
+The Status column is hand-edited by design (`AGENTS.md`, `sync-endpoint-status.py`), so this audit
+records the discrepancy rather than overwriting the labels. No endpoint is unimplemented because of
+it: all seven APK rows have a `this._client` call and all are documented in `api.md`.
+
+16 further APK paths are absent from `endpoint-status.md` altogether, because they are query-string
+variants of a path that is already listed (`?format=m4a`, `?accepted=false`, `?type=cities`, and
+similar), or the two `validation/*` paths served by the generic `validation.validate`. Both groups
+are recorded through the coverage script's normalisation and `COVERED_BY_GENERIC` exception rather
+than as separate rows.
+
+#### Loader bug found by the `4.a.ii.zo` audit (fixed)
+
+`scripts/research/har-to-endpoints.py` read the status table with
+
+```python
+r"^\| `(\w+)` \| ([A-Z]+) \| ... \|$"
+```
+
+Two things made that regex drop rows silently:
+
+1. **`\w+` cannot match `apk-path-only`**, so all **73** `apk-path-only` rows were invisible to the
+   loader. Its `len(table)` was 381 while the file had 454 distinct keys.
+2. **Single literal spaces** between cells. `./scripts/format` runs Prettier over
+   `docs/endpoint-status.md`, which pads the columns, so every row stopped matching after a format.
+
+The first is the serious one: the loader is what `test_har_to_endpoints.py` asserts against, and the
+count it pinned (381) had been derived from the buggy parse, so the test passed while 73 rows were
+never read. The regex now allows `[\w-]+` for the status and `\s*` around the pipes, and the test
+pins 454 with a direct assertion that an `apk-path-only` path resolves. `sync-endpoint-status.py`
+had the same padding problem in a different place — its `--check` compared raw text against its own
+unpadded output, so it reported "out of date" for a file that Prettier had merely reformatted. It
+now compares parsed rows and the summary line instead.
+
+No endpoint was mis-implemented because of this; it was a measurement bug in the audit tooling, and
+the numbers in §4.1 and §4.2 were re-derived after the fix.
+
 ### 4.3 Third-party surface
 
 Exclusion is **by host group, never by path segment** (rule D15). The `AMPLITUDE_EXPERIMENT`,
@@ -176,3 +244,22 @@ The owner asked for all services to be free. Gating is server-side; a client can
 bypassing payment would breach BandLab's terms. Rule D14 records the decision and the legitimate
 alternative: expose the full free surface, and expose membership, coin, wallet and quota endpoints
 read-only so callers can read their own state. Details: `APK-EVIDENCE.md` §8.
+
+### 4.5 Phase 5 — container image
+
+Phase 5 (leaves 95-101) bakes the SDK as a container image on GHCR. It does not change endpoint
+coverage: the image ships the compiled package, and its default command re-checks two routes so a
+broken build fails the job. Leaves 95-100 are DONE; leaf 101 (the owner confirming the first
+published image pulls and runs) is gated on GHCR push rights, not on the environment.
+
+| Check                               | Result                                                         |
+| ----------------------------------- | -------------------------------------------------------------- |
+| `docker build`                      | succeeds; multi-stage, Alpine runtime                          |
+| Default command (`docker run --rm`) | exit 0, 17 exports, both URLs asserted                         |
+| Image contents                      | compiled JS only; no `node_modules`, zero runtime dependencies |
+| Image size                          | ~250 MB                                                        |
+| `.github/workflows/container.yml`   | parses; builds on every change, publishes on `main` and `v*`   |
+| GHCR publish (the `docker push`)    | **not run** — needs the owner's package permission             |
+
+Full detail, and the two repository settings the owner must set, are in
+`docs/handover/CONTAINER.md`.

@@ -799,28 +799,28 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/
 
 ## Phase 4 - Consistency and final audit
 
-**91 - `4.a.i.zi` - Tighten the remaining request bodies where a capture supplies them**
+**91 - `4.a.i.zi` - Tighten the remaining request bodies where a capture supplies them** _(BLOCKED - owner-gated: no captures exist)_
 
-**92 - `4.a.i.zo` - JSDoc statuses, naming consistency, `api.md` complete**
+**92 - `4.a.i.zo` - JSDoc statuses, naming consistency, `api.md` complete** _(DONE)_
 
-**93 - `4.a.ii.zi` - README: new resources and one example per new domain**
+**93 - `4.a.ii.zi` - README: new resources and one example per new domain** _(DONE)_
 
-**94 - `4.a.ii.zo` - Final coverage audit**
+**94 - `4.a.ii.zo` - Final coverage audit** _(DONE - `docs/handover/COVERAGE.md`)_
 
 ---
 
 ## Phase 5 - Container image on GHCR (if possible)
 
-**95 - `5.a.i.zi` - Multi-stage `Dockerfile` and `.dockerignore`**
+**95 - `5.a.i.zi` - Multi-stage `Dockerfile` and `.dockerignore`** _(DONE)_
 
-**96 - `5.a.i.zo` - `scripts/container-smoke`**
+**96 - `5.a.i.zo` - `scripts/container-smoke`** _(DONE)_
 
-**97 - `5.a.ii.zi` - README container section**
+**97 - `5.a.ii.zi` - README container section** _(DONE)_
 
-**98 - `5.a.ii.zo` - Default command**
+**98 - `5.a.ii.zo` - Default command** _(DONE)_
 
-**99 - `5.b.i.zi` - `.github/workflows/container.yml`**
+**99 - `5.b.i.zi` - `.github/workflows/container.yml`** _(DONE)_
 
-**100 - `5.b.i.zo` - Owner steps document**
+**100 - `5.b.i.zo` - Owner steps document** _(DONE — `docs/handover/CONTAINER.md`)_
 
 **101 - `5.b.ii.zi` - Owner confirms the first CI run published the image** _(owner's leaf)_

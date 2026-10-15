@@ -36,6 +36,17 @@ Methods:
 
 - <code title="get /me">client.me.<a href="./src/resources/me.ts">retrieve</a>() -> Profile</code>
 - <code title="patch /me">client.me.<a href="./src/resources/me.ts">update</a>({ ...params }) -> Profile</code>
+- <code title="post /marketing-consent">client.me.<a href="./src/resources/me.ts">createMarketingConsent</a>({ ...params }) -> void</code>
+- <code title="get /me/ftue">client.me.<a href="./src/resources/me.ts">retrieveFtue</a>() -> FirstTimeUXFlags</code>
+- <code title="post /me/ftue/set-inspired-by">client.me.<a href="./src/resources/me.ts">setFtueInspiredBy</a>({ ...params }) -> void</code>
+- <code title="post /me/ftue/used-studio">client.me.<a href="./src/resources/me.ts">setFtueUsedStudio</a>({ ...params }) -> void</code>
+- <code title="post /parental-consent">client.me.<a href="./src/resources/me.ts">createParentalConsent</a>({ ...params }) -> void</code>
+- <code title="post /users/me/activity-status/heartbeat">client.me.<a href="./src/resources/me.ts">sendActivityHeartbeat</a>({ ...params }) -> void</code>
+- <code title="get /users/{userId}/activity-status">client.me.<a href="./src/resources/me.ts">retrieveActivityStatus</a>(userID) -> ActivityStatus</code>
+- <code title="get /users/{userId}/settings/privacy/profile-views">client.me.<a href="./src/resources/me.ts">retrieveProfileViewsPrivacy</a>(userID) -> ProfileIncognitoStatusResponse</code>
+- <code title="get /users/{userId}/warnings">client.me.<a href="./src/resources/me.ts">listWarnings</a>(userID) -> UserWarnings</code>
+- <code title="patch /users/{userId}/warnings/{warningId}">client.me.<a href="./src/resources/me.ts">updateWarning</a>(warningID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/verified/submission">client.me.<a href="./src/resources/me.ts">retrieveVerifiedSubmission</a>(userID) -> BlVerifiedResponse</code>
 
 # Users
 
@@ -50,12 +61,66 @@ Types:
 Methods:
 
 - <code title="get /users/{userId}">client.users.<a href="./src/resources/users/users.ts">retrieve</a>(userID) -> UserRetrieveResponse</code>
+- <code title="post /users">client.users.<a href="./src/resources/users/users.ts">create</a>({ ...params }) -> Session</code>
+- <code title="post /users/parental-consent/check">client.users.<a href="./src/resources/users/users.ts">checkParentalConsent</a>({ ...params }) -> ParentalConsentCheckResponse</code>
+- <code title="post /users/two-factor-requests/email">client.users.<a href="./src/resources/users/users.ts">createTwoFactorRequest</a>({ ...params }) -> TwoFactorSendCodeResponse</code>
+- <code title="post /users/two-factor-verifications/email">client.users.<a href="./src/resources/users/users.ts">createTwoFactorVerification</a>({ ...params }) -> Session</code>
+- <code title="get /gears">client.users.<a href="./src/resources/users/users.ts">listGear</a>({ ...params }) -> GearList</code>
+- <code title="get /blacklists/passwords">client.users.<a href="./src/resources/users/users.ts">listPasswordBlacklists</a>({ ...params }) -> unknown</code>
+- <code title="post /users/v3/estimate">client.users.<a href="./src/resources/users/users.ts">estimateImpressions</a>({ ...params }) -> ImpressionEstimate</code>
+- <code title="get /users/v3/report/bandlab_profile/{userId}">client.users.<a href="./src/resources/users/users.ts">retrieveBandlabProfileBoostReport</a>(userID) -> BoostCampaignReport</code>
+- <code title="get /users/v3/report/{type}/{id}">client.users.<a href="./src/resources/users/users.ts">retrieveBoostReport</a>(id, { ...params }) -> BoostCampaignReport</code>
+- <code title="get /users/v4/campaigns">client.users.<a href="./src/resources/users/users.ts">listBoostCampaigns</a>({ ...params }) -> BoostCampaignList</code>
 - <code title="post /users/{userId}/keys">client.users.<a href="./src/resources/users/users.ts">createAccessKey</a>(userID) -> UserCreateAccessKeyResponse</code>
-- <code title="get /users/{userId}/bands">client.users.<a href="./src/resources/users/users.ts">listBands</a>(userID, { ...params }) -> Band</code>
+- <code title="get /users/{userId}/bands">client.users.<a href="./src/resources/users/users.ts">listBands</a>(userID, { ...params }) -> BandsAPI.Band</code>
 - <code title="get /users/{userId}/collections">client.users.<a href="./src/resources/users/users.ts">listCollections</a>(userID, { ...params }) -> CollectionList</code>
 - <code title="get /users/{userId}/communities">client.users.<a href="./src/resources/users/users.ts">listCommunities</a>(userID, { ...params }) -> UserListCommunitiesResponse</code>
-- <code title="get /users/{userId}/posts">client.users.<a href="./src/resources/users/users.ts">listPosts</a>(userID, { ...params }) -> PostList</code>
+- <code title="get /users/{userId}/posts">client.users.<a href="./src/resources/users/users.ts">listPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
 - <code title="get /users/{userId}/songs">client.users.<a href="./src/resources/users/users.ts">listSongs</a>(userID, { ...params }) -> SongList</code>
+- <code title="get /backgrounds">client.users.<a href="./src/resources/users/users.ts">listBackgrounds</a>({ ...params }) -> BackgroundList</code>
+- <code title="get /users/{userId}/counters">client.users.<a href="./src/resources/users/users.ts">retrieveCounters</a>(userID) -> UsersUserCounters</code>
+- <code title="get /users/{userId}/followers/count">client.users.<a href="./src/resources/users/users.ts">retrieveFollowerCount</a>(userID) -> FollowRequestsCount</code>
+- <code title="patch /users/{id}/followers/{followerId}">client.users.<a href="./src/resources/users/users.ts">updateFollower</a>(followerID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/achievements">client.users.<a href="./src/resources/users/users.ts">listAchievements</a>(userID) -> unknown</code>
+- <code title="get /users/{userId}/band-followings">client.users.<a href="./src/resources/users/users.ts">listBandFollowings</a>(userID) -> BandFollowingsList</code>
+- <code title="get /users/{userId}/collaboration-preferences">client.users.<a href="./src/resources/users/users.ts">retrieveCollaborationPreferences</a>(userID) -> unknown</code>
+- <code title="get /users/suggested">client.users.<a href="./src/resources/users/users.ts">listSuggested</a>({ ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/gear">client.users.<a href="./src/resources/users/users.ts">retrieveGear</a>(userID) -> Gear</code>
+- <code title="get /users/{userId}/gear-stats">client.users.<a href="./src/resources/users/users.ts">retrieveGearStats</a>(userID) -> GearStats</code>
+- <code title="post /users/{id}/gear/{gearId}">client.users.<a href="./src/resources/users/users.ts">addGear</a>(gearID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/genres/preferred">client.users.<a href="./src/resources/users/users.ts">listPreferredGenres</a>(userID) -> unknown</code>
+- <code title="get /users/{userId}/invites">client.users.<a href="./src/resources/users/users.ts">listInvites</a>(userID, { ...params }) -> InvitesAPI.InviteList</code>
+- <code title="get /users/{userId}/mutual-connections">client.users.<a href="./src/resources/users/users.ts">listMutualConnections</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/mutual-connections/preview">client.users.<a href="./src/resources/users/users.ts">previewMutualConnections</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="patch /users/{userId}/notifications/invites">client.users.<a href="./src/resources/users/users.ts">updateInviteNotifications</a>(userID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/playing-now">client.users.<a href="./src/resources/users/users.ts">retrievePlayingNow</a>(userID) -> PlayingNowStatus</code>
+- <code title="get /users/{userId}/playing-now/setting">client.users.<a href="./src/resources/users/users.ts">retrievePlayingNowSetting</a>(userID) -> SharePlayback</code>
+- <code title="get /users/{userId}/profile-header">client.users.<a href="./src/resources/users/users.ts">retrieveProfileHeader</a>(userID) -> UserHeader</code>
+- <code title="get /users/{userId}/profile-views/counter">client.users.<a href="./src/resources/users/users.ts">retrieveProfileViewCount</a>(userID) -> ProfileViewsCountResponse</code>
+- <code title="get /users/{userId}/profile-views/counter/default">client.users.<a href="./src/resources/users/users.ts">retrieveDefaultProfileViewCount</a>(userID) -> ProfileViewsCountResponse</code>
+- <code title="get /users/{userId}/profile-views/viewers">client.users.<a href="./src/resources/users/users.ts">listProfileViewers</a>(userID, { ...params }) -> ProfileViewersUserList</code>
+- <code title="get /users/{userId}/profile/recommendations/artists">client.users.<a href="./src/resources/users/users.ts">listProfileRecommendedArtists</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/recent-activity">client.users.<a href="./src/resources/users/users.ts">listRecentActivity</a>(userID, { ...params }) -> UserRecentActivityList</code>
+- <code title="get /users/{userId}/recommendations/follow-back/artists">client.users.<a href="./src/resources/users/users.ts">listFollowBackArtists</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/recommended-collaborators">client.users.<a href="./src/resources/users/users.ts">listRecommendedCollaborators</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/search/recommendations/artists">client.users.<a href="./src/resources/users/users.ts">listSearchRecommendedArtists</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/top-track-posts">client.users.<a href="./src/resources/users/users.ts">listTopTrackPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userId}/albums">client.users.<a href="./src/resources/users/users.ts">listAlbums</a>(userID, { ...params }) -> AlbumsAPI.AlbumList</code>
+- <code title="get /users/{userId}/artist-stats/{period}">client.users.<a href="./src/resources/users/users.ts">retrieveArtistStats</a>(period, { ...params }) -> ArtistStat</code>
+- <code title="get /users/{userId}/artists-effect-presets">client.users.<a href="./src/resources/users/users.ts">listArtistsEffectPresets</a>(userID, { ...params }) -> EffectsAPI.RemotePresetList</code>
+- <code title="get /users/{userId}/communities/active">client.users.<a href="./src/resources/users/users.ts">listActiveCommunities</a>(userID, { ...params }) -> CommunitiesAPI.CommunityList</code>
+- <code title="get /users/{userId}/highlighted-tracks">client.users.<a href="./src/resources/users/users.ts">listHighlightedTracks</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="put /users/{userId}/invites/{inviteCode}">client.users.<a href="./src/resources/users/users.ts">joinAsCollaborator</a>(inviteCode, { ...params }) -> JoinAsCollaboratorResponse</code>
+- <code title="post /users/{userId}/latency-corrections">client.users.<a href="./src/resources/users/users.ts">createLatencyCorrection</a>(userID, { ...params }) -> LatencyCorrectionRecommendation</code>
+- <code title="post /users/{userId}/latency-measurements">client.users.<a href="./src/resources/users/users.ts">createLatencyMeasurement</a>(userID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/onboarding/recommendations/artists">client.users.<a href="./src/resources/users/users.ts">listOnboardingRecommendedArtists</a>(userID, { ...params }) -> UserProfileList</code>
+- <code title="get /users/{userId}/profile-pictures">client.users.<a href="./src/resources/users/users.ts">listProfilePictures</a>(userID, { ...params }) -> ProfilePictureList</code>
+- <code title="delete /users/{userId}/profile-pictures/{pictureId}">client.users.<a href="./src/resources/users/users.ts">deleteProfilePicture</a>(pictureID, { ...params }) -> void</code>
+- <code title="put /users/{userId}/profile-pictures/{pictureId}/main">client.users.<a href="./src/resources/users/users.ts">setMainProfilePicture</a>(pictureID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/track-posts">client.users.<a href="./src/resources/users/users.ts">listTrackPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="post /users/{userId}/track-posts/{postId}/plays">client.users.<a href="./src/resources/users/users.ts">playTrackPost</a>(postID, { ...params }) -> void</code>
+- <code title="post /users/{userId}/video-posts/{postId}/plays">client.users.<a href="./src/resources/users/users.ts">playVideoPost</a>(postID, { ...params }) -> void</code>
+- <code title="get /users/{userId}/videos/posts">client.users.<a href="./src/resources/users/users.ts">listVideoPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
 
 ## Followers
 
@@ -243,6 +308,9 @@ Methods:
 - <code title="patch /posts/{postId}">client.posts.<a href="./src/resources/posts/posts.ts">update</a>(postID) -> void</code>
 - <code title="get /posts">client.posts.<a href="./src/resources/posts/posts.ts">list</a>({ ...params }) -> PostList</code>
 - <code title="delete /posts/{postId}">client.posts.<a href="./src/resources/posts/posts.ts">delete</a>(postID) -> void</code>
+- <code title="post /posts/{postId}/plays">client.posts.<a href="./src/resources/posts/posts.ts">play</a>(postID) -> void</code>
+- <code title="get /posts/{postId}/lyrics">client.posts.<a href="./src/resources/posts/posts.ts">retrieveLyrics</a>(postID) -> unknown</code>
+- <code title="put /posts/{postId}/track/picture">client.posts.<a href="./src/resources/posts/posts.ts">updateTrackPicture</a>(postID, { ...params }) -> void</code>
 
 ## Comments
 
@@ -256,14 +324,56 @@ Methods:
 - <code title="post /posts/{postId}/comments">client.posts.comments.<a href="./src/resources/posts/comments.ts">create</a>(postID, { ...params }) -> Comment</code>
 - <code title="get /posts/{postId}/comments">client.posts.comments.<a href="./src/resources/posts/comments.ts">list</a>(postID, { ...params }) -> CommentListResponse</code>
 - <code title="delete /posts/{postId}/comments/{commentId}">client.posts.comments.<a href="./src/resources/posts/comments.ts">delete</a>(commentID, { ...params }) -> void</code>
+- <code title="get /posts/{postId}/comments/{commentId}/likes/users">client.posts.comments.<a href="./src/resources/posts/comments.ts">listLikesUsers</a>(commentID, { ...params }) -> UserList</code>
+- <code title="post /posts/{postId}/comments/{commentId}/likes/users/{userId}">client.posts.comments.<a href="./src/resources/posts/comments.ts">addLike</a>(userID, { ...params }) -> void</code>
 
 ## Likes
 
 Methods:
 
 - <code title="post /posts/{postId}/likes">client.posts.likes.<a href="./src/resources/posts/likes.ts">create</a>(postID) -> void</code>
-- <code title="get /posts/{postId}/likes">client.posts.likes.<a href="./src/resources/posts/likes.ts">list</a>(postID, { ...params }) -> UserSummaryList</code>
+- <code title="get /posts/{postId}/likes">client.posts.likes.<a href="./src/resources/posts/likes.ts">list</a>(postID, { ...params }) -> LikesAPI.UserSummaryList</code>
 - <code title="delete /posts/{postId}/likes">client.posts.likes.<a href="./src/resources/posts/likes.ts">delete</a>(postID) -> void</code>
+- <code title="post /posts/{postId}/likes/users/{userId}">client.posts.likes.<a href="./src/resources/posts/likes.ts">addUser</a>(userID, { ...params }) -> void</code>
+- <code title="get /posts/{postId}/likes/users">client.posts.likes.<a href="./src/resources/posts/likes.ts">listUsers</a>(postID, { ...params }) -> LikeUserList</code>
+
+## Reactions
+
+Types:
+
+- <code><a href="./src/resources/posts/posts.ts">PostReactionUser</a></code>
+- <code><a href="./src/resources/posts/posts.ts">PostReactionUserList</a></code>
+
+Methods:
+
+- <code title="get /posts/{postId}/reactions/users">client.posts.reactions.<a href="./src/resources/posts/posts.ts">listUsers</a>(postID, { ...params }) -> PostReactionUserList</code>
+- <code title="post /posts/{postId}/reactions/users/{userId}">client.posts.reactions.<a href="./src/resources/posts/posts.ts">addUser</a>(userID, { ...params }) -> void</code>
+
+## Mentions
+
+Types:
+
+- <code><a href="./src/resources/posts/posts.ts">UserList</a></code>
+
+Methods:
+
+- <code title="get /mentions/suggestions">client.posts.mentions.<a href="./src/resources/posts/posts.ts">listSuggestions</a>({ ...params }) -> UserList</code>
+
+## Polls
+
+Types:
+
+- <code><a href="./src/resources/posts/posts.ts">Invite</a></code>
+- <code><a href="./src/resources/posts/posts.ts">PostList</a></code>
+- <code><a href="./src/resources/posts/posts.ts">SongSummary</a></code>
+- <code><a href="./src/resources/posts/posts.ts">UserSummary</a></code>
+- <code><a href="./src/resources/posts/posts.ts">PostReactionUser</a></code>
+- <code><a href="./src/resources/posts/posts.ts">PostReactionUserList</a></code>
+- <code><a href="./src/resources/posts/posts.ts">UserList</a></code>
+
+Methods:
+
+- <code title="delete /posts/{postId}/poll/options/{optionId}/votes">client.posts.polls.<a href="./src/resources/posts/posts.ts">removeVote</a>(optionID, { ...params }) -> void</code>
 
 # Videos
 
@@ -279,7 +389,19 @@ Methods:
 
 Methods:
 
-- <code title="post /images/{imageId}/posts">client.images.<a href="./src/resources/images.ts">createPost</a>(imageID, { ...params }) -> Post</code>
+- <code title="post /images/{imageId}/posts">client.images.<a href="./src/resources/images.ts">createPost</a>(imageID, { ...params }) -> PostsAPI.Post</code>
+- <code title="post /images/albums">client.images.<a href="./src/resources/images.ts">createAlbum</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/bandBackgrounds">client.images.<a href="./src/resources/images.ts">createBandBackground</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/bands">client.images.<a href="./src/resources/images.ts">createBand</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/collections">client.images.<a href="./src/resources/images.ts">createCollection</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/communities">client.images.<a href="./src/resources/images.ts">createCommunity</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/distroReleases">client.images.<a href="./src/resources/images.ts">createDistroRelease</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/effect-presets">client.images.<a href="./src/resources/images.ts">createEffectPreset</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/posts">client.images.<a href="./src/resources/images.ts">createShout</a>({ ...params }) -> UploadMedia</code>
+- <code title="post /images/songs">client.images.<a href="./src/resources/images.ts">createSong</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/tracks">client.images.<a href="./src/resources/images.ts">createTrack</a>({ ...params }) -> PictureResponse</code>
+- <code title="post /images/userBackgrounds">client.images.<a href="./src/resources/images.ts">createUserBackground</a>({ ...params }) -> UserPictureResponse</code>
+- <code title="post /images/users">client.images.<a href="./src/resources/images.ts">createUser</a>({ ...params }) -> UserPictureResponse</code>
 
 # Revisions
 
@@ -518,6 +640,9 @@ Methods:
 - <code title="get /communities/{communityId}">client.communities.<a href="./src/resources/communities/communities.ts">retrieve</a>(communityID) -> Community</code>
 - <code title="patch /communities/{communityId}">client.communities.<a href="./src/resources/communities/communities.ts">update</a>(communityID, { ...params }) -> Community</code>
 - <code title="delete /communities/{communityId}">client.communities.<a href="./src/resources/communities/communities.ts">delete</a>(communityID) -> void</code>
+- <code title="get /communities/trending">client.communities.<a href="./src/resources/communities/communities.ts">listTrending</a>({ ...params }) -> CommunityList</code>
+- <code title="get /communities/{communityId}/rules">client.communities.<a href="./src/resources/communities/communities.ts">listRules</a>(communityID) -> CommunityRules</code>
+- <code title="post /communities/{communityId}/pins/posts/{postId}">client.communities.<a href="./src/resources/communities/communities.ts">pinPost</a>(postID, { ...params }) -> void</code>
 
 ## Members
 
@@ -532,15 +657,15 @@ Methods:
 
 Methods:
 
-- <code title="post /community/{communityId}/posts">client.communities.posts.<a href="./src/resources/communities/posts.ts">create</a>(communityID, { ...params }) -> Post</code>
-- <code title="get /community/{communityId}/posts">client.communities.posts.<a href="./src/resources/communities/posts.ts">list</a>(communityID, { ...params }) -> PostList</code>
+- <code title="post /communities/{communityId}/posts">client.communities.posts.<a href="./src/resources/communities/posts.ts">create</a>(communityID, { ...params }) -> PostsAPI.Post</code>
+- <code title="get /communities/{communityId}/posts">client.communities.posts.<a href="./src/resources/communities/posts.ts">list</a>(communityID, { ...params }) -> PostsPostsAPI.PostList</code>
 
 ## Invites
 
 Methods:
 
-- <code title="get /community/{communityId}/invites">client.communities.invites.<a href="./src/resources/communities/invites.ts">list</a>(communityID, { ...params }) -> InviteList</code>
-- <code title="post /community/{communityId}/invites">client.communities.invites.<a href="./src/resources/communities/invites.ts">send</a>(communityID, { ...params }) -> void</code>
+- <code title="get /communities/{communityId}/invites">client.communities.invites.<a href="./src/resources/communities/invites.ts">list</a>(communityID, { ...params }) -> UsersInvitesAPI.InviteList</code>
+- <code title="post /communities/{communityId}/invites">client.communities.invites.<a href="./src/resources/communities/invites.ts">send</a>(communityID, { ...params }) -> void</code>
 
 # Songs
 

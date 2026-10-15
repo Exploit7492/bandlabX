@@ -35,7 +35,7 @@ API_PREFIX_RE = re.compile(r"^/api/v\d+(?:\.\d+)*(?=/|$)")
 ID_SEGMENT_RE = re.compile(r"^(?:UUID|HEX)-\d{4}$")
 EMAIL_SEGMENT_RE = re.compile(r"^(?:EMAIL-\d{4}|OWNER-EMAIL)$")
 G_ITEM_RE = re.compile(r"^(G\d{2})-")
-STATUS_ROW_RE = re.compile(r"^\| `(\w+)` \| ([A-Z]+) \| `([^`]+)` \| `([^`]+)` \| `([^`]+)` \|$")
+STATUS_ROW_RE = re.compile(r"^\|\s*`([\w-]+)`\s*\|\s*([A-Z]+)\s*\|\s*`([^`]+?)`\s*\|\s*`([^`]+?)`\s*\|\s*`([^`]+?)`\s*\|\s*$")
 
 # Which domain file an endpoint goes to: the LAST path segment that appears here wins.
 SEGMENT_DOMAIN = {}

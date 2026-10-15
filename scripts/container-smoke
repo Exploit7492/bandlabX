@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Build the image and run its default command, so a broken image fails here instead of in a
+# consumer's cluster. Needs a Docker daemon; `DOCKER` overrides the CLI.
+#
+# Usage:
+#   ./scripts/container-smoke              # build + run the default command
+#   IMAGE=bandlab-sdk:dev ./scripts/container-smoke
+#   SKIP_BUILD=1 ./scripts/container-smoke # run an image that already exists
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+DOCKER=${DOCKER:-docker}
+IMAGE=${IMAGE:-bandlab-sdk:smoke}
+
+if ! command -v "$DOCKER" >/dev/null 2>&1; then
+  echo "ERROR: $DOCKER is not on PATH" >&2
+  exit 1
+fi
+
+if ! "$DOCKER" info >/dev/null 2>&1; then
+  echo "ERROR: no Docker daemon reachable via '$DOCKER'" >&2
+  exit 1
+fi
+
+if [ "${SKIP_BUILD:-0}" != "1" ]; then
+  echo "==> Building $IMAGE"
+  "$DOCKER" build --tag "$IMAGE" .
+fi
+
+echo "==> Running the image's default command"
+"$DOCKER" run --rm "$IMAGE"
+
+echo "==> Verifying the image carries no dev dependencies"
+"$DOCKER" run --rm --entrypoint node "$IMAGE" -e "
+  const fs = require('fs');
+  if (fs.existsSync('/app/node_modules')) {
+    console.error('node_modules is present in the image; expected a pruned runtime only');
+    process.exit(1);
+  }
+  const pkg = require('/app/package.json');
+  const deps = Object.keys(pkg.dependencies || {});
+  if (deps.length) {
+    console.error('runtime dependencies present: ' + deps.join(', '));
+    process.exit(1);
+  }
+  console.log('image is clean (no node_modules, no runtime dependencies)');
+"
+
+echo
+echo "container smoke passed for $IMAGE"

@@ -67,6 +67,14 @@ def parse_status(text):
     return rows, order
 
 
+def summary_line(text):
+    """The `**N endpoints: ...**` line, or None when the file has no summary."""
+    for line in text.split('\n'):
+        if line.startswith('**') and 'endpoints:' in line:
+            return re.sub(r'\s+', ' ', line.strip())
+    return None
+
+
 def parse_seed(text):
     rows, order = {}, []
     for line in text.split('\n'):
@@ -136,8 +144,15 @@ def main():
     out = '\n'.join(lines) + '\n'
 
     if check:
-        if out != existing:
+        # Compare parsed rows, not raw text: Prettier pads the table columns on `./scripts/format`,
+        # so a byte comparison would report "out of date" for a file that has the same content.
+        new_rows, new_order = parse_status(out)
+        old_rows_p, old_order = parse_status(existing)
+        if new_rows != old_rows_p or new_order != old_order:
             print('endpoint-status.md is out of date; run without --check to rewrite')
+            return 1
+        if summary_line(out) != summary_line(existing):
+            print('endpoint-status.md summary line is out of date; run without --check to rewrite')
             return 1
         print('endpoint-status.md is up to date')
         return 0
