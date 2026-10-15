@@ -11,9 +11,9 @@ Work follows a fixed hierarchy (adapted from the D-Store handover; see `docs/han
 
 ```
 Phase        1, 2, 3, 4, 5
- └─ Track     a, b, c, d, e
-     └─ Milestone   i, ii, iii, iv, v
-         └─ Leaf        zi, zo
+ ‚îî‚îÄ Track     a, b, c, d, e
+     ‚îî‚îÄ Milestone   i, ii, iii, iv, v
+         ‚îî‚îÄ Leaf        zi, zo
 ```
 
 - A **leaf** is exactly **one task**. It is never bundled with another and never left partial. Its path is e.g. `3.c.i.zi`; use it in commit subjects, patch names, ledger lines and status updates.
@@ -24,12 +24,12 @@ Phase        1, 2, 3, 4, 5
 ### The splitting rule
 1. A session that finds its leaf is bigger than one task **splits it before writing any code**. The split itself (docs only) is that session's one task.
 2. The parent is kept and marked `[-]` (superseded) so its ID stays addressable. It no longer counts toward M.
-3. The children get **new paths**: the next unused milestone numerals in the same track, one `zi`/`zo` pair per milestone. Their checklist numbers are the parent's number plus a letter (`29` becomes `29a`, `29b`, …).
+3. The children get **new paths**: the next unused milestone numerals in the same track, one `zi`/`zo` pair per milestone. Their checklist numbers are the parent's number plus a letter (`29` becomes `29a`, `29b`, ‚Ä¶).
 4. M changes accordingly (children added, parent removed). The session reports the new total and updates the history line under "Done so far", so the count never changes meaning quietly.
 5. Likely splits are flagged in advance: `3.b.i` (mix and effects), `3.b.ii` (audio upload), `3.c.i` (messaging). New G-items found by `2.b.i.zi` add leaves and raise M the same way.
 
 ### Status markers
-`[ ]` open · `[~]` in progress (a session started but could not finish; commit as `WIP:`) · `[x]` done and handed off by patch · `[-]` superseded or split; never pick it up.
+`[ ]` open ¬∑ `[~]` in progress (a session started but could not finish; commit as `WIP:`) ¬∑ `[x]` done and handed off by patch ¬∑ `[-]` superseded or split; never pick it up.
 
 ---
 
@@ -66,7 +66,7 @@ only needed for the one thing the bundle cannot supply, which is typed request/r
 - [x] 9 — `2.b.i.zi` Record the bundle evidence and the spec's server block; **P0 answered**; `docs/research/BUNDLE-EVIDENCE.md` + `docs/research/bundle-endpoints.md` *(was the owner's leaf; a session resolved it from public sources)*
 - [ ] 10 — `2.b.i.zo` Record the final resource design for all 201 new endpoints: file names, accessors, methods and type strategy per domain; regenerate `COVERAGE.md` and `docs/endpoint-status.md` from the union; split Phase 3 into the leaves below
 
-**Phase 3 — Implementation by domain** *(52 leaves: 26 domains × `zi`/`zo`. Every domain has bundle evidence for its paths; shapes follow the shape rule in Section 2.)*
+**Phase 3 — Implementation by domain** *(52 leaves: 26 domains √ó `zi`/`zo`. Every domain has bundle evidence for its paths; shapes follow the shape rule in Section 2.)*
 
 **3.a — Songs, revisions, collaborators**
 
@@ -158,7 +158,7 @@ only needed for the one thing the bundle cannot supply, which is typed request/r
 - [ ] 72 — `5.b.i.zo` Owner steps document
 - [ ] 73 — `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
 
-**Done so far: 9 of 73.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** — leaf 9 (`2.b.i.zi`) completed from public evidence, and Phase 3 was resplit from 12 gaps into 26 domains (12 → 52 leaves) and Phase 4/5 renumbered, because the bundle evidence showed 201 endpoints the spec never described. No parent was superseded, so no leaf ID was retired.
+**Done so far: 9 of 73.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** — leaf 9 (`2.b.i.zi`) completed from public evidence, and Phase 3 was resplit from 12 gaps into 26 domains (12 ‚Üí 52 leaves) and Phase 4/5 renumbered, because the bundle evidence showed 201 endpoints the spec never described. No parent was superseded, so no leaf ID was retired.
 
 **Reporting rule:** a session that completes a leaf ends its final message with `N done ✅ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed — still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
 
@@ -173,8 +173,6 @@ CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "2.b.i.zo"  (read docs/research/B
 FOCUS_RUN: "9 done of 73"
 LAST_COMPLETED_LEAF: 2.b.i.zi
 MARKER_COMMIT_SUBJECT_PREFIX: "2.b.i.zi:"
-LAST_PATCH_NAME: 0010-2.b.i.zi-bundle-evidence.patch
-NEXT_PATCH_NUMBER: "0011"
 STATUS: READY
 BLOCKERS: none that stop work. `2.b.i.zo` is the design leaf and needs no external input. Known limits, recorded so no session overclaims - (1) request/response SHAPES for the 201 new endpoints are NOT evidenced; source maps are 404, so the bundle yields paths and some methods but no types. Apply the shape rule in Section 2: implement the path with `unknown` bodies and status `unverified`, then tighten in 4.a.i.zi, OR wait for an owner capture for that domain. (2) 24 of 53 probed endpoints returned 404, which is inconclusive and must not be read as absence - see BUNDLE-EVIDENCE.md section 3. (3) The `v2.0` uploads, `v3.0` sounds and `v4.3` soundbanks routes do not resolve from the web host; they are mobile/studio-client routes. (4) P0 is ANSWERED: spec servers are `test.bandlab.com/api/v1.3` (test) and `bandlab.com/api/v1.3` (production); the SDK default already matches the first. The owner may still choose to change the default - that is a product decision, not an evidence gap. (5) 5.b.ii.zi remains the owner's leaf.
 ```
@@ -202,10 +200,10 @@ If the marker is **not** in `git log`, the previous patch was never applied or p
 | D4 | **Additive only.** Every existing `client.*` call keeps working unchanged. |
 | D5 | Python is allowed only in `scripts/research/` for evidence tooling. Never shipped, never imported by `src/`. |
 | D6 | **Never invent an endpoint or a response shape.** Every new endpoint needs evidence (capture, spec or owner confirmation) and a status: `spec` / `captured` / `unverified` / `live-ok` / `missing`. |
-| D7 | **Sessions cannot reach `bandlab.com`, `ghcr.io` or Docker Hub** from the sandbox (checked), and there is no container runtime. Evidence and live checks come from the owner. Never claim an endpoint is live-verified or an image is built when it was not. |
+| D7 | **Network reach (revised 2026-10-15).** The sandbox **can** reach `www.bandlab.com` and `test.bandlab.com` over HTTPS — the bundle and spec were fetched this way. `ghcr.io` and Docker Hub are still untested, and there is no container runtime without sudo. Live checks against BandLab should still be read-only and unauthenticated; a session must never claim an endpoint is live-verified on the basis of a probe alone (see D13). |
 | D8 | Stainless and release scaffolding is left untouched. Do not run or merge codegen (it would overwrite hand edits). |
 | D9 | Wire paths stay exactly as the server expects; follow the naming of neighbouring files. |
-| D10 | **Combined patch rule:** the patch is always built from `origin/main`, so it carries every commit not yet pushed. The owner applies one patch. |
+| D10 | **Direct-push rule (owner directive, 2026-10-15, supersedes the combined-patch rule).** Sessions **push directly to `main`**. Do **not** run the patch handoff: no `make-patch.sh`, no `.patch` file, no `git am` on the owner's side, no `NEXT_PATCH_NUMBER` bump. The commit on `main` *is* the handoff. The owner confirmed this after the 47→73 rescope. `scripts/handover/make-patch.sh` is retained only as a fallback if the owner asks for it again. |
 | D11 | **Never bake secrets into an image.** Tokens are supplied at runtime only. |
 | D12 | **Shape rule (2026-10-15).** Evidence proves a *path*; it does not prove a *shape*. A session may implement an evidenced path with `unknown` request/response types and status `unverified`, but must never invent field names, required flags, enum values or nested types. Shapes are tightened only when evidence arrives (`4.a.i.zi`). |
 | D13 | **Evidence sources, in order of strength (2026-10-15):** (1) an authenticated capture by the owner; (2) the OpenAPI spec at the `openapi_spec_url` in `.stats.yml`; (3) the shipped web app bundle and its chunks; (4) a live unauthenticated probe. **A 404 is never evidence of absence** — real endpoints return 404 unauthenticated. Record which source each claim rests on. |
@@ -218,18 +216,17 @@ If the marker is **not** in `git log`, the previous patch was never applied or p
 1. **Do the one leaf** named in Current position, and nothing else. If it is bigger than one task, split it first (Section 0) and hand off the split as the session's one task.
 2. **One diff = one commit** (`git add <paths>`, `git commit`). Every commit subject starts with the leaf path.
 3. **The leaf's final commit** carries, together: the work's last change, the checklist tick `[x]`, the "Done so far" count, Current position moved to the next open leaf (path order: `zi` before `zo`, then the next milestone, track, phase), one line appended to `docs/handover/LEDGER.md`, and the Done note `docs/handover/sessions/<leaf path>.md`. Its subject is `<leaf path>: <title>; <what was and was not run>; N done of M`.
-4. **Build the patch:** `./scripts/handover/make-patch.sh NNNN-<leaf-path>-<description>` where `NNNN` is `NEXT_PATCH_NUMBER`. It always builds from `origin/main`, so it is the combined patch whenever earlier work is not yet pushed, and says which leaves it carries.
-5. **Hand the owner exactly one patch file** and the commands (below). Delete older `.patch` files from the outputs folder.
-6. Reply: which leaf, what was and was not run, the commands, then `N done ✅ of M`.
+4. **Push to `main` directly** (D10): `git push origin main`. Do **not** build a patch or run `make-patch.sh`.
+5. **Verify the push landed:** `git fetch origin && git log --oneline -1 origin/main`. Confirm the commit you just made is the tip of `origin/main`.
+6. Reply: which leaf, what was and was not run, then `N done of M`.
 
 ```bash
 cd ~/bandlab-sdk-typescript
-git am ~/storage/downloads/<patch-name>.patch
-git push
+git pull --ff-only origin main
 ```
-If the owner applied an older patch locally without pushing: `git fetch origin && git reset --hard origin/main` first. If `git am` conflicts: `git am --abort` and report the base mismatch.
+The owner does not apply patches any more (D10). If a session's push is rejected, `git pull --ff-only` then push again; if that conflicts, stop and report the base mismatch rather than force-pushing.
 
-If a leaf cannot finish: mark it `[~]`, commit what exists with a `WIP:` prefix, say exactly what is left, and still hand off a patch. The next session resumes that leaf first.
+If a leaf cannot finish: mark it `[~]`, commit what exists with a `WIP:` prefix, say exactly what is left, and push. The next session resumes that leaf first.
 
 ---
 
