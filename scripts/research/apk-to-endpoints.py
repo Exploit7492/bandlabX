@@ -48,7 +48,12 @@ ANN_TO_VERB = {
     'lik': 'PUT',     # 15/28 direct; resolved to PUT by in-file coherence (see doc)
 }
 
-# Parameter annotations, never path-bearing.
+# Host groups that belong to third-party SDKs bundled in the app, not to BandLab's API.
+# Excluded by HOST, never by path segment: `/experiment/...` paths are BandLab endpoints
+# (hosts ACCOUNTS/SAMPLES) and must be kept, while Amplitude and Branch are not BandLab at all.
+THIRD_PARTY_HOSTS = {'AMPLITUDE_EXPERIMENT', 'AMPLITUDE_ANALYTICS', 'BRANCH'}
+
+# Path annotations, never path-bearing.
 PARAM_ANNS = {'acl', 'cao', 'c74', 'z9o'}
 
 SVC_RE = re.compile(
@@ -175,7 +180,7 @@ def write_endpoints(records, sdk, out_path):
     best = {}
     for r in records:
         k = normalize(r['path'])
-        if k in sdk:
+        if k in sdk or r['host'] in THIRD_PARTY_HOSTS:
             continue
         cur = best.get(k)
         if cur is None or (not cur['response_shapes'] and r['response_shapes']):
@@ -192,7 +197,9 @@ def write_endpoints(records, sdk, out_path):
                  'of the BandLab Android app (11.33.2). Every row is a path the SDK does not '
                  'expose today. `verb` comes from the annotation map, `auth` from '
                  '`@ApiService.isAuthorized`, and `shape` from the kotlinx.serialization '
-                 'descriptor (real class and field names).\n\n')
+                 'descriptor (real class and field names). Third-party SDK hosts '
+                 '(`AMPLITUDE_EXPERIMENT`, `AMPLITUDE_ANALYTICS`, `BRANCH`) are excluded by host, '
+                 'not by path, so BandLab paths under `/experiment/...` are kept.\n\n')
         fh.write('Totals: **%d paths**, %d with a verb, %d with a response shape, '
                  '%d distinct response classes.\n\n' % (
                      len(best),

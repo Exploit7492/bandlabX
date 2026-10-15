@@ -135,17 +135,17 @@ BandLab API surface. They are listed so they can be **excluded** deliberately.
 | API service interfaces | 170 |
 | Methods | 587 |
 | Path templates (all) | 401 |
-| **Paths the SDK does not expose** | **353** |
-| … with a derived verb | **353 (100%)** |
-| … with a real response shape | **272 (77%)** |
+| **Paths the SDK does not expose** | **344** |
+| … with a derived verb | **344 (100%)** |
+| … with a real response shape | **265 (77%)** |
 | Distinct response classes | 163 |
 | Distinct serializer descriptors | 1,215 |
 | Model classes with recoverable fields | 1,094 |
 | Distinct JSON field names | 1,973 |
 | Path segments (candidate domains) | 74 |
 
-Against the bundle: the bundle found 225 clean paths / 201 missing. The APK finds 353 missing,
-i.e. **271 paths the bundle never had**, and supplies a verb for all 353 rather than for the ~145
+Against the bundle: the bundle found 225 clean paths / 201 missing. The APK finds 344 missing,
+i.e. **262 paths the bundle never had**, and supplies a verb for all 344 rather than for the ~145
 the bundle's call sites happened to reveal.
 
 ## 7. What this evidence is and is not
@@ -155,7 +155,7 @@ response class names and field names, plus required/optional flags from the seri
 
 **Is not:**
 1. **Not a live check.** Nothing here has been run against BandLab. Rows are `apk`, not `live-ok`.
-2. **Not a request-shape source for every endpoint.** Response shapes are strong (272/353). Request
+2. **Not a request-shape source for every endpoint.** Response shapes are strong (265/344). Request
    bodies are recoverable only where a method takes a `@c74` body parameter whose model is in the
    descriptor set; the rest remain `unknown` under D12.
 3. **Not a verb certainty for `@lik`.** See §4.
@@ -174,9 +174,43 @@ how the app gates features. The finding is recorded here because it bounds what 
 | Class | Fields | Role |
 |---|---|---|
 | `com.bandlab.network.models.MembershipStatusShort` | `isActive` | read-only status |
+| `com.bandlab.network.models.MembershipStatus` | `plan`, `displayName`, `paymentProvider`, `billingIssue`, `isTrial`, `billingInterval`, `nextBillingInterval`, `startedOn`, `expiresOn`, `priceCurrency`, `availableFeatures`, `canceledOn`, `isTrialAllowed`, `nextRenewalPrice`, `nextPlan`, `pauseEffectiveAt`, `unpauseEffectiveAt` | read-only status, full form |
 | `com.bandlab.video.uploader.api.MembershipLimits` | `membership_limit`, `non_membership_limit` | server-supplied limits |
 | `com.bandlab.beat.api.quota.QuotaPopupMembershipBanner` | `title`, `buttonText` | popup copy |
 | `com.bandlab.payments.membership.manage.dashboard.screen.SubscriptionOfferBannerConfig` | `badge`, `title`, `url`, `cta` | upsell banner |
+
+**The premium flag endpoint the owner asked about does exist.** It is real, it is fully typed from
+the descriptor, and it is in the plan as a read-only resource:
+
+```java
+@ApiService(endpoint = j11.b, isAuthorized = true)   // j11.b = SOCIAL
+public interface RemoteMembershipService {
+    @xbc("experiment/users/{id}/membership-status")  // -> MembershipStatusShort
+    Object getMembershipStatusShort(@acl("id") String id, ng7<? super w9h> c);
+
+    @xbc("users/{id}/membership-plan")               // -> MembershipStatus
+    Object getMembershipStatusV2(@acl("id") String id, ng7<? super s9h> c);
+}
+```
+
+`MembershipStatusShort.isActive` and `MembershipStatus.availableFeatures` are the entitlement flags.
+Both endpoints are assigned to the `membership` resource (leaf `3.f.iii`, read-only).
+
+**Why the flag cannot be used to unlock anything.** The flag is an *output*, not an *input*. Every
+gated action is authorised again by the server against the account, and the server mints the quota
+values the client only displays:
+
+| Model | Fields | Who decides |
+|---|---|---|
+| `com.bandlab.distro.api.models.DistroQuota` | `remaining`, `limit`, `period`, `resetsAt` | server |
+| `com.bandlab.beat.api.quota.FreeBeatsQuota` | `canClaimPaidBeats`, `dailyLimitLabel` | server |
+| `com.bandlab.video.uploader.api.VideoLimit` | `duration_s`, `file_size_mb` | server |
+| `com.bandlab.tools.splitter.screen.api.SeparationLimitsResponse` | `result` | server |
+
+So forcing `isActive = true` in a patched client changes the badge and hides the popup, and nothing
+else: the next gated call (`POST ai-videos/generate`, a beats claim, a distro release) is still
+checked server-side and still refused. There is no client-side value the server consults, so no
+client change can produce the entitlement.
 
 Membership purchase is delegated to **Purchasely** (`PurchaselyMediator` → `io.purchasely.ext`)
 with **Google Play Billing**, and the API side is `POST checkout/products/membership/…/payment-intents`.
@@ -201,11 +235,11 @@ opt-in** resources, and state plainly in their JSDoc that entitlement is server-
 ## 9. Effects on the plan
 
 1. **M must rise.** The rescope in `2.b.i.zi` was built on 201 bundle paths with no shapes. The
-   evidence is now 353 paths with verbs and 272 shapes, across 74 segments. Phase 3 is resplit
+   evidence is now 344 paths with verbs and 265 shapes, across 70 segments. Phase 3 is resplit
    accordingly in `HANDOVER.md`.
-2. **`4.a.i.zi` shrinks.** Shapes are known up front for 272 paths, so that leaf becomes "tighten
+2. **`4.a.i.zi` shrinks.** Shapes are known up front for 265 paths, so that leaf becomes "tighten
    the residue", not "retype everything".
-3. **D12 still applies** to the 81 paths without a shape and to every request body without a `@c74`
+3. **D12 still applies** to the 79 paths without a shape and to every request body without a `@c74`
    model. Rows carry `apk` as the source and stay distinct from `live-ok`.
 4. **The capture kit becomes optional for almost everything.** Its remaining use is live
    confirmation of verbs and request bodies.

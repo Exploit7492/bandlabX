@@ -67,62 +67,62 @@ Verified against the code in `1.a.ii.zo`. **7 Covered · 8 Partial · 2 Missing.
 
 ## 3. Escape hatch for anything not yet modelled
 `client.get|post|patch|put|delete(path, opts)` already exist on `BandlabSDK`. Research scripts and unverified experiments use these,
-so no endpoint is ever blocked by the SDK itself.## 4. Live target after the 2026-10-15 APK evidence
+so no endpoint is ever blocked by the SDK itself.
+## 4. Live target after the 2026-10-15 APK evidence
 
 `docs/research/APK-EVIDENCE.md` supersedes the bundle as the evidence source (rule D13). The
-decompiled Android app proves **353 paths the SDK does not expose**, a verb for **all 353**, and a
-real response shape for **272**. The bundle's 201 was a subset; the APK adds 271 paths it never had
-and supplies verbs for the rest.
+decompiled Android app proves **344 BandLab paths the SDK does not expose**, a verb for **all 344**,
+and a real response shape for **265**. The bundle's 201 was a subset: the APK adds 262 paths it never
+had and supplies verbs for the rest.
 
 The full resource assignment, with file, accessor and type strategy per path, is
 `docs/handover/RESOURCE-DESIGN.md`. Summary:
 
 | Resource | File | Endpoints | Typed |
 |----------|------|-----------|-------|
-| `users` | `src/resources/users.ts` (extend) | 54 | 42 |
-| `ai` | `src/resources/ai/` | 33 | 24 |
-| `sounds` | `src/resources/sounds/` | 31 | 27 |
+| `users` | `src/resources/users.ts (extend)` | 53 | 41 |
+| `sounds` | `src/resources/sounds/` | 30 | 26 |
+| `ai` | `src/resources/ai/` | 30 | 22 |
 | `messaging` | `src/resources/messaging/` | 19 | 14 |
 | `beats` | `src/resources/beats.ts` | 16 | 13 |
 | `albums` | `src/resources/albums.ts` | 15 | 8 |
+| `library` | `src/resources/library.ts` | 15 | 13 |
 | `distro` | `src/resources/distro.ts` | 15 | 12 |
-| `library` | `src/resources/library.ts` | 14 | 12 |
-| `feeds` | `src/resources/feeds.ts` | 12 | 11 |
-| `images` | `src/resources/images.ts` (extend) | 12 | 12 |
-| `posts` | `src/resources/posts/` (extend) | 11 | 4 |
-| `me` | `src/resources/me.ts` (extend) | 11 | 5 |
+| `feeds` | `src/resources/feeds.ts` | 13 | 12 |
+| `images` | `src/resources/images.ts (extend)` | 12 | 12 |
+| `posts` | `src/resources/posts/ (extend)` | 11 | 4 |
+| `me` | `src/resources/me.ts (extend)` | 11 | 5 |
 | `effects` | `src/resources/effects.ts` | 10 | 7 |
-| `revisions` | `src/resources/revisions.ts` (extend) | 9 | 7 |
+| `revisions` | `src/resources/revisions.ts (extend)` | 9 | 7 |
 | `promote` | `src/resources/promote.ts` | 9 | 8 |
-| `authorizations` | `src/resources/authorizations.ts` (extend) | 9 | 7 |
-| `search` | `src/resources/search.ts` (extend) | 8 | 7 |
-| `bands` | `src/resources/bands/` (extend) | 7 | 5 |
+| `search` | `src/resources/search.ts (extend)` | 8 | 7 |
+| `bands` | `src/resources/bands/ (extend)` | 7 | 5 |
+| `membership` | `src/resources/membership.ts` | 6 | 5 |
 | `payments` | `src/resources/payments.ts` | 6 | 5 |
 | `aiVideos` | `src/resources/ai-videos.ts` | 5 | 4 |
-| `songs` | `src/resources/songs/` (extend) | 5 | 4 |
-| `communities` | `src/resources/communities/` (extend) | 5 | 4 |
-| `validation` | `src/resources/validation.ts` (extend) | 4 | 4 |
-| `membership` | `src/resources/membership.ts` | 4 | 3 |
+| `songs` | `src/resources/songs/ (extend)` | 5 | 4 |
+| `communities` | `src/resources/communities/ (extend)` | 5 | 4 |
+| `misc` | `src/resources/misc.ts` | 5 | 3 |
+| `authorizations` | `src/resources/authorizations.ts (extend)` | 5 | 4 |
+| `validation` | `src/resources/validation.ts (extend)` | 4 | 4 |
 | `uploads` | `src/resources/uploads.ts` | 4 | 3 |
-| `misc` | `src/resources/misc.ts` | 4 | 2 |
 | `pages` | `src/resources/pages.ts` | 3 | 3 |
 | `streaks` | `src/resources/streaks.ts` | 3 | 1 |
 | `syncedLyrics` | `src/resources/synced-lyrics.ts` | 2 | 2 |
-| `videos` | `src/resources/videos.ts` (extend) | 2 | 2 |
+| `videos` | `src/resources/videos.ts (extend)` | 2 | 2 |
 | `tracks` | `src/resources/tracks.ts` | 2 | 2 |
-| `collections` | `src/resources/collections/` (extend) | 1 | 1 |
+| `collections` | `src/resources/collections/ (extend)` | 1 | 1 |
 | `soundbanks` | `src/resources/soundbanks.ts` | 1 | 1 |
-| `passwords` | `src/resources/passwords.ts` (extend) | 1 | 0 |
-| `genres` | `src/resources/genres.ts` (extend) | 1 | 1 |
-| *(excluded)* | Amplitude experiment SDK, third-party (rule D15) | 5 | 0 |
-| **Total** | | **353** | **272** |
+| `passwords` | `src/resources/passwords.ts (extend)` | 1 | 0 |
+| `genres` | `src/resources/genres.ts (extend)` | 1 | 1 |
+| **Total** | | **344** | **265** |
 
 35 resources: 14 extend an existing file, 21 are new. Union with the SDK's existing 123 endpoints
-is 476 operations.
+is 467 operations.
 
 ### 4.1 Methods recovered
 
-The APK gives a verb for every path: 353 of 353. Distribution is in
+The APK gives a verb for every path: 344 of 344. Distribution is in
 `docs/research/apk-endpoints.md`. The verb map is derived from method names and validated against
 the spec and by in-file coherence; `@lik` = PUT is the one entry with realistic doubt
 (`APK-EVIDENCE.md` §4).
@@ -132,7 +132,7 @@ the spec and by in-file coherence; `@lik` = PUT is the one entry with realistic 
 | Item | Status | Unblock route |
 |------|--------|---------------|
 | Request bodies for ~half the endpoints | **partially open** | typed where a `@c74` body model is in the descriptor set; the rest take `unknown` under D12, or an owner capture |
-| Response shape for 81 of 353 paths | **open** | owner capture, or leave `apk-path-only` |
+| Response shape for 79 of 344 paths | **open** | owner capture, or leave `apk-path-only` |
 | `@lik` = PUT confirmation | **open** | owner capture or a live probe |
 | AI/ML host deployment (staging vs production) | **open** | owner confirmation |
 | Entitlement / subscriptions | **not applicable** | server-side by design; rule D14 |
@@ -140,9 +140,17 @@ the spec and by in-file coherence; `@lik` = PUT is the one entry with realistic 
 Nothing here stops any Phase 3 leaf: each implements the evidenced path and marks the row
 `apk` or `apk-path-only`.
 
-### 4.3 Subscriptions
+### 4.3 Third-party surface
+
+Exclusion is **by host group, never by path segment** (rule D15). The `AMPLITUDE_EXPERIMENT`,
+`AMPLITUDE_ANALYTICS` and `BRANCH` hosts are third-party analytics/attribution SDKs bundled in the
+app, not BandLab API: 9 paths, excluded deliberately. An earlier path-prefix rule also dropped
+BandLab's own `/experiment/...` namespace by mistake; those five paths are BandLab API and are
+kept, with the `experiment` prefix stripped for resource routing.
+
+### 4.4 Subscriptions
 
 The owner asked for all services to be free. Gating is server-side; a client cannot remove it, and
 bypassing payment would breach BandLab's terms. Rule D14 records the decision and the legitimate
-alternative (expose the full free surface; expose membership/quota read-only). Details:
-`APK-EVIDENCE.md` §8.
+alternative: expose the full free surface, and expose membership, coin, wallet and quota endpoints
+read-only so callers can read their own state. Details: `APK-EVIDENCE.md` §8.

@@ -1,4 +1,4 @@
-# Resource design — the 353 evidenced endpoints
+# Resource design — the 344 evidenced endpoints
 
 **Leaf:** `2.b.i.zo` · **Date:** 2026-10-15 · **Evidence:** `docs/research/APK-EVIDENCE.md`
 
@@ -32,32 +32,32 @@ APK-backed rows, because the APK *is* evidence.
 
 | # | Resource | File | Endpoints | Typed | Verbs |
 |---|---|---|---|---|---|
-| 1 | `users` | `src/resources/users.ts (extend)` | 54 | 42 | DELETE, GET, PATCH, POST, PUT |
-| 2 | `ai` | `src/resources/ai/` | 33 | 24 | DELETE, GET, POST |
-| 3 | `sounds` | `src/resources/sounds/` | 31 | 27 | DELETE, GET, POST, PUT |
+| 1 | `users` | `src/resources/users.ts (extend)` | 53 | 41 | DELETE, GET, PATCH, POST, PUT |
+| 2 | `sounds` | `src/resources/sounds/` | 30 | 26 | DELETE, GET, POST, PUT |
+| 3 | `ai` | `src/resources/ai/` | 30 | 22 | DELETE, GET, POST |
 | 4 | `messaging` | `src/resources/messaging/` | 19 | 14 | DELETE, GET, POST, PUT |
 | 5 | `beats` | `src/resources/beats.ts` | 16 | 13 | GET, POST, PUT |
 | 6 | `albums` | `src/resources/albums.ts` | 15 | 8 | DELETE, GET, POST, PUT |
-| 7 | `distro` | `src/resources/distro.ts` | 15 | 12 | GET, POST, PUT |
-| 8 | `library` | `src/resources/library.ts` | 14 | 12 | DELETE, GET, POST, PUT |
-| 9 | `feeds` | `src/resources/feeds.ts` | 12 | 11 | GET, PUT |
+| 7 | `library` | `src/resources/library.ts` | 15 | 13 | DELETE, GET, POST, PUT |
+| 8 | `distro` | `src/resources/distro.ts` | 15 | 12 | GET, POST, PUT |
+| 9 | `feeds` | `src/resources/feeds.ts` | 13 | 12 | GET, PUT |
 | 10 | `images` | `src/resources/images.ts (extend)` | 12 | 12 | POST |
 | 11 | `posts` | `src/resources/posts/ (extend)` | 11 | 4 | DELETE, GET, POST, PUT |
 | 12 | `me` | `src/resources/me.ts (extend)` | 11 | 5 | GET, PATCH, POST |
 | 13 | `effects` | `src/resources/effects.ts` | 10 | 7 | DELETE, GET, PATCH, POST |
 | 14 | `revisions` | `src/resources/revisions.ts (extend)` | 9 | 7 | GET, PATCH, POST |
 | 15 | `promote` | `src/resources/promote.ts` | 9 | 8 | GET |
-| 16 | `authorizations` | `src/resources/authorizations.ts (extend)` | 9 | 7 | GET, POST |
-| 17 | `search` | `src/resources/search.ts (extend)` | 8 | 7 | GET, POST |
-| 18 | `bands` | `src/resources/bands/ (extend)` | 7 | 5 | GET, POST |
+| 16 | `search` | `src/resources/search.ts (extend)` | 8 | 7 | GET, POST |
+| 17 | `bands` | `src/resources/bands/ (extend)` | 7 | 5 | GET, POST |
+| 18 | `membership` | `src/resources/membership.ts` | 6 | 5 | GET, POST |
 | 19 | `payments` | `src/resources/payments.ts` | 6 | 5 | POST |
 | 20 | `aiVideos` | `src/resources/ai-videos.ts` | 5 | 4 | GET, POST |
 | 21 | `songs` | `src/resources/songs/ (extend)` | 5 | 4 | GET, POST |
 | 22 | `communities` | `src/resources/communities/ (extend)` | 5 | 4 | GET, POST |
-| 23 | `validation` | `src/resources/validation.ts (extend)` | 4 | 4 | GET |
-| 24 | `membership` | `src/resources/membership.ts` | 4 | 3 | GET, POST |
-| 25 | `uploads` | `src/resources/uploads.ts` | 4 | 3 | POST, PUT |
-| 26 | `misc` | `src/resources/misc.ts` | 4 | 2 | GET, POST |
+| 23 | `misc` | `src/resources/misc.ts` | 5 | 3 | GET, POST |
+| 24 | `authorizations` | `src/resources/authorizations.ts (extend)` | 5 | 4 | GET, POST |
+| 25 | `validation` | `src/resources/validation.ts (extend)` | 4 | 4 | GET |
+| 26 | `uploads` | `src/resources/uploads.ts` | 4 | 3 | POST, PUT |
 | 27 | `pages` | `src/resources/pages.ts` | 3 | 3 | GET, POST |
 | 28 | `streaks` | `src/resources/streaks.ts` | 3 | 1 | GET, POST |
 | 29 | `syncedLyrics` | `src/resources/synced-lyrics.ts` | 2 | 2 | GET |
@@ -67,8 +67,8 @@ APK-backed rows, because the APK *is* evidence.
 | 33 | `soundbanks` | `src/resources/soundbanks.ts` | 1 | 1 | GET |
 | 34 | `passwords` | `src/resources/passwords.ts (extend)` | 1 | 0 | POST |
 | 35 | `genres` | `src/resources/genres.ts (extend)` | 1 | 1 | GET |
-| — | *excluded* | Amplitude experiment SDK (`experiment/*`) — third-party, not BandLab API | 5 | 0 | GET |
-| | | **Total** | **353** | **272** | |
+| — | *excluded* | Amplitude and Branch SDK hosts, excluded by host (`AMPLITUDE_EXPERIMENT`, `AMPLITUDE_ANALYTICS`, `BRANCH`) — third-party, not BandLab API | 9 | 0 | GET, POST |
+| | | **Total** | **344** | **265** | |
 
 The 35 resources sit beside the 25 existing accessors; 14 extend a file that already exists
 (`users.ts`, `posts/`, `revisions.ts`, `me.ts`, `search.ts`, `songs/`, `bands/`, `albums.ts`,
@@ -83,32 +83,32 @@ and a `zo` (prove and record) half, as the formula requires.
 
 | Resource | Endpoints | Leaves |
 |---|---|---|
-| `users` | 54 | 3 (`i`, `ii`, `iii`) |
-| `ai` | 33 | 2 (`iv`, `v`) |
-| `sounds` | 31 | 2 (`vi`, `vii`) |
+| `users` | 53 | 3 (`i`, `ii`, `iii`) |
+| `sounds` | 30 | 2 (`vi`, `vii`) |
+| `ai` | 30 | 2 (`iv`, `v`) |
 | `messaging` | 19 | 2 (`viii`, `ix`) |
 | `beats` | 16 | 1 |
 | `albums` | 15 | 1 |
+| `library` | 15 | 1 |
 | `distro` | 15 | 1 |
-| `library` | 14 | 1 |
-| `feeds` | 12 | 1 |
+| `feeds` | 13 | 1 |
 | `images` | 12 | 1 |
 | `posts` | 11 | 1 |
 | `me` | 11 | 1 |
 | `effects` | 10 | 1 |
 | `revisions` | 9 | 1 |
 | `promote` | 9 | 1 |
-| `authorizations` | 9 | 1 |
 | `search` | 8 | 1 |
 | `bands` | 7 | 1 |
+| `membership` | 6 | 1 |
 | `payments` | 6 | 1 |
 | `aiVideos` | 5 | 1 |
 | `songs` | 5 | 1 |
 | `communities` | 5 | 1 |
+| `misc` | 5 | 1 |
+| `authorizations` | 5 | 1 |
 | `validation` | 4 | 1 |
-| `membership` | 4 | 1 |
 | `uploads` | 4 | 1 |
-| `misc` | 4 | 1 |
 | `pages` | 3 | 1 |
 | `streaks` | 3 | 1 |
 | `syncedLyrics` | 2 | 1 |
@@ -119,7 +119,7 @@ and a `zo` (prove and record) half, as the formula requires.
 | `passwords` | 1 | 1 |
 | `genres` | 1 | 1 |
 
-Totals: **40 `zi` leaves + 40 `zo` leaves = 80 Phase 3 leaves**, carrying 353 endpoints.
+Totals: **40 `zi` leaves + 40 `zo` leaves = 80 Phase 3 leaves**, carrying 344 endpoints.
 That is 4.4 endpoints per leaf, close to the original plan's 3.9 (52 leaves for 201 paths),
 so the granularity is unchanged — only the count moved, because the evidence is larger.
 
@@ -127,9 +127,9 @@ so the granularity is unchanged — only the count moved, because the evidence i
 
 | Aspect | Bundle-only plan | APK-backed design |
 |---|---|---|
-| Evidenced paths | 201 | **353** |
-| Paths with a known verb | ~145 (from call sites) | **353 (100%)** |
-| Paths with a typed response | 0 | **272 (77%)** |
+| Evidenced paths | 201 | **344** |
+| Paths with a known verb | ~145 (from call sites) | **344 (100%)** |
+| Paths with a typed response | 0 | **265 (77%)** |
 | `unverified` rows expected | most of Phase 3 | only the 81 path-only rows |
 | `4.a.i.zi` scope | retype everything | tighten the residue |
 | Phase 3 leaves | 52 | 80 |

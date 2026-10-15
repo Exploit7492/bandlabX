@@ -37,7 +37,7 @@ Phase 3 leaf specs below are generated from `docs/handover/RESOURCE-DESIGN.md` a
 
 **10 - `2.b.i.zo` - Record the final resource design** *(DONE)*
 
-Evidence: `docs/research/APK-EVIDENCE.md` (353 paths, 353 verbs, 272 shapes, 35 resources).
+Evidence: `docs/research/APK-EVIDENCE.md` (344 BandLab paths, 344 verbs, 265 shapes, 35 resources; 9 third-party paths excluded by host).
 Design: `docs/handover/RESOURCE-DESIGN.md`. M raised 73 -> 101. Next leaf: `3.a.i.zi`.
 
 ---
@@ -157,7 +157,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 10 path(s), file `src
 
 **23 - `3.b.ii.zi` - sounds: samples, packs, libraries, credits: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 16 path(s), file `src/resources/sounds/`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/sounds/`:
 
 - `POST /v4/separation` -> `com.bandlab.tools.splitter.screen.api.SeparationStatusResponse`
 - `GET instruments` -> `com.bandlab.mixeditor.palette.impl.model.PaletteInstrument`
@@ -174,7 +174,6 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 16 path(s), file `src
 - `POST users/{userId}/claims/samples` -> `com.bandlab.sounds.credits.impl.service.CreditsResponse`
 - `GET users/{userId}/claims/samples/ids` -> `com.bandlab.sounds.credits.impl.service.ClaimedSampleIdsResponse`
 - `PUT users/{userId}/claims/samples/{sampleId}` -> `com.bandlab.sounds.credits.impl.service.CreditsResponse`
-- `GET users/{userId}/credits` -> `com.bandlab.sounds.credits.impl.service.CreditsResponse`
 
 **24 - `3.b.ii.zo` - sounds: samples, packs, libraries, credits: tests and records**
 
@@ -184,6 +183,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 16 path(s), file `src
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/sounds/`:
 
+- `GET users/{userId}/credits` -> `com.bandlab.sounds.credits.impl.service.CreditsResponse`
 - `GET users/{userId}/libraries/packs` -> `com.bandlab.sounds.rest.model.MySoundsLibraryResponse`
 - `GET users/{userId}/libraries/samples` -> `com.bandlab.sounds.rest.model.MySoundsLibraryResponse`
 - `GET users/{userId}/packs` -> `com.bandlab.mixeditor.library.sounds.api.service.SoundsPackDto`
@@ -195,7 +195,6 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `GET users/{userId}/uploads` -> `com.bandlab.mixeditor.library.sounds.mysounds.uploads.screen.model.SampleStorageInfoDto`
 - `POST users/{userId}/uploads/samples` -> `com.bandlab.mixeditor.library.sounds.mysounds.uploads.screen.model.CreateUploadUrlResponse`
 - `DELETE users/{userId}/uploads/samples/{sampleId}` -> `(no shape)`
-- `POST v3/generate` -> `com.bandlab.mixeditor.presets.generator.api.service.GeneratePresetDTO`
 - `GET v3/ideas` -> `com.bandlab.song.starter.domain.impl.IdeasResponseModel`
 - `GET v3/native` -> `com.bandlab.boost.api.NativeAds`
 - `GET v3/video` -> `(no shape)`
@@ -229,7 +228,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 1 path(s), file `src/
 
 **31 - `3.c.i.zi` - AI: separation, transfer, task, model, presets: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src/resources/ai/`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/ai/`:
 
 - `GET /v1/daily_limits` -> `com.bandlab.tools.splitter.screen.api.SeparationLimitsResponse`
 - `GET /v1/model/{modelId}/{version}/{feature} ` -> `(no shape)`
@@ -238,9 +237,6 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src
 - `POST /v1/separation/sample` -> `com.bandlab.tools.splitter.screen.api.ForwardResultResponse`
 - `GET /v1/separation/status` -> `com.bandlab.tools.splitter.screen.api.SeparationProgressResponse`
 - `GET preview` -> `com.bandlab.network.models.Link`
-- `POST score` -> `(no shape)`
-- `POST score/share` -> `com.bandlab.tools.voice.trainer.screen.frame.data.VoiceTrainerScoreSharingDto`
-- `GET score/share/{id}` -> `com.bandlab.tools.voice.trainer.screen.frame.data.VoiceTrainerScoreInfoDto`
 - `POST task` -> `com.bandlab.mixeditor.palette.impl.service.PaletteStackTaskDto`
 - `GET task/{id}` -> `com.bandlab.mixeditor.palette.impl.service.PaletteStackTaskDto`
 - `GET task/{id}/download` -> `com.bandlab.mixeditor.palette.impl.service.PaletteStackTaskResultDto`
@@ -248,6 +244,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src
 - `POST v1/autocomplete` -> `(no shape)`
 - `POST v1/check_captcha` -> `(no shape)`
 - `GET v1/displayed_genres` -> `com.bandlab.song.starter.domain.impl.GenreResponseModel`
+- `GET v1/genres` -> `com.bandlab.audio.controller.autoMix.AutoMixGenresDto`
 
 **32 - `3.c.i.zo` - AI: separation, transfer, task, model, presets: tests and records**
 
@@ -255,9 +252,8 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src
 
 **33 - `3.c.ii.zi` - AI: remix, autocomplete, captcha, genres, ideas: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 16 path(s), file `src/resources/ai/`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/ai/`:
 
-- `GET v1/genres` -> `com.bandlab.audio.controller.autoMix.AutoMixGenresDto`
 - `GET v1/ideas` -> `com.bandlab.song.starter.domain.impl.IdeasResponseModel`
 - `GET v1/instruction-suggestions` -> `com.bandlab.audio.controller.autoMix.AutoMixPromptExamplesDto`
 - `GET v1/models` -> `com.bandlab.mixeditor.ai.tools.harmonizer.impl.HarmonizerVoiceDto`
@@ -305,9 +301,10 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/
 
 **39 - `3.c.v.zi` - misc: settings, options, tracking, external: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 4 path(s), file `src/resources/misc.ts`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/misc.ts`:
 
 - `POST chat/authorizations` -> `com.bandlab.chat.objects.ChatWebSocketsUrl`
+- `GET experiment/beats-filters` -> `com.bandlab.beat.api.BeatsFilters`
 - `GET options` -> `(no shape)`
 - `GET social-links` -> `com.bandlab.social.links.api.api.SocialLink`
 - `POST tracking/v2/collect` -> `(no shape)`
@@ -444,7 +441,6 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 - `POST users/{id}/gear/{gearId}` -> `(no shape)`
 - `GET users/{id}/genres/preferred` -> `(no shape)`
 - `GET users/{id}/invites?types=band;song;community` -> `com.bandlab.invite.api.Invite`
-- `GET users/{id}/membership-plan` -> `com.bandlab.network.models.MembershipStatus`
 - `GET users/{id}/mutual-connections` -> `com.bandlab.user.models.User`
 - `GET users/{id}/mutual-connections/preview` -> `com.bandlab.user.models.User`
 - `PATCH users/{id}/notifications/invites` -> `(no shape)`
@@ -457,6 +453,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 - `GET users/{id}/profile/recommendations/artists` -> `com.bandlab.user.models.User`
 - `GET users/{id}/recent-activity` -> `com.bandlab.user.models.UserRecentActivity`
 - `GET users/{id}/recommended-collaborators` -> `com.bandlab.user.models.User`
+- `GET users/{id}/search/recommendations/artists` -> `com.bandlab.user.models.User`
 
 **54 - `3.e.ii.zo` - users: followers, invites, mutual-connections, pins: tests and records**
 
@@ -464,9 +461,8 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 
 **55 - `3.e.iii.zi` - users: settings, warnings, verified, two-factor: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src/resources/users.ts (extend)`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src/resources/users.ts (extend)`:
 
-- `GET users/{id}/search/recommendations/artists` -> `com.bandlab.user.models.User`
 - `GET users/{id}/top-track-posts` -> `com.bandlab.post.objects.Post`
 - `GET users/{userId}/albums` -> `com.bandlab.post.objects.Album`
 - `GET users/{userId}/artist-stats/{period}` -> `com.bandlab.artist.api.network.ArtistStat`
@@ -491,8 +487,9 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 
 **57 - `3.e.iv.zi` - library: likes, purchases, collections, recommendations: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 14 path(s), file `src/resources/library.ts`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/library.ts`:
 
+- `GET experiment/users/{userId}/purchases/beats` -> `com.bandlab.common.models.beat.Beat`
 - `GET users/{id}/likes/collections` -> `com.bandlab.playlist.api.PlaylistCollection`
 - `GET users/{id}/likes/posts` -> `com.bandlab.post.objects.Post`
 - `GET users/{id}/recommendations/follow-back/artists` -> `com.bandlab.user.models.User`
@@ -514,8 +511,9 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 14 path(s), file `src
 
 **59 - `3.e.v.zi` - feeds: for-you, following, featured, media, trending, explore: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 12 path(s), file `src/resources/feeds.ts`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 13 path(s), file `src/resources/feeds.ts`:
 
+- `GET experiment/feeds/communities/posts` -> `com.bandlab.post.objects.Post`
 - `GET explore/featured-bands` -> `com.bandlab.bandlab.data.network.objects.Band`
 - `GET explore/multipadsampler/sections` -> `com.bandlab.mixeditor.library.sampler.impl.service.SamplerKitDTO`
 - `GET explore/recommended-albums` -> `com.bandlab.post.objects.Album`
@@ -567,11 +565,13 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 3 path(s), file `src/
 
 **65 - `3.f.iii.zi` - membership: plan, coins, wallet, AI-token balance (read-only): implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 4 path(s), file `src/resources/membership.ts`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 6 path(s), file `src/resources/membership.ts`:
 
 - `GET coins/users/{userId}/ai-tokens/balance` -> `com.bandlab.song.starter.root.impl.tokens.TokensBalanceDTO`
+- `GET experiment/users/{id}/membership-status` -> `com.bandlab.network.models.MembershipStatusShort`
 - `GET membership/surveys/{id}` -> `com.bandlab.payments.membership.manage.cancellation.screen.service.SurveyQuestion`
 - `POST membership/surveys/{id}/answers` -> `(no shape)`
+- `GET users/{id}/membership-plan` -> `com.bandlab.network.models.MembershipStatus`
 - `GET wallet/users/{userId}/balances/ai-tokens` -> `com.bandlab.payments.ai.token.api.model.AiTokenBalance`
 
 **66 - `3.f.iii.zo` - membership: plan, coins, wallet, AI-token balance (read-only): tests and records**
@@ -595,17 +595,13 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 6 path(s), file `src/
 
 **69 - `3.f.v.zi` - authorizations: registration, assertion, logout, passkeys: implement**
 
-Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/resources/authorizations.ts (extend)`:
+Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/authorizations.ts (extend)`:
 
-- `POST assertion` -> `com.bandlab.auth.passkey.api.model.AssertionTokenResponse`
-- `POST assertion/options` -> `com.bandlab.auth.passkey.api.model.BeginAssertionResponse`
 - `GET authorization/two-factor-methods` -> `com.bandlab.auth.models.TwoFactorAuthEmailResponse`
 - `POST authorization/two-factor-requests/email` -> `com.bandlab.auth.models.TwoFactorSendCodeResponse`
 - `POST connect/token` -> `com.bandlab.auth.models.Session`
 - `GET external/token` -> `com.bandlab.auth.models.NonceToken`
 - `POST logout` -> `(no shape)`
-- `POST registration` -> `(no shape)`
-- `POST registration/options` -> `com.bandlab.auth.passkey.api.model.BeginRegistrationResponse`
 
 **70 - `3.f.v.zo` - authorizations: registration, assertion, logout, passkeys: tests and records**
 
@@ -685,7 +681,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 16 path(s), file `src
 - `GET beats/promo-carousels/{promoCampaignId}` -> `com.bandlab.common.models.beat.Beat`
 - `GET beats/promo-header-beats` -> `com.bandlab.common.models.beat.Beat`
 - `POST beats/{beatId}/free-claims` -> `(no shape)`
-- `GET categories` -> `com.bandlab.tools.voice.trainer.screen.frame.data.VoiceTrainerExercisesDto`
+- `GET experiment/beats/{beatId}` -> `com.bandlab.common.models.beat.Beat`
 - `GET users/{userId}/beats/daily-free-quota` -> `com.bandlab.beat.api.quota.FreeBeatsQuota`
 - `PUT users/{userId}/beats/played/{beatId}` -> `(no shape)`
 - `GET users/{userId}/beats/preferences` -> `com.bandlab.beat.api.UserPreferences`
