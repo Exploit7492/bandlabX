@@ -100,10 +100,13 @@ import {
   UnSavedPreset,
 } from './resources/effects';
 import { Feedback, FeedbackCreateParams } from './resources/feedback';
+import { Feeds } from './resources/feeds';
 import { Genre, GenreListResponse, Genres } from './resources/genres';
 import { ImageCreatePostParams, Images } from './resources/images';
 import { InviteBatch, InviteSendParams, Invites } from './resources/invites';
 import { LabelListResponse, Labels } from './resources/labels';
+import { Library } from './resources/library';
+import { Messaging } from './resources/messaging/messaging';
 import {
   Login,
   LoginCreateParams,
@@ -112,7 +115,21 @@ import {
   Logins,
   ProviderType139,
 } from './resources/logins';
-import { GeoCoordinate, Location, Me, MeUpdateParams, Picture, Profile, UserCounters } from './resources/me';
+import {
+  ActivityStatus,
+  BlVerifiedResponse,
+  FirstTimeUXFlags,
+  GeoCoordinate,
+  Location,
+  Me,
+  MeUpdateParams,
+  MeUpdateWarningParams,
+  Picture,
+  Profile,
+  ProfileIncognitoStatusResponse,
+  UserCounters,
+  UserWarnings,
+} from './resources/me';
 import {
   BeatsFilters,
   ChatWebSocketsUrl,
@@ -1053,6 +1070,9 @@ export class BandlabSDK {
   aiVideos: API.AIVideos = new API.AIVideos(this);
   syncedLyrics: API.SyncedLyrics = new API.SyncedLyrics(this);
   misc: API.Misc = new API.Misc(this);
+  messaging: API.Messaging = new API.Messaging(this);
+  library: API.Library = new API.Library(this);
+  feeds: API.Feeds = new API.Feeds(this);
 }
 
 BandlabSDK.Validation = Validation;
@@ -1091,6 +1111,9 @@ BandlabSDK.AI = AI;
 BandlabSDK.AIVideos = AIVideos;
 BandlabSDK.SyncedLyrics = SyncedLyrics;
 BandlabSDK.Misc = Misc;
+BandlabSDK.Messaging = Messaging;
+BandlabSDK.Library = Library;
+BandlabSDK.Feeds = Feeds;
 
 export declare namespace BandlabSDK {
   export type RequestOptions = Opts.RequestOptions;
@@ -1273,6 +1296,12 @@ export declare namespace BandlabSDK {
     type Profile as Profile,
     type UserCounters as UserCounters,
     type MeUpdateParams as MeUpdateParams,
+    type FirstTimeUXFlags as FirstTimeUXFlags,
+    type ActivityStatus as ActivityStatus,
+    type ProfileIncognitoStatusResponse as ProfileIncognitoStatusResponse,
+    type UserWarnings as UserWarnings,
+    type BlVerifiedResponse as BlVerifiedResponse,
+    type MeUpdateWarningParams as MeUpdateWarningParams,
   };
 
   export {
@@ -1436,4 +1465,6 @@ export declare namespace BandlabSDK {
   export type RevisionSummary = API.RevisionSummary;
   export type VideoSample = API.VideoSample;
   export type VideoSampleCounters = API.VideoSampleCounters;
+
+  export { Messaging as Messaging, Library as Library, Feeds as Feeds };
 }

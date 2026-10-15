@@ -13,41 +13,41 @@ Phase 3 leaf specs below are generated from `docs/handover/RESOURCE-DESIGN.md` a
 
 ### 1.a Baseline and tooling
 
-**1 - `1.a.i.zi` - Record the build baseline** *(DONE)*
+**1 - `1.a.i.zi` - Record the build baseline** _(DONE)_
 
-**2 - `1.a.i.zo` - Record which tests need the mock or the network** *(DONE)*
+**2 - `1.a.i.zo` - Record which tests need the mock or the network** _(DONE)_
 
-**3 - `1.a.ii.zi` - `scripts/utils/coverage-report.cjs`** *(DONE)*
+**3 - `1.a.ii.zi` - `scripts/utils/coverage-report.cjs`** _(DONE)_
 
-**4 - `1.a.ii.zo` - Generate `docs/endpoint-status.md`** *(DONE)*
+**4 - `1.a.ii.zo` - Generate `docs/endpoint-status.md`** _(DONE)_
 
 ---
 
 ## Phase 2 - Evidence for the missing endpoints
 
-**5 - `2.a.i.zi` - Capture guide** *(DONE)*
+**5 - `2.a.i.zi` - Capture guide** _(DONE)_
 
-**6 - `2.a.i.zo` - Evidence hand-back format** *(DONE)*
+**6 - `2.a.i.zo` - Evidence hand-back format** _(DONE)_
 
-**7 - `2.a.ii.zi` - `scripts/research/scrub-har.py`** *(DONE)*
+**7 - `2.a.ii.zi` - `scripts/research/scrub-har.py`** _(DONE)_
 
-**8 - `2.a.ii.zo` - `scripts/research/har-to-endpoints.py`** *(DONE)*
+**8 - `2.a.ii.zo` - `scripts/research/har-to-endpoints.py`** _(DONE)_
 
-**9 - `2.b.i.zi` - Record the bundle evidence; P0 answered** *(DONE)*
+**9 - `2.b.i.zi` - Record the bundle evidence; P0 answered** _(DONE)_
 
-**10 - `2.b.i.zo` - Record the final resource design** *(DONE)*
+**10 - `2.b.i.zo` - Record the final resource design** _(DONE)_
 
 Evidence: `docs/research/APK-EVIDENCE.md` (344 BandLab paths, 344 verbs, 265 shapes, 35 resources; 9 third-party paths excluded by host).
 Design: `docs/handover/RESOURCE-DESIGN.md`. M raised 73 -> 101. Next leaf: `3.a.i.zi`.
 
 ### Phase 3 progress
 
-| Leaf | Domain | Status |
-|---|---|---|
-| `3.a.i.zi` | songs: forks, invite-link, invites, posts | DONE |
-| `3.a.i.zo` | songs: tests and records | DONE (landed with `zi`) |
-| `3.a.ii.zi` | revisions: breakdown, mixdown, download-options, forks | DONE |
-| `3.a.ii.zo` | revisions: tests and records | DONE (landed with `zi`) |
+| Leaf                               | Domain                                                                                          | Status                                       |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| `3.a.i.zi`                         | songs: forks, invite-link, invites, posts                                                       | DONE                                         |
+| `3.a.i.zo`                         | songs: tests and records                                                                        | DONE (landed with `zi`)                      |
+| `3.a.ii.zi`                        | revisions: breakdown, mixdown, download-options, forks                                          | DONE                                         |
+| `3.a.ii.zo`                        | revisions: tests and records                                                                    | DONE (landed with `zi`)                      |
 | `3.a.iii` – `3.c.v` (leaves 15–40) | tracks, bands, albums, effects, sounds, uploads, soundbanks, ai, ai-videos, synced-lyrics, misc | DONE (bulk pass, owner directive 2026-10-15) |
 
 ---
@@ -61,11 +61,11 @@ sub-phase is open; the push happens once, at the end of the sub-phase.
 
 Leaf IDs and ordering are unchanged; the sub-phases only group them.
 
-| Sub-phase | Name | Leaves | Domains | Endpoints | Leaves' range |
-|---|---|---|---|---|---|
-| **3.1** | Core API: music, audio, AI | 30 | `3.a` songs/revisions/tracks/bands/albums, `3.b` effects/sounds/uploads/soundbanks, `3.c` AI/ai-videos/synced-lyrics/misc | 125 | 11–40 |
-| **3.2** | Social and users | 20 | `3.d` messaging/communities/posts/images, `3.e` users/library/feeds | 128 | 41–60 |
-| **3.3** | Account, utility, commerce | 30 | `3.f` me/streaks/membership/payments/authorizations, `3.g` search/validation/passwords/collections/genres, `3.h` beats/distribution/promotion/pages/videos | 91 | 61–90 |
+| Sub-phase | Name                       | Leaves | Domains                                                                                                                                                    | Endpoints | Leaves' range |
+| --------- | -------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |
+| **3.1**   | Core API: music, audio, AI | 30     | `3.a` songs/revisions/tracks/bands/albums, `3.b` effects/sounds/uploads/soundbanks, `3.c` AI/ai-videos/synced-lyrics/misc                                  | 125       | 11–40         |
+| **3.2**   | Social and users           | 20     | `3.d` messaging/communities/posts/images, `3.e` users/library/feeds                                                                                        | 128       | 41–60         |
+| **3.3**   | Account, utility, commerce | 30     | `3.f` me/streaks/membership/payments/authorizations, `3.g` search/validation/passwords/collections/genres, `3.h` beats/distribution/promotion/pages/videos | 91        | 61–90         |
 
 **Gate status: 3.1 is CLOSED.** Leaves 11–40 are all DONE. Sub-phase 3.2 (leaves 41–60) is next;
 `main` carries 3.1 at the sub-phase boundary and is pushed before 3.2 work starts.
@@ -79,7 +79,7 @@ and the `COVERAGE.md` rows. Home per `ARCHITECTURE.md`; existing files are not m
 
 ### 3.a.i - songs: list, create, invite-link, collaborators
 
-**11 - `3.a.i.zi` - songs: list, create, invite-link, collaborators: implement** *(DONE)*
+**11 - `3.a.i.zi` - songs: list, create, invite-link, collaborators: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/songs/ (extend)`:
 
@@ -89,7 +89,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 - `GET songs/{id}/invites?accepted=false` -> `com.bandlab.invite.api.Invite`
 - `GET songs/{id}/posts` -> `com.bandlab.post.objects.Post`
 
-**12 - `3.a.i.zo` - songs: list, create, invite-link, collaborators: tests and records** *(DONE)*
+**12 - `3.a.i.zo` - songs: list, create, invite-link, collaborators: tests and records** _(DONE)_
 
 Implemented in `3.a.i.zi` (both halves landed together, since the path fix needed a test in the same
 change). Outcome: `songs.forks`, `songs.retrieveInviteLink` added; `songs.invites.listInvites` typed
@@ -100,7 +100,7 @@ Next leaf: `3.a.ii.zi`.
 
 ### 3.a.ii - revisions: breakdown, mixdown, download-options, forks
 
-**13 - `3.a.ii.zi` - revisions: breakdown, mixdown, download-options, forks: implement** *(DONE)*
+**13 - `3.a.ii.zi` - revisions: breakdown, mixdown, download-options, forks: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/resources/revisions.ts (extend)`:
 
@@ -114,7 +114,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/
 - `GET revisions/{id}/track-videos/posts` -> `com.bandlab.post.objects.Post`
 - `GET revisions/{id}?format=m4a` -> `com.bandlab.audio.downloader.api.SampleUri`
 
-**14 - `3.a.ii.zo` - revisions: breakdown, mixdown, download-options, forks: tests and records** *(DONE)*
+**14 - `3.a.ii.zo` - revisions: breakdown, mixdown, download-options, forks: tests and records** _(DONE)_
 
 Implemented in `3.a.ii.zi` (both halves landed together, since the `/revisions/{id}` collision needed
 its test in the same change). Outcome: 9 methods added to `src/resources/revisions.ts` — `retrieveArtist`,
@@ -125,18 +125,18 @@ Next leaf: `3.a.iii.zi`.
 
 ### 3.a.iii - tracks
 
-**15 - `3.a.iii.zi` - tracks: implement** *(DONE)*
+**15 - `3.a.iii.zi` - tracks: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/resources/tracks.ts`:
 
 - `GET tracks/{id}/artist` -> `com.bandlab.common.models.Artist`
 - `GET tracks/{id}?format=m4a` -> `com.bandlab.audio.downloader.api.SampleUri`
 
-**16 - `3.a.iii.zo` - tracks: tests and records** *(DONE)*
+**16 - `3.a.iii.zo` - tracks: tests and records** _(DONE)_
 
 ### 3.a.iv - bands: members, invites, follow-invitees, suggestions
 
-**17 - `3.a.iv.zi` - bands: members, invites, follow-invitees, suggestions: implement** *(DONE)*
+**17 - `3.a.iv.zi` - bands: members, invites, follow-invitees, suggestions: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 7 path(s), file `src/resources/bands/ (extend)`:
 
@@ -148,11 +148,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 7 path(s), file `src/
 - `GET bands/{id}/invites?accepted=false` -> `com.bandlab.invite.api.Invite`
 - `GET bands/{id}/videos/posts` -> `com.bandlab.post.objects.Post`
 
-**18 - `3.a.iv.zo` - bands: members, invites, follow-invitees, suggestions: tests and records** *(DONE)*
+**18 - `3.a.iv.zo` - bands: members, invites, follow-invitees, suggestions: tests and records** _(DONE)_
 
 ### 3.a.v - albums: themes, likes, comments, posts, state, pictures
 
-**19 - `3.a.v.zi` - albums: themes, likes, comments, posts, state, pictures: implement** *(DONE)*
+**19 - `3.a.v.zi` - albums: themes, likes, comments, posts, state, pictures: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/albums.ts`:
 
@@ -172,11 +172,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `POST albums/{id}/comments/{commentId}/likes/users/{userId}` -> `(no shape)`
 - `GET artists` -> `com.bandlab.user.models.InspiredArtist`
 
-**20 - `3.a.v.zo` - albums: themes, likes, comments, posts, state, pictures: tests and records** *(DONE)*
+**20 - `3.a.v.zo` - albums: themes, likes, comments, posts, state, pictures: tests and records** _(DONE)_
 
 ### 3.b.i - effects: presets, favourites, trending, promo, artist presets
 
-**21 - `3.b.i.zi` - effects: presets, favourites, trending, promo, artist presets: implement** *(DONE)*
+**21 - `3.b.i.zi` - effects: presets, favourites, trending, promo, artist presets: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 10 path(s), file `src/resources/effects.ts`:
 
@@ -191,11 +191,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 10 path(s), file `src
 - `POST users/{userId}/favorite-effect-presets-ids/{presetId}` -> `(no shape)`
 - `GET users/{userId}/trending-effect-presets` -> `com.bandlab.mixeditor.presets.effects.domain.api.preset.RemotePreset`
 
-**22 - `3.b.i.zo` - effects: presets, favourites, trending, promo, artist presets: tests and records** *(DONE)*
+**22 - `3.b.i.zo` - effects: presets, favourites, trending, promo, artist presets: tests and records** _(DONE)_
 
 ### 3.b.ii - sounds: samples, packs, libraries, credits
 
-**23 - `3.b.ii.zi` - sounds: samples, packs, libraries, credits: implement** *(DONE)*
+**23 - `3.b.ii.zi` - sounds: samples, packs, libraries, credits: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/sounds/`:
 
@@ -215,11 +215,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `GET users/{userId}/claims/samples/ids` -> `com.bandlab.sounds.credits.impl.service.ClaimedSampleIdsResponse`
 - `PUT users/{userId}/claims/samples/{sampleId}` -> `com.bandlab.sounds.credits.impl.service.CreditsResponse`
 
-**24 - `3.b.ii.zo` - sounds: samples, packs, libraries, credits: tests and records** *(DONE)*
+**24 - `3.b.ii.zo` - sounds: samples, packs, libraries, credits: tests and records** _(DONE)_
 
 ### 3.b.iii - sounds: claims, uploads, sampler-kits, stamps
 
-**25 - `3.b.iii.zi` - sounds: claims, uploads, sampler-kits, stamps: implement** *(DONE)*
+**25 - `3.b.iii.zi` - sounds: claims, uploads, sampler-kits, stamps: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/sounds/`:
 
@@ -239,11 +239,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `GET v3/native` -> `com.bandlab.boost.api.NativeAds`
 - `GET v3/video` -> `(no shape)`
 
-**26 - `3.b.iii.zo` - sounds: claims, uploads, sampler-kits, stamps: tests and records** *(DONE)*
+**26 - `3.b.iii.zo` - sounds: claims, uploads, sampler-kits, stamps: tests and records** _(DONE)_
 
 ### 3.b.iv - uploads v2.0: create, part, complete
 
-**27 - `3.b.iv.zi` - uploads v2.0: create, part, complete: implement** *(DONE)*
+**27 - `3.b.iv.zi` - uploads v2.0: create, part, complete: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 4 path(s), file `src/resources/uploads.ts`:
 
@@ -252,21 +252,21 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 4 path(s), file `src/
 - `POST uploads/videos` -> `com.bandlab.video.uploader.api.FileUploadSession`
 - `PUT uploads/videos/{uploadId}` -> `com.bandlab.video.uploader.impl.UploadMedia`
 
-**28 - `3.b.iv.zo` - uploads v2.0: create, part, complete: tests and records** *(DONE)*
+**28 - `3.b.iv.zo` - uploads v2.0: create, part, complete: tests and records** _(DONE)_
 
 ### 3.b.v - soundbanks v4.3 and metronome v3.0
 
-**29 - `3.b.v.zi` - soundbanks v4.3 and metronome v3.0: implement** *(DONE)*
+**29 - `3.b.v.zi` - soundbanks v4.3 and metronome v3.0: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 1 path(s), file `src/resources/soundbanks.ts`:
 
 - `GET soundbanks` -> `com.bandlab.soundbanks.manager.SoundBanksLibrary`
 
-**30 - `3.b.v.zo` - soundbanks v4.3 and metronome v3.0: tests and records** *(DONE)*
+**30 - `3.b.v.zo` - soundbanks v4.3 and metronome v3.0: tests and records** _(DONE)_
 
 ### 3.c.i - AI: separation, transfer, task, model, presets
 
-**31 - `3.c.i.zi` - AI: separation, transfer, task, model, presets: implement** *(DONE)*
+**31 - `3.c.i.zi` - AI: separation, transfer, task, model, presets: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/ai/`:
 
@@ -286,11 +286,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `GET v1/displayed_genres` -> `com.bandlab.song.starter.domain.impl.GenreResponseModel`
 - `GET v1/genres` -> `com.bandlab.audio.controller.autoMix.AutoMixGenresDto`
 
-**32 - `3.c.i.zo` - AI: separation, transfer, task, model, presets: tests and records** *(DONE)*
+**32 - `3.c.i.zo` - AI: separation, transfer, task, model, presets: tests and records** _(DONE)_
 
 ### 3.c.ii - AI: remix, autocomplete, captcha, genres, ideas
 
-**33 - `3.c.ii.zi` - AI: remix, autocomplete, captcha, genres, ideas: implement** *(DONE)*
+**33 - `3.c.ii.zi` - AI: remix, autocomplete, captcha, genres, ideas: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/ai/`:
 
@@ -310,11 +310,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 - `GET v2/models` -> `com.bandlab.song.starter.root.impl.GetModelsDTO`
 - `GET v2/report/bandlab_user/{id}` -> `(no shape)`
 
-**34 - `3.c.ii.zo` - AI: remix, autocomplete, captcha, genres, ideas: tests and records** *(DONE)*
+**34 - `3.c.ii.zo` - AI: remix, autocomplete, captcha, genres, ideas: tests and records** _(DONE)_
 
 ### 3.c.iii - ai-videos: jobs, styles, generate, tokens
 
-**35 - `3.c.iii.zi` - ai-videos: jobs, styles, generate, tokens: implement** *(DONE)*
+**35 - `3.c.iii.zi` - ai-videos: jobs, styles, generate, tokens: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/ai-videos.ts`:
 
@@ -324,22 +324,22 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 - `GET ai-videos/styles` -> `com.bandlab.ai.video.api.model.VisualStyleListResult`
 - `GET ai-videos/updates` -> `com.bandlab.ai.video.api.model.VideoGenerationUnseenUpdates`
 
-**36 - `3.c.iii.zo` - ai-videos: jobs, styles, generate, tokens: tests and records** *(DONE)*
+**36 - `3.c.iii.zo` - ai-videos: jobs, styles, generate, tokens: tests and records** _(DONE)_
 
 ### 3.c.iv - synced lyrics
 
-**37 - `3.c.iv.zi` - synced lyrics: implement** *(DONE)*
+**37 - `3.c.iv.zi` - synced lyrics: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/resources/synced-lyrics.ts`:
 
 - `GET synced-lyrics/ai-tokens/price` -> `com.bandlab.videomixer.lyric.api.SyncedLyricPrice`
 - `GET synced-lyrics/{postId}` -> `com.bandlab.videomixer.lyric.api.SyncedLyricResponse`
 
-**38 - `3.c.iv.zo` - synced lyrics: tests and records** *(DONE)*
+**38 - `3.c.iv.zo` - synced lyrics: tests and records** _(DONE)_
 
 ### 3.c.v - misc: settings, options, tracking, external
 
-**39 - `3.c.v.zi` - misc: settings, options, tracking, external: implement** *(DONE)*
+**39 - `3.c.v.zi` - misc: settings, options, tracking, external: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/misc.ts`:
 
@@ -349,11 +349,11 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 - `GET social-links` -> `com.bandlab.social.links.api.api.SocialLink`
 - `POST tracking/v2/collect` -> `(no shape)`
 
-**40 - `3.c.v.zo` - misc: settings, options, tracking, external: tests and records** *(DONE)*
+**40 - `3.c.v.zo` - misc: settings, options, tracking, external: tests and records** _(DONE)_
 
 ### 3.d.i - messaging: conversations, messages, receipts
 
-**41 - `3.d.i.zi` - messaging: conversations, messages, receipts: implement**
+**41 - `3.d.i.zi` - messaging: conversations, messages, receipts: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 10 path(s), file `src/resources/messaging/`:
 
@@ -372,7 +372,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 10 path(s), file `src
 
 ### 3.d.ii - messaging: reactions, chat channels, read receipts
 
-**43 - `3.d.ii.zi` - messaging: reactions, chat channels, read receipts: implement**
+**43 - `3.d.ii.zi` - messaging: reactions, chat channels, read receipts: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/resources/messaging/`:
 
@@ -390,7 +390,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 9 path(s), file `src/
 
 ### 3.d.iii - communities: rules, active, invites
 
-**45 - `3.d.iii.zi` - communities: rules, active, invites: implement**
+**45 - `3.d.iii.zi` - communities: rules, active, invites: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/communities/ (extend)`:
 
@@ -404,7 +404,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 
 ### 3.d.iv - posts: create, plays, polls, track-posts, mentions
 
-**47 - `3.d.iv.zi` - posts: create, plays, polls, track-posts, mentions: implement**
+**47 - `3.d.iv.zi` - posts: create, plays, polls, track-posts, mentions: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 11 path(s), file `src/resources/posts/ (extend)`:
 
@@ -424,7 +424,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 11 path(s), file `src
 
 ### 3.d.v - images: upload and variants
 
-**49 - `3.d.v.zi` - images: upload and variants: implement**
+**49 - `3.d.v.zi` - images: upload and variants: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 12 path(s), file `src/resources/images.ts (extend)`:
 
@@ -445,7 +445,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 12 path(s), file `src
 
 ### 3.e.i - users: profile, pictures, views, gear
 
-**51 - `3.e.i.zi` - users: profile, pictures, views, gear: implement**
+**51 - `3.e.i.zi` - users: profile, pictures, views, gear: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src/resources/users.ts (extend)`:
 
@@ -472,7 +472,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 
 ### 3.e.ii - users: followers, invites, mutual-connections, pins
 
-**53 - `3.e.ii.zi` - users: followers, invites, mutual-connections, pins: implement**
+**53 - `3.e.ii.zi` - users: followers, invites, mutual-connections, pins: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src/resources/users.ts (extend)`:
 
@@ -499,7 +499,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 18 path(s), file `src
 
 ### 3.e.iii - users: settings, warnings, verified, two-factor
 
-**55 - `3.e.iii.zi` - users: settings, warnings, verified, two-factor: implement**
+**55 - `3.e.iii.zi` - users: settings, warnings, verified, two-factor: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src/resources/users.ts (extend)`:
 
@@ -525,7 +525,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 17 path(s), file `src
 
 ### 3.e.iv - library: likes, purchases, collections, recommendations
 
-**57 - `3.e.iv.zi` - library: likes, purchases, collections, recommendations: implement**
+**57 - `3.e.iv.zi` - library: likes, purchases, collections, recommendations: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src/resources/library.ts`:
 
@@ -549,7 +549,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 15 path(s), file `src
 
 ### 3.e.v - feeds: for-you, following, featured, media, trending, explore
 
-**59 - `3.e.v.zi` - feeds: for-you, following, featured, media, trending, explore: implement**
+**59 - `3.e.v.zi` - feeds: for-you, following, featured, media, trending, explore: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 13 path(s), file `src/resources/feeds.ts`:
 
@@ -571,7 +571,7 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 13 path(s), file `src
 
 ### 3.f.i - me: activity status, privacy, marketing consent, parental consent
 
-**61 - `3.f.i.zi` - me: activity status, privacy, marketing consent, parental consent: implement**
+**61 - `3.f.i.zi` - me: activity status, privacy, marketing consent, parental consent: implement** _(DONE)_
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 11 path(s), file `src/resources/me.ts (extend)`:
 
@@ -823,4 +823,4 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/
 
 **100 - `5.b.i.zo` - Owner steps document**
 
-**101 - `5.b.ii.zi` - Owner confirms the first CI run published the image** *(owner's leaf)*
+**101 - `5.b.ii.zi` - Owner confirms the first CI run published the image** _(owner's leaf)_

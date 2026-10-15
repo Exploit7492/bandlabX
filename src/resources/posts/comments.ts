@@ -37,6 +37,36 @@ export class Comments extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Returns the users who liked a comment
+   *
+   * Evidence: `apk` — `CommentsLikesService`,
+   * `GET posts/{postId}/comments/{commentId}/likes/users`. Response typed from
+   * `com.bandlab.user.models.User`.
+   */
+  listLikesUsers(
+    commentID: string,
+    params: CommentListLikesUsersParams,
+    options?: RequestOptions,
+  ): APIPromise<UserList> {
+    const { postId, ...query } = params;
+    return this._client.get(path`/posts/${postId}/comments/${commentID}/likes/users`, { query, ...options });
+  }
+
+  /**
+   * Adds a user's like to a comment
+   *
+   * Evidence: `apk` — `PostCommentsService`,
+   * `POST posts/{id}/comments/{commentId}/likes/users/{userId}`.
+   */
+  addLike(userID: string, params: CommentAddLikeParams, options?: RequestOptions): APIPromise<void> {
+    const { postId, commentId } = params;
+    return this._client.post(path`/posts/${postId}/comments/${commentId}/likes/users/${userID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export interface Comment {
@@ -86,6 +116,33 @@ export interface CommentDeleteParams {
   postId: string;
 }
 
+/**
+ * Evidence: `apk` — paged wrapper around `com.bandlab.user.models.User`.
+ */
+export interface UserList {
+  data?: Array<unknown>;
+
+  paging?: FollowersAPI.Paging;
+}
+
+export interface CommentListLikesUsersParams {
+  postId: string;
+
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface CommentAddLikeParams {
+  postId: string;
+
+  commentId: string;
+}
+
 export declare namespace Comments {
   export {
     type Comment as Comment,
@@ -93,5 +150,8 @@ export declare namespace Comments {
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
     type CommentDeleteParams as CommentDeleteParams,
+    type UserList as UserList,
+    type CommentListLikesUsersParams as CommentListLikesUsersParams,
+    type CommentAddLikeParams as CommentAddLikeParams,
   };
 }

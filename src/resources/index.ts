@@ -139,6 +139,12 @@ export {
   type Profile,
   type UserCounters,
   type MeUpdateParams,
+  type FirstTimeUXFlags,
+  type ActivityStatus,
+  type ProfileIncognitoStatusResponse,
+  type UserWarnings,
+  type BlVerifiedResponse,
+  type MeUpdateWarningParams,
 } from './me';
 export {
   Misc,
@@ -287,3 +293,6 @@ export {
   type VersionValidateParams,
 } from './versions';
 export { Videos, type VideoCreatePostParams } from './videos';
+export * from './messaging/index';
+export { Library } from './library';
+export { Feeds } from './feeds';

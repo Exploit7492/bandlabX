@@ -15,6 +15,7 @@ import {
 } from './members';
 import * as PostsAPI from './posts';
 import { PostCreateParams, PostListParams, Posts } from './posts';
+import * as FollowersAPI from '../users/followers';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -80,6 +81,42 @@ export class Communities extends APIResource {
    */
   delete(communityID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/communities/${communityID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Returns the trending communities
+   *
+   * Evidence: `apk` — `CommunitiesService`, `GET communities/trending`. Response typed from
+   * `com.bandlab.community.api.Community`.
+   */
+  listTrending(
+    query: CommunityListTrendingParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CommunityList> {
+    return this._client.get('/communities/trending', { query, ...options });
+  }
+
+  /**
+   * Returns a community's rules
+   *
+   * Evidence: `apk` — `CommunityRulesService`, `GET communities/{communityId}/rules`. Response
+   * typed from `com.bandlab.communities.objects.CommunityRules`.
+   */
+  listRules(communityID: string, options?: RequestOptions): APIPromise<CommunityRules> {
+    return this._client.get(path`/communities/${communityID}/rules`, options);
+  }
+
+  /**
+   * Pins a post to a community
+   *
+   * Evidence: `apk` — `PinnedPostsService`, `POST communities/{communityId}/pins/posts/{postId}`.
+   */
+  pinPost(postID: string, params: CommunityPinPostParams, options?: RequestOptions): APIPromise<void> {
+    const { communityId } = params;
+    return this._client.post(path`/communities/${communityId}/pins/posts/${postID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -164,6 +201,36 @@ export interface CommunityUpdateParams {
   username?: string;
 }
 
+/**
+ * Evidence: `apk` — paged wrapper around `com.bandlab.community.api.Community`.
+ */
+export interface CommunityList {
+  data?: Array<Community>;
+
+  paging?: FollowersAPI.Paging;
+}
+
+/**
+ * Evidence: `apk` — `com.bandlab.communities.objects.CommunityRules`.
+ */
+export interface CommunityRules {
+  rules?: Array<unknown>;
+}
+
+export interface CommunityListTrendingParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface CommunityPinPostParams {
+  communityId: string;
+}
+
 Communities.Members = Members;
 Communities.Posts = Posts;
 Communities.Invites = Invites;
@@ -172,6 +239,10 @@ export declare namespace Communities {
   export {
     type Community as Community,
     type CommunityCounters as CommunityCounters,
+    type CommunityList as CommunityList,
+    type CommunityRules as CommunityRules,
+    type CommunityListTrendingParams as CommunityListTrendingParams,
+    type CommunityPinPostParams as CommunityPinPostParams,
     type Type as Type,
     type CommunityCreateParams as CommunityCreateParams,
     type CommunityUpdateParams as CommunityUpdateParams,

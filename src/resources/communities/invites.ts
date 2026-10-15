@@ -11,31 +11,25 @@ export class Invites extends APIResource {
   /**
    * Returns a list of invites
    *
-   * @example
-   * ```ts
-   * const inviteList = await client.communities.invites.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
+   * Evidence: `apk` — `CommunitiesService`, `GET communities/{id}/invites`. The SDK called the
+   * singular `/community/...` route, which the server does not serve.
    */
   list(
     communityID: string,
     query: InviteListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<UsersInvitesAPI.InviteList> {
-    return this._client.get(path`/community/${communityID}/invites`, { query, ...options });
+    return this._client.get(path`/communities/${communityID}/invites`, { query, ...options });
   }
 
   /**
    * Send invites
    *
-   * @example
-   * ```ts
-   * await client.communities.invites.send('communityId');
-   * ```
+   * Evidence: `apk` — `POST communities/{communityId}/invites`. The SDK called the singular
+   * `/community/...` route, which the server does not serve.
    */
   send(communityID: string, body: InviteSendParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/community/${communityID}/invites`, {
+    return this._client.post(path`/communities/${communityID}/invites`, {
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),

@@ -14,33 +14,27 @@ export class Posts extends APIResource {
   /**
    * Create a text post
    *
-   * @example
-   * ```ts
-   * const post = await client.communities.posts.create(
-   *   'communityId',
-   * );
-   * ```
+   * Evidence: `apk` — `WritePostService`, `POST communities/{communityId}/posts`. The SDK called
+   * the singular `/community/...` route, which the server does not serve: a probe returns the
+   * framework 404 page for `/community/...` while `/communities/...` binds `CommunityId`
+   * (`400 The value '...' is not valid for CommunityId`).
    */
   create(communityID: string, body: PostCreateParams, options?: RequestOptions): APIPromise<PostsAPI.Post> {
-    return this._client.post(path`/community/${communityID}/posts`, { body, ...options });
+    return this._client.post(path`/communities/${communityID}/posts`, { body, ...options });
   }
 
   /**
    * Returns a list of posts
    *
-   * @example
-   * ```ts
-   * const postList = await client.communities.posts.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
+   * Evidence: `apk` — `GET communities/{communityId}/posts`. The SDK called the singular
+   * `/community/...` route, which the server does not serve.
    */
   list(
     communityID: string,
     query: PostListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PostsPostsAPI.PostList> {
-    return this._client.get(path`/community/${communityID}/posts`, { query, ...options });
+    return this._client.get(path`/communities/${communityID}/posts`, { query, ...options });
   }
 }
 

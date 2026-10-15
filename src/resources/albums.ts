@@ -283,6 +283,15 @@ export namespace AlbumTheme {
 }
 
 /**
+ * Evidence: `apk` — paged wrapper around `com.bandlab.post.objects.Album`.
+ */
+export interface AlbumList {
+  data?: Array<Album>;
+
+  paging?: unknown;
+}
+
+/**
  * Evidence: `apk` — `com.bandlab.comment.model.Comment`.
  */
 export interface AlbumComment {
@@ -418,6 +427,7 @@ export declare namespace Albums {
     type AlbumComment as AlbumComment,
     type AlbumCommentList as AlbumCommentList,
     type AlbumCounters as AlbumCounters,
+    type AlbumList as AlbumList,
     type AlbumListArtistsParams as AlbumListArtistsParams,
     type AlbumListCommentLikesUsersParams as AlbumListCommentLikesUsersParams,
     type AlbumListCommentsParams as AlbumListCommentsParams,
