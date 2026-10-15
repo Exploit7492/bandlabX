@@ -40,6 +40,14 @@ Phase 3 leaf specs below are generated from `docs/handover/RESOURCE-DESIGN.md` a
 Evidence: `docs/research/APK-EVIDENCE.md` (344 BandLab paths, 344 verbs, 265 shapes, 35 resources; 9 third-party paths excluded by host).
 Design: `docs/handover/RESOURCE-DESIGN.md`. M raised 73 -> 101. Next leaf: `3.a.i.zi`.
 
+### Phase 3 progress
+
+| Leaf | Domain | Status |
+|---|---|---|
+| `3.a.i.zi` | songs: forks, invite-link, invites, posts | DONE |
+| `3.a.i.zo` | songs: tests and records | DONE (landed with `zi`) |
+| `3.a.ii.zi` | revisions: breakdown, mixdown, download-options, forks | NEXT |
+
 ---
 
 ## Phase 3 - Implementation by domain
@@ -53,7 +61,7 @@ and the `COVERAGE.md` rows. Home per `ARCHITECTURE.md`; existing files are not m
 
 ### 3.a.i - songs: list, create, invite-link, collaborators
 
-**11 - `3.a.i.zi` - songs: list, create, invite-link, collaborators: implement**
+**11 - `3.a.i.zi` - songs: list, create, invite-link, collaborators: implement** *(DONE)*
 
 Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/resources/songs/ (extend)`:
 
@@ -64,6 +72,13 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 5 path(s), file `src/
 - `GET songs/{id}/posts` -> `com.bandlab.post.objects.Post`
 
 **12 - `3.a.i.zo` - songs: list, create, invite-link, collaborators: tests and records**
+
+Implemented in `3.a.i.zi` (both halves landed together, since the path fix needed a test in the same
+change). Outcome: `songs.forks`, `songs.retrieveInviteLink` added; `songs.invites.listInvites` typed
+with `Invite`/`InviteListResponse`; `listPosts` and both `invites` methods moved from the singular
+`/song/...` route to the evidenced `/songs/...` route. See `sessions/3.a.i.zi.md`.
+`docs/endpoint-status.md` and `COVERAGE.md` rows for this domain are updated.
+Next leaf: `3.a.ii.zi`.
 
 ### 3.a.ii - revisions: breakdown, mixdown, download-options, forks
 

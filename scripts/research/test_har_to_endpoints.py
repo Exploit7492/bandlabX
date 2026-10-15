@@ -113,7 +113,9 @@ class PathTest(unittest.TestCase):
 
     def test_sdk_table_matches_endpoint_status(self):
         table = ex.load_sdk_table(STATUS)
-        self.assertEqual(len(table), 123)
+        # 123 at the pre-Phase-3 baseline; +2 from leaf 3.a.i.zi (songs.forks,
+        # songs.retrieveInviteLink). Bump this when a leaf adds a row to endpoint-status.md.
+        self.assertEqual(len(table), 125)
         self.assertEqual(table[ex.normalise("get", "/users/{id}/followers")], "client.users.followers.list()")
         self.assertEqual(table[ex.normalise("PUT", "/passwords")], "client.passwords.change()")
         self.assertNotIn(ex.normalise("get", "/messages"), table)

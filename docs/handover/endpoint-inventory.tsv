@@ -81,9 +81,9 @@ patch	/settings/notifications/email	settings.notifications.email.
 get	/settings/notifications/push	settings.notifications.push.
 patch	/settings/notifications/push	settings.notifications.push.
 get	/skills	skills.
-get	/song/{songId}/invites	songs.invites.
-post	/song/{songId}/invites	songs.invites.
-get	/song/{songId}/posts	songs.
+get	/songs/{songId}/invites	songs.invites.
+post	/songs/{songId}/invites	songs.invites.
+get	/songs/{songId}/posts	songs.
 delete	/songs/{songId}	songs.
 get	/songs/{songId}	songs.
 patch	/songs/{songId}	songs.
@@ -91,6 +91,8 @@ get	/songs/{songId}/collaborators	songs.collaborators.
 delete	/songs/{songId}/collaborators/{userId}	songs.collaborators.
 get	/songs/{songId}/revisions	songs.revisions.
 post	/songs/{songId}/revisions/{revisonId}/forks	songs.revisions.
+post	/songs/forks	songs.
+get	/songs/{songId}/invite-link	songs.
 get	/users/{userId}	users.
 get	/users/{userId}/bands	users.
 get	/users/{userId}/blocks/users	users.blocks.users.

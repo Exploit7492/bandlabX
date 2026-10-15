@@ -51,14 +51,45 @@ export class Songs extends APIResource {
 
   /**
    * Returns a list of posts
+   *
+   * Evidence: `apk` — `RemoteSongService.getRevisionPosts`, `songs/{id}/posts`. The APK, the
+   * live route probe and the model-binding error all use the plural `/songs/...`; the previous
+   * singular `/song/...` returned the framework 404 page.
    */
   listPosts(
     songID: string,
     query: SongListPostsParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PostsAPI.PostList> {
-    return this._client.get(path`/song/${songID}/posts`, { query, ...options });
+    return this._client.get(path`/songs/${songID}/posts`, { query, ...options });
   }
+
+  /**
+   * Fork a song
+   *
+   * Evidence: `apk` — `SongForkService.forkSong`, `POST songs/forks`. The body model is
+   * obfuscated in the app (`vrb`), so the request body is `unknown` under rule D12.
+   */
+  forks(body: unknown, options?: RequestOptions): APIPromise<Song> {
+    return this._client.post('/songs/forks', { body, ...options });
+  }
+
+  /**
+   * Returns a song's invite link
+   *
+   * Evidence: `apk` — `RemoteSongService.getInviteLink`, `GET songs/{id}/invite-link`.
+   * Entitlement to create an invite link is enforced server-side.
+   */
+  retrieveInviteLink(songID: string, options?: RequestOptions): APIPromise<InviteLink> {
+    return this._client.get(path`/songs/${songID}/invite-link`, options);
+  }
+}
+
+/**
+ * Evidence: `apk` — `com.bandlab.song.api.InviteLink`.
+ */
+export interface InviteLink {
+  inviteLink?: string;
 }
 
 export interface Author {
@@ -211,6 +242,7 @@ export declare namespace Songs {
     type Song as Song,
     type SongCounters as SongCounters,
     type SongOriginal as SongOriginal,
+    type InviteLink as InviteLink,
     type SongUpdateParams as SongUpdateParams,
     type SongListPostsParams as SongListPostsParams,
   };

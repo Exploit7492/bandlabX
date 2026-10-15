@@ -6,7 +6,13 @@ export {
   type CollaboratorListParams,
   type CollaboratorRemoveParams,
 } from './collaborators';
-export { Invites, type InviteListInvitesParams, type InviteSendInvitesParams } from './invites';
+export {
+  Invites,
+  type Invite,
+  type InviteListResponse,
+  type InviteListInvitesParams,
+  type InviteSendInvitesParams,
+} from './invites';
 export {
   Revisions,
   type RevisionListResponse,
@@ -19,6 +25,7 @@ export {
   type Song,
   type SongCounters,
   type SongOriginal,
+  type InviteLink,
   type SongUpdateParams,
   type SongListPostsParams,
 } from './songs';

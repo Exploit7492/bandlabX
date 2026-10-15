@@ -39,8 +39,9 @@ Verified against the code in `1.a.ii.zo`. **7 Covered · 8 Partial · 2 Missing.
 | 17 | Media / Metadata / Dev | Partial | `images.createPost`, `videos` (createPost, addView), `validation.validate`, `versions` (retrieve, validate), `reports.create`, `feedback.create` | get/upload image & video media |
 
 ### What "verified" means here
-- The code has exactly **123** `this._client.<verb>(...)` calls in `src/resources`, and `api.md` has exactly **123** rows. Every call matches a row and every row matches a call (verb and path, parameters normalised); nothing is in one and not the other.
-- Every documented method exists in its documented source file (123 of 123).
+- The code has exactly **125** `this._client.<verb>(...)` calls in `src/resources`, and `api.md` has exactly **125** rows. Every call matches a row and every row matches a call (verb and path, parameters normalised); nothing is in one and not the other. (123 at the pre-Phase-3 baseline; +2 from leaf `3.a.i.zi`.)
+- Every documented method exists in its documented source file (125 of 125).
+- **Path correction (`3.a.i.zi`):** `songs.listPosts`, `songs.invites.listInvites` and `songs.invites.sendInvites` used the singular `/song/...` route. The APK annotations and a live route probe (a routed 404 body and a model-binding 400 versus the framework 404 page) both give the plural `/songs/...`; the paths were corrected. See `sessions/3.a.i.zi.md`.
 - Absence claims were checked by searching every `api.md` path and every resource file name for message / conversation / chat / inbox, effect / mix / automation / midi / master / track, audio / sample / loop / upload, repost / share / reshare, and account-deletion terms. No path matches; the only file-name hit is `shared.ts` (for "share"), which is a types file.
 - **Limit:** absence from the SDK means absence from the OpenAPI spec the SDK was generated from. It is not proof that BandLab lacks the endpoint.
 

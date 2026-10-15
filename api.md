@@ -494,13 +494,16 @@ Types:
 - <code><a href="./src/resources/songs/songs.ts">Song</a></code>
 - <code><a href="./src/resources/songs/songs.ts">SongCounters</a></code>
 - <code><a href="./src/resources/songs/songs.ts">SongOriginal</a></code>
+- <code><a href="./src/resources/songs/songs.ts">InviteLink</a></code>
 
 Methods:
 
 - <code title="get /songs/{songId}">client.songs.<a href="./src/resources/songs/songs.ts">retrieve</a>(songID) -> Song</code>
 - <code title="patch /songs/{songId}">client.songs.<a href="./src/resources/songs/songs.ts">update</a>(songID, { ...params }) -> Song</code>
 - <code title="delete /songs/{songId}">client.songs.<a href="./src/resources/songs/songs.ts">delete</a>(songID) -> void</code>
-- <code title="get /song/{songId}/posts">client.songs.<a href="./src/resources/songs/songs.ts">listPosts</a>(songID, { ...params }) -> PostList</code>
+- <code title="get /songs/{songId}/posts">client.songs.<a href="./src/resources/songs/songs.ts">listPosts</a>(songID, { ...params }) -> PostList</code>
+- <code title="post /songs/forks">client.songs.<a href="./src/resources/songs/songs.ts">forks</a>({ ...params }) -> Song</code>
+- <code title="get /songs/{songId}/invite-link">client.songs.<a href="./src/resources/songs/songs.ts">retrieveInviteLink</a>(songID) -> InviteLink</code>
 
 ## Collaborators
 
@@ -526,7 +529,12 @@ Methods:
 
 ## Invites
 
+Types:
+
+- <code><a href="./src/resources/songs/invites.ts">Invite</a></code>
+- <code><a href="./src/resources/songs/invites.ts">InviteListResponse</a></code>
+
 Methods:
 
-- <code title="get /song/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">listInvites</a>(songID, { ...params }) -> InviteList</code>
-- <code title="post /song/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">sendInvites</a>(songID, { ...params }) -> void</code>
+- <code title="get /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">listInvites</a>(songID, { ...params }) -> InviteListResponse</code>
+- <code title="post /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">sendInvites</a>(songID, { ...params }) -> void</code>
