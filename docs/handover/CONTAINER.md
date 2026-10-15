@@ -50,48 +50,42 @@ the URL that reaches `fetch`, the same way `tests/api-resources/**` does.
 
 ## Owner steps
 
-Two of these need your GitHub account or repository settings; a session cannot do them.
+Steps 1 and 2 are done: the workflow's own `GITHUB_TOKEN` was sufficient, and the package is public.
+Steps 3 and 4 remain yours.
 
-1. **Allow the workflow to publish.** The workflow declares `permissions: packages: write` and logs
-   in with the run's own `GITHUB_TOKEN` — no PAT is needed. If the first push step fails with
-   `denied: installation not allowed to Create organization package`, the repository or org has
-   restricted package creation. Fix it in **Settings → Actions → General → Workflow permissions**
-   (allow read and write) and, for an org-owned repo, **Org Settings → Packages** to permit the
-   package name.
+1. ~~Allow the workflow to publish.~~ **Done — no action needed.** The workflow's own `GITHUB_TOKEN`
+   carried `packages: write`, so no PAT and no repository setting was required.
 
-2. **Make the package pullable, if you want anonymous pulls.** New GHCR packages default to private
-   and are linked to this repository. To let anyone `docker pull` it without a token, open the
-   package page under the org's **Packages** tab and set its visibility to **Public**.
+2. ~~Make the package pullable.~~ **Done — the package is public.** Anonymous pulls succeed
+   (verified by fetching a registry token with no credentials and reading all three manifests).
 
-3. **Confirm the first run published the image** (leaf `5.b.ii.zi`). After the workflow lands on
-   `main`, open **Actions → Container** and check the `Publish to GHCR` step, then confirm the tag
-   exists:
+3. **Decide whether `main` should publish `latest` on every merge** (leaf `5.b.ii.zi` is otherwise
+   complete). The workflow currently does. If you would rather publish only on version tags, remove
+   the `push: branches: [main]` trigger from `container.yml`; the
+   `type=raw,value=latest,enable={{is_default_branch}}` tag rule then applies only to tag builds.
 
-   ```bash
-   docker pull ghcr.io/zapier-codes/bandlab-sdk-typescript:latest
-   ```
-
-4. **Decide whether `main` should publish `latest` on every merge.** The workflow currently does.
-   If you would rather publish only on version tags, remove the `push: branches: [main]` trigger
-   from `container.yml`; the `type=raw,value=latest,enable={{is_default_branch}}` tag rule then
-   applies only to tag builds.
+4. **Optional:** add a `README` description or link on the package page under the org's **Packages**
+   tab, so the image is discoverable from GHCR.
 
 ## What is verified, and what is not
 
 Verified on 2026-10-15, in the sandbox, with a real Docker daemon:
 
-| Check                                    | Result                                              |
-| ---------------------------------------- | --------------------------------------------------- |
-| `docker build`                           | succeeds (both stages, ~4 s of build after install) |
-| `docker run --rm bandlab-sdk:smoke`      | exit 0, prints the two URLs above                   |
-| `SKIP_BUILD=1 ./scripts/container-smoke` | exit 0, "image is clean"                            |
-| Image contains no `node_modules`         | confirmed by the smoke script                       |
-| Runtime dependencies in the image        | none                                                |
-| `container.yml` parses as YAML           | confirmed                                           |
-| GHCR publish (the `docker push`)         | **not run** — needs the owner's package permission  |
+| Check                                      | Result                                                     |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| `docker build`                             | succeeds (both stages, ~4 s of build after install)        |
+| `docker run --rm bandlab-sdk:smoke`        | exit 0, prints the two URLs above                          |
+| `SKIP_BUILD=1 ./scripts/container-smoke`   | exit 0, "image is clean"                                   |
+| Image contains no `node_modules`           | confirmed by the smoke script                              |
+| Runtime dependencies in the image          | none                                                       |
+| `container.yml` parses as YAML             | confirmed                                                  |
+| CI run `38781546855` on `main`             | all 10 steps success, including `Publish to GHCR`          |
+| Published tags                             | `latest`, `main`, `sha-4b7382e…`                           |
+| Anonymous registry pull of all three tags  | HTTP 200 (public)                                          |
+| `docker pull ghcr.io/…:latest` then run it | exit 0, `container smoke OK (17 exports)`, both URLs match |
 
-The workflow's publish step has not executed. Everything up to and including the smoke test is
-verified locally; the push is the owner-gated part.
+The image is published and publicly pullable. `docker run` against the pulled image reproduces the
+smoke output byte for byte, so leaf `5.b.ii.zi`'s "pulls and runs" criterion is met.
 
 ## Files
 

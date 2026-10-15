@@ -249,17 +249,17 @@ read-only so callers can read their own state. Details: `APK-EVIDENCE.md` §8.
 
 Phase 5 (leaves 95-101) bakes the SDK as a container image on GHCR. It does not change endpoint
 coverage: the image ships the compiled package, and its default command re-checks two routes so a
-broken build fails the job. Leaves 95-100 are DONE; leaf 101 (the owner confirming the first
-published image pulls and runs) is gated on GHCR push rights, not on the environment.
+broken build fails the job. **All seven leaves are DONE.** Leaf 101 was closed by pushing `main`:
+CI run `38781546855` published the image and it was pulled and run back in the sandbox.
 
-| Check                               | Result                                                         |
-| ----------------------------------- | -------------------------------------------------------------- |
-| `docker build`                      | succeeds; multi-stage, Alpine runtime                          |
-| Default command (`docker run --rm`) | exit 0, 17 exports, both URLs asserted                         |
-| Image contents                      | compiled JS only; no `node_modules`, zero runtime dependencies |
-| Image size                          | ~250 MB                                                        |
-| `.github/workflows/container.yml`   | parses; builds on every change, publishes on `main` and `v*`   |
-| GHCR publish (the `docker push`)    | **not run** — needs the owner's package permission             |
+| Check                               | Result                                                                     |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| `docker build`                      | succeeds; multi-stage, Alpine runtime                                      |
+| Default command (`docker run --rm`) | exit 0, 17 exports, both URLs asserted                                     |
+| Image contents                      | compiled JS only; no `node_modules`, zero runtime dependencies             |
+| Image size                          | ~250 MB                                                                    |
+| `.github/workflows/container.yml`   | parses; builds on every change, publishes on `main` and `v*`               |
+| GHCR publish (the `docker push`)    | **run and verified** — `latest`, `main`, `sha-4b7382e…`, publicly pullable |
 
 Full detail, and the two repository settings the owner must set, are in
 `docs/handover/CONTAINER.md`.

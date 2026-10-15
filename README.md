@@ -380,7 +380,9 @@ To build it yourself and run the same check:
 ```
 
 See [`docs/handover/CONTAINER.md`](./docs/handover/CONTAINER.md) for the build stages, the image
-layout, and the repository settings needed to publish.
+layout, and how publishing works. The image is published by
+[`.github/workflows/container.yml`](./.github/workflows/container.yml) on every push to `main` and
+on `v*` tags, with tags `latest`, `main` and `sha-<commit>`.
 
 ## Contributing
 

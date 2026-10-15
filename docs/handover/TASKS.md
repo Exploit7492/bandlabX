@@ -823,4 +823,4 @@ Evidence for this leaf (`docs/research/apk-endpoints.md`), 2 path(s), file `src/
 
 **100 - `5.b.i.zo` - Owner steps document** _(DONE — `docs/handover/CONTAINER.md`)_
 
-**101 - `5.b.ii.zi` - Owner confirms the first CI run published the image** _(owner's leaf)_
+**101 - `5.b.ii.zi` - Owner confirms the first CI run published the image** _(DONE - CI run 38781546855 published `latest`/`main`/`sha-4b7382e`; public pull and run verified)_
