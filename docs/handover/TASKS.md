@@ -63,166 +63,621 @@ Extracts method, path template, query keys and JSON shapes into `docs/research/e
 
 ### 2.b Evidence triage › 2.b.i Triage
 
-**9 · `2.b.i.zi` — Run the tools on the owner's evidence and set a status per G-item** — **owner's leaf**
+**9 · `2.b.i.zi` — Record the bundle evidence and the spec's server block** — **DONE 2026-10-15**
 
-**BLOCKED until the owner supplies captures, a spec, or confirmations.** Newly found endpoints become G15 onward and raise M (see the splitting rule). If nothing is supplied: `[~]`, BLOCKERS names exactly what is needed, no guessing.
+Completed from public sources rather than an owner capture. Fetched the OpenAPI spec at the
+`openapi_spec_url` in `.stats.yml` and BandLab's web app bundle plus its 217 chunks; extracted
+225 clean paths; diffed against the SDK's 123; found **201 endpoints the spec never described**.
+Answered **P0** (spec `servers:` names both hosts). Output: `docs/research/BUNDLE-EVIDENCE.md`,
+`docs/research/bundle-endpoints.md`. Account: `docs/handover/sessions/2.b.i.zi.md`.
 
-**10 · `2.b.i.zo` — Record the final resource design** — **owner's leaf**
+**10 · `2.b.i.zo` — Record the final resource design for all 201 new endpoints**
 
-File names, methods and types per G-item in `COVERAGE.md`. Split any Phase 3 leaf that is bigger than one task, before any code.
+Needs no external input. For each of the 24 domain groups in `COVERAGE.md` section 4: decide the
+file name, the resource accessor, the class/method names, and the type strategy (see rule D12 —
+`unknown` bodies marked `unverified` are permitted; invented field names are not). Regenerate
+`docs/endpoint-status.md` and `COVERAGE.md` from the union. Confirm the Phase 3 split below.
+Where a group exceeds roughly one task (G03a 22, G13g 14, G13h 13, G13i 13, G13d 12, G13e 12),
+split it into further leaves and raise M by the number of new leaves.
 
 
 ---
 
-## Phase 3 — Implementation by gap
+## Phase 3 — Implementation by domain
 
-Every leaf here depends on `2.b.i.zo`. An item with no evidence is not implemented; it stays `missing` in the register. Each milestone is one gap item: `zi` implements, `zo` proves and records.
+Every leaf here depends on `2.b.i.zo` for its *design*, but **not** on an owner capture: each
+domain has bundle evidence for its paths (`docs/research/bundle-endpoints.md`). Apply rule D12
+for shapes — implement the evidenced path, type the body and response `unknown`, mark the row
+`unverified` in `docs/endpoint-status.md`, and say so in the JSDoc. Never invent a field name.
 
+52 leaves: 26 domains x `zi`/`zo`. `zi` implements; `zo` proves and records.
 
-### 3.a Songs and revisions › 3.a.i G04 create song and list songs
+### 3.a Songs and revisions
 
-**11 · `3.a.i.zi` — G04 create song and list songs: implement**
+**11 · `3.a.i.zi` — G04 songs: create, list, invite-link, collaborators: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 3 paths:
 
-**12 · `3.a.i.zo` — G04 create song and list songs: tests and records**
+- `/songs`
+- `/songs/{p}/invite-link`
+- `/songs/{p}/posts`
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**12 · `3.a.i.zo` — G04 songs: create, list, invite-link, collaborators: tests and records**
 
-### 3.a Songs and revisions › 3.a.ii G05 delete revision
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
 **13 · `3.a.ii.zi` — G05 delete revision: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
 **14 · `3.a.ii.zo` — G05 delete revision: tests and records**
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
-
-
-### 3.a Songs and revisions › 3.a.iii G11 add and update collaborator
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
 **15 · `3.a.iii.zi` — G11 add and update collaborator: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
 **16 · `3.a.iii.zo` — G11 add and update collaborator: tests and records**
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
+### 3.b Studio: effects and revisions
 
-### 3.b Studio and audio › 3.b.i G02 mix, effects, tracks, project structure (likely split)
+**17 · `3.b.i.zi` — G02a effects: effect-presets, favourites, trending, artist presets: implement**
 
-**17 · `3.b.i.zi` — G02 mix, effects, tracks, project structure (likely split): implement**
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 11 paths:
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+- `/effect-presets/{p}`
+- `/trending-effect-presets`
+- `/users/{p}/artists-effect-presets`
+- `/users/{p}/effect-presets`
+- `/users/{p}/effect-presets/promo-campaigns/{p}/content`
+- `/users/{p}/effect-presets/{p}`
+- `/users/{p}/effect-presets/{p}/link`
+- `/users/{p}/favorite-effect-ids`
+- `/users/{p}/favorite-effect-ids/{p}`
+- `/users/{p}/favorite-effect-presets-ids`
+- `/users/{p}/favorite-effect-presets-ids/{p}`
 
-**18 · `3.b.i.zo` — G02 mix, effects, tracks, project structure (likely split): tests and records**
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+**18 · `3.b.i.zo` — G02a effects: effect-presets, favourites, trending, artist presets: tests and records**
 
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-### 3.b Studio and audio › 3.b.ii G03 audio upload, samples, audio metadata (likely split)
+**19 · `3.b.ii.zi` — G02b revisions: studio-breakdown, mixdown, tracks, download-options, forks: implement**
 
-**19 · `3.b.ii.zi` — G03 audio upload, samples, audio metadata (likely split): implement**
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 7 paths:
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+- `/revisions/{p}/forks/bands/{p}`
+- `/revisions/{p}/forks/posts`
+- `/revisions/{p}/mixdown/download-options/{p}`
+- `/revisions/{p}/mixdown/reprocess`
+- `/revisions/{p}/studio-breakdown`
+- `/revisions/{p}/tracks/{p}/download-options/aac-44100-16bit-192kbps`
+- `/revisions/{p}/tracks/{p}/download-options/{p}`
 
-**20 · `3.b.ii.zo` — G03 audio upload, samples, audio metadata (likely split): tests and records**
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+**20 · `3.b.ii.zo` — G02b revisions: studio-breakdown, mixdown, tracks, download-options, forks: tests and records**
 
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-### 3.c Messaging › 3.c.i G01 conversations, messages, send, history (likely split)
+### 3.c Audio: sounds, uploads, soundbanks
 
-**21 · `3.c.i.zi` — G01 conversations, messages, send, history (likely split): implement**
+**21 · `3.c.i.zi` — G03a sounds: samples, packs, libraries, claims, credits, uploads: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 22 paths:
 
-**22 · `3.c.i.zo` — G01 conversations, messages, send, history (likely split): tests and records**
+- `/sounds`
+- `/sounds-public`
+- `/sounds-public/packs/{p}/preview`
+- `/sounds/loops/matches`
+- `/sounds/samples/pack-ids`
+- `/sounds/suggestions`
+- `/sounds/users/{p}/claims/samples`
+- `/sounds/users/{p}/claims/samples/ids`
+- `/sounds/users/{p}/claims/samples/{p}`
+- `/sounds/users/{p}/collections`
+- `/sounds/users/{p}/collections/{p}`
+- `/sounds/users/{p}/collections/{p}/{p}`
+- `/sounds/users/{p}/credits`
+- `/sounds/users/{p}/libraries/packs`
+- `/sounds/users/{p}/libraries/samples`
+- `/sounds/users/{p}/packs/{p}`
+- `/sounds/users/{p}/promo`
+- `/sounds/users/{p}/recommendations/packs`
+- `/sounds/users/{p}/samples/{p}`
+- `/sounds/users/{p}/uploads`
+- `/sounds/users/{p}/uploads/samples`
+- `/sounds/users/{p}/uploads/samples/{p}`
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**22 · `3.c.i.zo` — G03a sounds: samples, packs, libraries, claims, credits, uploads: tests and records**
 
-### 3.d Social and media › 3.d.i G06 create post
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**23 · `3.d.i.zi` — G06 create post: implement**
+**23 · `3.c.ii.zi` — G03b uploads v2.0: create and part upload: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 2 paths:
 
-**24 · `3.d.i.zo` — G06 create post: tests and records**
+- `/uploads/{p}`
+- `/uploads/{p}/{p}`
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**24 · `3.c.ii.zo` — G03b uploads v2.0: create and part upload: tests and records**
 
-### 3.d Social and media › 3.d.ii G07 get and update comment
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**25 · `3.d.ii.zi` — G07 get and update comment: implement**
+**25 · `3.c.iii.zi` — G03c soundbanks v4.3 and metronome v3.0: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 3 paths:
 
-**26 · `3.d.ii.zo` — G07 get and update comment: tests and records**
+- `/metronome`
+- `/soundbanks`
+- `/soundbanks/{p}`
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**26 · `3.c.iii.zo` — G03c soundbanks v4.3 and metronome v3.0: tests and records**
 
-### 3.d Social and media › 3.d.iii G08 search posts
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**27 · `3.d.iii.zi` — G08 search posts: implement**
+### 3.d Messaging
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+**27 · `3.d.i.zi` — G01 messaging: conversations, messages, reactions, receipts, chat authorizations: implement**
 
-**28 · `3.d.iii.zo` — G08 search posts: tests and records**
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 10 paths:
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+- `/chat/authorizations`
+- `/conversations/{p}/members`
+- `/users/{p}/conversations`
+- `/users/{p}/conversations/count`
+- `/users/{p}/conversations/hidden`
+- `/users/{p}/conversations/{p}`
+- `/users/{p}/conversations/{p}/messages`
+- `/users/{p}/conversations/{p}/messages/{p}`
+- `/users/{p}/conversations/{p}/messages/{p}/reactions`
+- `/users/{p}/conversations/{p}/messages/{p}/receipts/read`
 
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
-### 3.d Social and media › 3.d.iv G12 image and video get and upload
+**28 · `3.d.i.zo` — G01 messaging: conversations, messages, reactions, receipts, chat authorizations: tests and records**
 
-**29 · `3.d.iv.zi` — G12 image and video get and upload: implement**
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+### 3.e Social and media
 
-**30 · `3.d.iv.zo` — G12 image and video get and upload: tests and records**
+**29 · `3.e.i.zi` — G06 posts: create, plays, polls, track-posts, song-posts: implement**
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 7 paths:
 
+- `/posts/{p}/plays`
+- `/posts/{p}/poll/options/{p}/votes`
+- `/posts/{p}/reactions/users/{p}`
+- `/posts/{p}/track/picture`
+- `/users/{p}/song-posts`
+- `/users/{p}/track-posts`
+- `/users/{p}/track-posts/{p}/plays`
 
-### 3.d Social and media › 3.d.v G14 share and repost
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
-**31 · `3.d.v.zi` — G14 share and repost: implement**
+**30 · `3.e.i.zo` — G06 posts: create, plays, polls, track-posts, song-posts: tests and records**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**32 · `3.d.v.zo` — G14 share and repost: tests and records**
+**31 · `3.e.ii.zi` — G07 comments and mentions: implement**
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 1 path:
 
+- `/mentions/suggestions`
 
-### 3.e Account › 3.e.i G09 change email
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
-**33 · `3.e.i.zi` — G09 change email: implement**
+**32 · `3.e.ii.zo` — G07 comments and mentions: tests and records**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**34 · `3.e.i.zo` — G09 change email: tests and records**
+**33 · `3.e.iii.zi` — G14 share and repost: implement**
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**34 · `3.e.iii.zo` — G14 share and repost: tests and records**
 
-### 3.e Account › 3.e.ii G10 delete account (JSDoc marks it destructive)
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
 
-**35 · `3.e.ii.zi` — G10 delete account (JSDoc marks it destructive): implement**
+**35 · `3.e.iv.zi` — G08 search: collaborators, trending by genre: implement**
 
-Implement: the method(s), request/response types, JSDoc carrying the evidence status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per ARCHITECTURE.md. Existing files are not moved, renamed or split.
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 2 paths:
 
-**36 · `3.e.ii.zo` — G10 delete account (JSDoc marks it destructive): tests and records**
+- `/genres/{p}/posts/trending`
+- `/search/collaborators`
 
-Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query, body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the `COVERAGE.md` domain and register rows.
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
 
+**36 · `3.e.iv.zo` — G08 search: collaborators, trending by genre: tests and records**
 
----
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**37 · `3.e.v.zi` — G12 media: profile pictures, backgrounds, video views: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 4 paths:
+
+- `/backgrounds`
+- `/users/{p}/profile-pictures`
+- `/users/{p}/profile-pictures/{p}`
+- `/users/{p}/profile-pictures/{p}/main`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**38 · `3.e.v.zo` — G12 media: profile pictures, backgrounds, video views: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+### 3.f Account
+
+**39 · `3.f.i.zi` — G09 account: membership, privacy, marketing consent, streaks, activity status, verification: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 10 paths:
+
+- `/marketing-consent`
+- `/streaks/enroll`
+- `/streaks/me`
+- `/streaks/streak-lost-notified`
+- `/users/me/activity-status/heartbeat`
+- `/users/{p}/activity-status`
+- `/users/{p}/membership`
+- `/users/{p}/membership-plan`
+- `/users/{p}/settings/privacy/{p}`
+- `/users/{p}/verified/submission`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**40 · `3.f.i.zo` — G09 account: membership, privacy, marketing consent, streaks, activity status, verification: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**41 · `3.f.ii.zi` — G10 delete account, warnings, violations: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 3 paths:
+
+- `/users/{p}/violations/{p}`
+- `/users/{p}/warnings`
+- `/users/{p}/warnings/{p}`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**42 · `3.f.ii.zo` — G10 delete account, warnings, violations: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+### 3.g Newly discovered domains
+
+**43 · `3.g.i.zi` — G13a beats: marketplace, collections, genres, promo, free-claims: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 8 paths:
+
+- `/beats`
+- `/beats/collections`
+- `/beats/collections/{p}`
+- `/beats/genres/{p}`
+- `/beats/promo-carousels/{p}`
+- `/beats/promo-header-beats`
+- `/beats/{p}`
+- `/beats/{p}/free-claims`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**44 · `3.g.i.zo` — G13a beats: marketplace, collections, genres, promo, free-claims: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**45 · `3.g.ii.zi` — G13b albums and artists: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 4 paths:
+
+- `/albums`
+- `/albums/{p}/download-options`
+- `/albums/{p}/download-options/{p}`
+- `/artists`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**46 · `3.g.ii.zo` — G13b albums and artists: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**47 · `3.g.iii.zi` — G13c distribution: releases, analytics, quotas, splits: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 9 paths:
+
+- `/users/{p}/distro/ai-covers`
+- `/users/{p}/distro/analytics`
+- `/users/{p}/distro/payment-method/status`
+- `/users/{p}/distro/projects`
+- `/users/{p}/distro/quotas`
+- `/users/{p}/distro/releases/{p}/ai-covers`
+- `/users/{p}/distro/releases/{p}/distribution-split-invitations/accept`
+- `/users/{p}/distro/releases/{p}/distribution-split-invitations/decline`
+- `/users/{p}/distro/revisions`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**48 · `3.g.iii.zo` — G13c distribution: releases, analytics, quotas, splits: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**49 · `3.g.iv.zi` — G13d promotion: campaigns, statistics, reach estimates: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 12 paths:
+
+- `/promote/images`
+- `/promote/images/{p}`
+- `/promote/prices`
+- `/promote/reach-estimates`
+- `/users/{p}/promote/boost-campaigns/{p}`
+- `/users/{p}/promote/campaigns`
+- `/users/{p}/promote/campaigns/{p}`
+- `/users/{p}/promote/music-web-campaigns/{p}`
+- `/users/{p}/promote/posts/{p}/music-web-campaigns`
+- `/users/{p}/promote/posts/{p}/music-web-campaigns/{p}`
+- `/users/{p}/promote/posts/{p}/statistics`
+- `/users/{p}/promote/revision-pages/{p}/music-web-campaigns`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**50 · `3.g.iv.zo` — G13d promotion: campaigns, statistics, reach estimates: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**51 · `3.g.v.zi` — G13e payments and checkout: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 12 paths:
+
+- `/checkout/products/{p}/payment-providers/{p}/payment-intents/{p}/payments`
+- `/checkout/products/{p}/payment-providers/{p}/plan-change`
+- `/checkout/products/{p}/payment-providers/{p}/preview-plan-change`
+- `/payments`
+- `/payments/users/{p}/payout-methods/tipalti/url`
+- `/users/{p}/paddle-billing/external-user-ids`
+- `/users/{p}/payment-methods`
+- `/users/{p}/payout-methods/tipalti/balance`
+- `/users/{p}/payout-methods/tipalti/payouts`
+- `/users/{p}/payout-methods/tipalti/payouts/{p}/tracks`
+- `/users/{p}/payout/method-required`
+- `/users/{p}/tipalti-balance/tracks`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**52 · `3.g.v.zo` — G13e payments and checkout: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**53 · `3.g.vi.zi` — G13f pages: bio, links, press kits, revisions, statistics: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 11 paths:
+
+- `/users/{p}/pages`
+- `/users/{p}/pages/bio`
+- `/users/{p}/pages/bio/links`
+- `/users/{p}/pages/bio/links/{p}`
+- `/users/{p}/pages/press-kits/{p}`
+- `/users/{p}/pages/revisions`
+- `/users/{p}/pages/revisions/{p}`
+- `/users/{p}/pages/revisions/{p}/links`
+- `/users/{p}/pages/revisions/{p}/links/{p}`
+- `/users/{p}/pages/statistics`
+- `/users/{p}/pages/{p}/statistics`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**54 · `3.g.vi.zo` — G13f pages: bio, links, press kits, revisions, statistics: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**55 · `3.g.vii.zi` — G13g feeds: for-you, following, featured, media, trending, explore: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 14 paths:
+
+- `/experiment/beats-filters`
+- `/experiment/beats/{p}`
+- `/experiment/feeds/communities/posts`
+- `/experiment/users/{p}/beats/{p}/similar-beats`
+- `/experiment/users/{p}/purchases/beats`
+- `/explore/recommended-albums`
+- `/explore/trending-videos/posts`
+- `/feeds/trending/videos/posts`
+- `/users/{p}/feeds/featured/posts`
+- `/users/{p}/feeds/following/posts`
+- `/users/{p}/feeds/for-you/posts`
+- `/users/{p}/feeds/media/posts`
+- `/users/{p}/feeds/trending/hidden-creators/{p}`
+- `/users/{p}/feeds/trending/posts`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**56 · `3.g.vii.zo` — G13g feeds: for-you, following, featured, media, trending, explore: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**57 · `3.g.viii.zi` — G13h profile: playing-now, profile-views, gear, goals, mutual-connections: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 13 paths:
+
+- `/users/{p}/boost-profile/subscriptions`
+- `/users/{p}/gear`
+- `/users/{p}/gear-stats`
+- `/users/{p}/gear/{p}`
+- `/users/{p}/genres/preferred`
+- `/users/{p}/goals`
+- `/users/{p}/mutual-connections`
+- `/users/{p}/mutual-connections/preview`
+- `/users/{p}/playing-now`
+- `/users/{p}/playing-now/setting`
+- `/users/{p}/profile-views/counter`
+- `/users/{p}/profile-views/counter/default`
+- `/users/{p}/profile-views/viewers`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**58 · `3.g.viii.zo` — G13h profile: playing-now, profile-views, gear, goals, mutual-connections: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**59 · `3.g.ix.zi` — G13i library: likes, purchases, collections, recommendations, notifications: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 13 paths:
+
+- `/users/{p}/albums`
+- `/users/{p}/beats/daily-free-quota`
+- `/users/{p}/beats/preferences`
+- `/users/{p}/beats/preferred`
+- `/users/{p}/beats/saved/{p}`
+- `/users/{p}/communities/active`
+- `/users/{p}/invites/{p}`
+- `/users/{p}/library/track-posts`
+- `/users/{p}/likes/albums`
+- `/users/{p}/likes/collections`
+- `/users/{p}/likes/posts`
+- `/users/{p}/purchases/albums`
+- `/users/{p}/recommendations/posts`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**60 · `3.g.ix.zo` — G13i library: likes, purchases, collections, recommendations, notifications: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
+**61 · `3.g.x.zi` — G13j misc and unclassified: settings, events, places, opportunities, schools, recaptcha, preview, projects: implement**
+
+Evidence for this leaf (`docs/research/bundle-endpoints.md`), 10 paths:
+
+- `/events`
+- `/opportunities`
+- `/places`
+- `/preview`
+- `/projects/{p}/duplicates`
+- `/recaptcha/verify`
+- `/schools/{p}/classrooms`
+- `/settings`
+- `/settings/notifications/{p}`
+- `/users/{p}/opportunities`
+
+Implement: the method(s), request/response types (per D12), JSDoc carrying the evidence
+status, wiring in `src/client.ts` / the resource index, and the `api.md` line. Home per
+ARCHITECTURE.md. Existing files are not moved, renamed or split.
+
+**62 · `3.g.x.zo` — G13j misc and unclassified: settings, events, places, opportunities, schools, recaptcha, preview, projects: tests and records**
+
+Prove and record: a custom-fetch-mock test in `tests/api-resources/` (method, path, query,
+body, parsing; Prism cannot serve new endpoints), the `docs/endpoint-status.md` row, and the
+`COVERAGE.md` domain and register rows.
+
 
 ## Phase 4 — Consistency and final audit
 

@@ -1,5 +1,13 @@
 # Coverage Matrix and Missing-Capability Register
 
+> **Rescoped 2026-10-15.** The original matrix below was built by searching the SDK's own code and
+> the OpenAPI spec, and it concluded that 2 domains were Missing and 8 Partial. That conclusion was
+> correct about the SDK but **wrong about BandLab**: the spec is a narrow subset (80 paths, 123
+> operations) that contains no messaging, effects, sounds or uploads at all. The shipped web app
+> bundle calls **236 path templates / 225 clean paths**, of which **201 are not in the SDK**.
+> Method and limits: `docs/research/BUNDLE-EVIDENCE.md`. Path list: `docs/research/bundle-endpoints.md`.
+> The matrix in section 1 is kept as the historical record; section 4 is the live target.
+
 Source of truth for what the SDK covers. Baseline inventory (123 methods, snapshot of `api.md`): `endpoint-inventory.tsv`
 (columns: HTTP verb, path, resource accessor). `1.a.ii.zi` builds a script that regenerates and diffs it.
 
@@ -60,3 +68,50 @@ Verified against the code in `1.a.ii.zo`. **7 Covered · 8 Partial · 2 Missing.
 ## 3. Escape hatch for anything not yet modelled
 `client.get|post|patch|put|delete(path, opts)` already exist on `BandlabSDK`. Research scripts and unverified experiments use these,
 so no endpoint is ever blocked by the SDK itself.
+## 4. Live target after the 2026-10-15 bundle evidence
+
+Every path below is evidenced by the shipped BandLab web app (`docs/research/bundle-endpoints.md`). **Shapes are not evidenced** — see rule D12. Totals: 201 new endpoints across 24 groups, on top of the SDK's existing 123 (union 281 path templates, 324 operations once methods are settled).
+
+| Group | Leaf | New endpoints | Proposed file | Contents |
+|-------|------|---------------|---------------|----------|
+| G01 Messaging | `3.d.i` | 10 | `src/resources/messaging/` | conversations, messages, reactions, receipts, chat authorizations |
+| G02a Effects | `3.b.i` | 11 | `src/resources/effects.ts` | effect-presets, favourites, trending, artist presets |
+| G02b Studio | `3.b.ii` | 7 | `src/resources/revisions.ts` (extend) | studio-breakdown, mixdown, tracks, download-options, forks |
+| G03a Sounds | `3.c.i` | 22 | `src/resources/sounds/` | samples, packs, libraries, claims, credits, uploads — 22 endpoints, must split |
+| G03b Uploads | `3.c.ii` | 2 | `src/resources/uploads.ts` | v2.0 create + part upload |
+| G03c Soundbanks | `3.c.iii` | 3 | `src/resources/soundbanks.ts` | v4.3 soundbanks + v3.0 metronome |
+| G04 Songs | `3.a.i` | 3 | `src/resources/songs/songs.ts` (extend) | create, list, invite-link, collaborators |
+| G06 Posts | `3.e.i` | 7 | `src/resources/posts/posts.ts` (extend) | create, plays, polls, track-posts, song-posts |
+| G07 Comments | `3.e.ii` | 1 | `src/resources/posts/comments.ts` (extend) | mentions/suggestions |
+| G08 Search | `3.e.iv` | 2 | `src/resources/search.ts` (extend) | collaborators, trending by genre |
+| G09 Account | `3.f.i` | 10 | `src/resources/me.ts` (extend) | membership, privacy, marketing consent, streaks, activity status, verification |
+| G10 Account | `3.f.ii` | 3 | `src/resources/me.ts` (extend) | delete account, warnings, violations |
+| G12 Media | `3.e.v` | 4 | `src/resources/users.ts` (extend) | profile pictures, backgrounds, video views |
+| G13a Beats | `3.g.i` | 8 | `src/resources/beats.ts` | marketplace, collections, genres, promo, free-claims |
+| G13b Albums | `3.g.ii` | 4 | `src/resources/albums.ts` | albums, artists |
+| G13c Distribution | `3.g.iii` | 9 | `src/resources/distro.ts` | releases, analytics, quotas, distribution splits |
+| G13d Promotion | `3.g.iv` | 12 | `src/resources/promote.ts` | campaigns, statistics, reach estimates |
+| G13e Payments | `3.g.v` | 12 | `src/resources/payments.ts` | payment methods, payouts, checkout, plan change |
+| G13f Pages | `3.g.vi` | 11 | `src/resources/pages.ts` | bio, links, press kits, revisions, statistics |
+| G13g Feeds | `3.g.vii` | 14 | `src/resources/feeds.ts` | for-you, following, featured, media, trending, explore |
+| G13h Profile | `3.g.viii` | 13 | `src/resources/users.ts` (extend) | playing-now, profile-views, gear, goals, mutual-connections |
+| G13i Library | `3.g.ix` | 13 | `src/resources/users.ts` (extend) | likes, purchases, collections, recommendations, notifications |
+| G13j Misc | `3.g.x` | 10 | `src/resources/misc.ts` | settings, events, places, opportunities, schools, recaptcha, preview, projects |
+| G13z Unclassified | `3.g.x` | 10 | assign in `2.b.i.zo` | residual paths not yet assigned to a domain |
+| **Total** | | **201** | | |
+
+### 4.1 Methods recovered from call sites
+
+145 method+path pairs were recovered from the bundle (77 GET, 35 POST, 16 DELETE, 10 PUT, 7 PATCH). The remaining paths are path-only, so their verb is `unverified` until a capture arrives. A session must not assume REST convention fills the gap — `POST /songs` returned 404 while `GET /songs/{id}/invite-link` returned 403, so verbs genuinely differ from the obvious guess.
+
+### 4.2 What is still blocked
+
+| Item | Status | Unblock route |
+|------|--------|---------------|
+| Request/response shapes for the 201 new endpoints | **blocked** | Owner capture per domain, or implement untyped per D12 |
+| Verbs for the ~80 path-only endpoints | **partially blocked** | Owner capture; D12 allows `unverified` |
+| `v2.0` uploads / `v3.0` sounds / `v4.3` soundbanks behaviour | **blocked** | These do not resolve from the web host; need a mobile/studio capture |
+| P0 base host | **resolved** | Spec servers block: test + production hosts both recorded |
+| G04 create song verb | **unconfirmed** | `POST /songs` gave 404; needs a capture |
+
+Nothing above stops `2.b.i.zo` (the design leaf) or any `zi` leaf from starting under D12.

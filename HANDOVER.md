@@ -33,9 +33,21 @@ Phase        1, 2, 3, 4, 5
 
 ---
 
-## 1. Focus run — the 47 leaves of the SDK full-coverage program
+## 1. Focus run — the 82 leaves of the SDK full-coverage program
 
-*Active until "47 done ✅ of 47". Owner directive, 2026-10-03. Scope and rules: Section 2. Leaf specs: `docs/handover/TASKS.md`. Coverage matrix and the G-item register: `docs/handover/COVERAGE.md`.*
+*Active until "82 done ✅ of 82". Owner directive 2026-10-03; **rescoped 2026-10-15** from 47 to 82 leaves after the bundle evidence (below) revealed 201 endpoints the spec never described. Scope and rules: Section 2. Leaf specs: `docs/handover/TASKS.md`. Coverage matrix and the G-item register: `docs/handover/COVERAGE.md`.*
+
+**The 2026-10-15 rescope, in one paragraph.** The original run assumed the only way to learn a
+missing endpoint was for the owner to hand back scrubbed HAR captures, so Phase 2 was built as a
+capture kit and Phase 3 waited behind it. A session then fetched BandLab's own web app bundle and
+the OpenAPI spec URL already recorded in `.stats.yml`, and found that the spec is a **narrow
+subset** — 80 paths, 123 operations, with no messaging, effects, sounds or uploads at all —
+while the shipped app calls **236 path templates / 225 clean paths**, of which **201 are not in
+the SDK**. The evidence was publicly available the whole time. Full method, sources and the
+limits of the evidence: `docs/research/BUNDLE-EVIDENCE.md`; the path list:
+`docs/research/bundle-endpoints.md`. **The capture kit is no longer a blocking gate**: it is now
+only needed for the one thing the bundle cannot supply, which is typed request/response *shapes*
+(see the shape rule in Section 2).
 
 
 **Phase 1 — Baseline and coverage tooling**
@@ -45,62 +57,108 @@ Phase        1, 2, 3, 4, 5
 - [x] 3 — `1.a.ii.zi` `scripts/utils/coverage-report.cjs`
 - [x] 4 — `1.a.ii.zo` Generate `docs/endpoint-status.md` and verify every `COVERAGE.md` row against the code
 
-**Phase 2 — Evidence for the missing endpoints**
+**Phase 2 — Evidence for the missing endpoints** *(rescoped 2026-10-15: the bundle is the evidence; the capture kit is now only for shapes)*
 
 - [x] 5 — `2.a.i.zi` `docs/research/CAPTURE-GUIDE.md`
 - [x] 6 — `2.a.i.zo` Evidence hand-back format
 - [x] 7 — `2.a.ii.zi` `scripts/research/scrub-har.py` and a synthetic fixture
 - [x] 8 — `2.a.ii.zo` `scripts/research/har-to-endpoints.py` and a fixture
-- [ ] 9 — `2.b.i.zi` Run the tools on the owner's evidence and set a status per G-item *(owner's leaf)*
-- [ ] 10 — `2.b.i.zo` Record the final resource design *(owner's leaf)*
+- [x] 9 — `2.b.i.zi` Record the bundle evidence and the spec's server block; **P0 answered**; `docs/research/BUNDLE-EVIDENCE.md` + `docs/research/bundle-endpoints.md` *(was the owner's leaf; a session resolved it from public sources)*
+- [ ] 10 — `2.b.i.zo` Record the final resource design for all 201 new endpoints: file names, accessors, methods and type strategy per domain; regenerate `COVERAGE.md` and `docs/endpoint-status.md` from the union; split Phase 3 into the leaves below
 
-**Phase 3 — Implementation by gap**
+**Phase 3 — Implementation by domain** *(52 leaves: 26 domains × `zi`/`zo`. Every domain has bundle evidence for its paths; shapes follow the shape rule in Section 2.)*
 
-- [ ] 11 — `3.a.i.zi` G04 create song and list songs: implement
-- [ ] 12 — `3.a.i.zo` G04 create song and list songs: tests and records
+**3.a — Songs, revisions, collaborators**
+
+- [ ] 11 — `3.a.i.zi` G04 songs: create, list, invite-link, collaborators (3 new endpoints): implement
+- [ ] 12 — `3.a.i.zo` G04 songs: tests and records
 - [ ] 13 — `3.a.ii.zi` G05 delete revision: implement
 - [ ] 14 — `3.a.ii.zo` G05 delete revision: tests and records
 - [ ] 15 — `3.a.iii.zi` G11 add and update collaborator: implement
 - [ ] 16 — `3.a.iii.zo` G11 add and update collaborator: tests and records
-- [ ] 17 — `3.b.i.zi` G02 mix, effects, tracks, project structure (likely split): implement
-- [ ] 18 — `3.b.i.zo` G02 mix, effects, tracks, project structure (likely split): tests and records
-- [ ] 19 — `3.b.ii.zi` G03 audio upload, samples, audio metadata (likely split): implement
-- [ ] 20 — `3.b.ii.zo` G03 audio upload, samples, audio metadata (likely split): tests and records
-- [ ] 21 — `3.c.i.zi` G01 conversations, messages, send, history (likely split): implement
-- [ ] 22 — `3.c.i.zo` G01 conversations, messages, send, history (likely split): tests and records
-- [ ] 23 — `3.d.i.zi` G06 create post: implement
-- [ ] 24 — `3.d.i.zo` G06 create post: tests and records
-- [ ] 25 — `3.d.ii.zi` G07 get and update comment: implement
-- [ ] 26 — `3.d.ii.zo` G07 get and update comment: tests and records
-- [ ] 27 — `3.d.iii.zi` G08 search posts: implement
-- [ ] 28 — `3.d.iii.zo` G08 search posts: tests and records
-- [ ] 29 — `3.d.iv.zi` G12 image and video get and upload: implement
-- [ ] 30 — `3.d.iv.zo` G12 image and video get and upload: tests and records
-- [ ] 31 — `3.d.v.zi` G14 share and repost: implement
-- [ ] 32 — `3.d.v.zo` G14 share and repost: tests and records
-- [ ] 33 — `3.e.i.zi` G09 change email: implement
-- [ ] 34 — `3.e.i.zo` G09 change email: tests and records
-- [ ] 35 — `3.e.ii.zi` G10 delete account (JSDoc marks it destructive): implement
-- [ ] 36 — `3.e.ii.zo` G10 delete account (JSDoc marks it destructive): tests and records
+
+**3.b — Studio: effects and revisions**
+
+- [ ] 17 — `3.b.i.zi` G02a effects: effect-presets, favourites, trending, artist presets (11 endpoints, likely split): implement
+- [ ] 18 — `3.b.i.zo` G02a effects: tests and records
+- [ ] 19 — `3.b.ii.zi` G02b revisions: studio-breakdown, mixdown, tracks, download-options, forks (7 endpoints): implement
+- [ ] 20 — `3.b.ii.zo` G02b revisions: tests and records
+
+**3.c — Audio: sounds, uploads, soundbanks**
+
+- [ ] 21 — `3.c.i.zi` G03a sounds: samples, packs, libraries, claims, credits, uploads (22 endpoints, **must split**): implement
+- [ ] 22 — `3.c.i.zo` G03a sounds: tests and records
+- [ ] 23 — `3.c.ii.zi` G03b uploads v2.0: create, part (2 endpoints): implement
+- [ ] 24 — `3.c.ii.zo` G03b uploads: tests and records
+- [ ] 25 — `3.c.iii.zi` G03c soundbanks v4.3 + metronome v3.0 (3 endpoints): implement
+- [ ] 26 — `3.c.iii.zo` G03c soundbanks: tests and records
+
+**3.d — Messaging**
+
+- [ ] 27 — `3.d.i.zi` G01 messaging: conversations, messages, reactions, receipts, chat authorizations (10 endpoints, **must split**): implement
+- [ ] 28 — `3.d.i.zo` G01 messaging: tests and records
+
+**3.e — Social and media**
+
+- [ ] 29 — `3.e.i.zi` G06 posts: create, plays, polls, track-posts, song-posts, feeds (7 endpoints): implement
+- [ ] 30 — `3.e.i.zo` G06 posts: tests and records
+- [ ] 31 — `3.e.ii.zi` G07 comments and mentions (1 endpoint): implement
+- [ ] 32 — `3.e.ii.zo` G07 comments: tests and records
+- [ ] 33 — `3.e.iii.zi` G14 share and repost: implement
+- [ ] 34 — `3.e.iii.zo` G14 share and repost: tests and records
+- [ ] 35 — `3.e.iv.zi` G08 search: collaborators, trending by genre (2 endpoints): implement
+- [ ] 36 — `3.e.iv.zo` G08 search: tests and records
+- [ ] 37 — `3.e.v.zi` G12 media: profile pictures, backgrounds, video views (4 endpoints): implement
+- [ ] 38 — `3.e.v.zo` G12 media: tests and records
+
+**3.f — Account**
+
+- [ ] 39 — `3.f.i.zi` G09 account: membership, privacy settings, marketing consent, streaks, activity status, verification (10 endpoints): implement
+- [ ] 40 — `3.f.i.zo` G09 account: tests and records
+- [ ] 41 — `3.f.ii.zi` G10 delete account, warnings, violations (3 endpoints; JSDoc marks deletes destructive): implement
+- [ ] 42 — `3.f.ii.zo` G10 account: tests and records
+
+**3.g — Newly discovered domains** *(none of these were in the original 47-leaf plan)*
+
+- [ ] 43 — `3.g.i.zi` G13a beats: marketplace, collections, genres, promo, free-claims (8 endpoints): implement
+- [ ] 44 — `3.g.i.zo` G13a beats: tests and records
+- [ ] 45 — `3.g.ii.zi` G13b albums and artists (4 endpoints): implement
+- [ ] 46 — `3.g.ii.zo` G13b albums: tests and records
+- [ ] 47 — `3.g.iii.zi` G13c distribution: releases, analytics, quotas, splits (9 endpoints): implement
+- [ ] 48 — `3.g.iii.zo` G13c distribution: tests and records
+- [ ] 49 — `3.g.iv.zi` G13d promotion: campaigns, statistics, reach estimates (12 endpoints): implement
+- [ ] 50 — `3.g.iv.zo` G13d promotion: tests and records
+- [ ] 51 — `3.g.v.zi` G13e payments and checkout: payment methods, payouts, plan change (12 endpoints): implement
+- [ ] 52 — `3.g.v.zo` G13e payments: tests and records
+- [ ] 53 — `3.g.vi.zi` G13f pages: bio, links, press kits, revisions, statistics (11 endpoints): implement
+- [ ] 54 — `3.g.vi.zo` G13f pages: tests and records
+- [ ] 55 — `3.g.vii.zi` G13g feeds: for-you, following, featured, media, trending, explore (14 endpoints, **must split**): implement
+- [ ] 56 — `3.g.vii.zo` G13g feeds: tests and records
+- [ ] 57 — `3.g.viii.zi` G13h profile: playing-now, profile-views, gear, goals, mutual-connections (13 endpoints, **must split**): implement
+- [ ] 58 — `3.g.viii.zo` G13h profile: tests and records
+- [ ] 59 — `3.g.ix.zi` G13i library: likes, purchases, collections, recommendations, notifications (13 endpoints, **must split**): implement
+- [ ] 60 — `3.g.ix.zo` G13i library: tests and records
+- [ ] 61 — `3.g.x.zi` G13j misc + unclassified: settings, events, places, opportunities, schools, recaptcha, preview, projects, gears, options (20 endpoints): implement
+- [ ] 62 — `3.g.x.zo` G13j misc: tests and records
 
 **Phase 4 — Consistency and final audit**
 
-- [ ] 37 — `4.a.i.zi` Tighten types where captures gave real shapes
-- [ ] 38 — `4.a.i.zo` JSDoc statuses, naming consistency, `api.md` complete
-- [ ] 39 — `4.a.ii.zi` README: new resources and one example per new domain
-- [ ] 40 — `4.a.ii.zo` Final coverage audit
+- [ ] 63 — `4.a.i.zi` Tighten types where evidence gave real shapes
+- [ ] 64 — `4.a.i.zo` JSDoc statuses, naming consistency, `api.md` complete
+- [ ] 65 — `4.a.ii.zi` README: new resources and one example per new domain
+- [ ] 66 — `4.a.ii.zo` Final coverage audit
 
 **Phase 5 — Container image on GHCR (if possible)**
 
-- [ ] 41 — `5.a.i.zi` Multi-stage `Dockerfile` and `.dockerignore`
-- [ ] 42 — `5.a.i.zo` `scripts/container-smoke`
-- [ ] 43 — `5.a.ii.zi` README container section
-- [ ] 44 — `5.a.ii.zo` Default command
-- [ ] 45 — `5.b.i.zi` `.github/workflows/container.yml`
-- [ ] 46 — `5.b.i.zo` Owner steps document
-- [ ] 47 — `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
+- [ ] 67 — `5.a.i.zi` Multi-stage `Dockerfile` and `.dockerignore`
+- [ ] 68 — `5.a.i.zo` `scripts/container-smoke`
+- [ ] 69 — `5.a.ii.zi` README container section
+- [ ] 70 — `5.a.ii.zo` Default command
+- [ ] 71 — `5.b.i.zi` `.github/workflows/container.yml`
+- [ ] 72 — `5.b.i.zo` Owner steps document
+- [ ] 73 — `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
 
-**Done so far: 8 of 47.** History of M: set at 47 on 2026-10-03 (no splits yet).
+**Done so far: 9 of 73.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** — leaf 9 (`2.b.i.zi`) completed from public evidence, and Phase 3 was resplit from 12 gaps into 26 domains (12 → 52 leaves) and Phase 4/5 renumbered, because the bundle evidence showed 201 endpoints the spec never described. No parent was superseded, so no leaf ID was retired.
 
 **Reporting rule:** a session that completes a leaf ends its final message with `N done ✅ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed — still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
 
@@ -109,17 +167,19 @@ Phase        1, 2, 3, 4, 5
 ## 1a. Current position
 
 ```yaml
-CURRENT_LEAF: 2.b.i.zi
-CURRENT_LEAF_TITLE: Run the tools on the owner's evidence and set a status per G-item
-CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "2.b.i.zi"  (read sessions/2.a.ii.zo.md "Next leaf" first)
-FOCUS_RUN: "8 done of 47"
-LAST_COMPLETED_LEAF: 2.a.ii.zo
-MARKER_COMMIT_SUBJECT_PREFIX: "2.a.ii.zo:"
-LAST_PATCH_NAME: 0009-2.a.ii.zo-endpoint-extractor.patch
-NEXT_PATCH_NUMBER: "0010"
-STATUS: BLOCKED_ON_OWNER
-BLOCKERS: 2.b.i.zi needs evidence from the owner and cannot start without it. Any of - P0 (the API host the BandLab site calls); scrubbed captures per docs/research/CAPTURE-CHECKLIST.md handed back as in docs/research/HAND-BACK.md (priority G04, G09, G02, G01, G03); an explicit "no such action" or "skipped" per row; or the OpenAPI spec's servers block. Every Phase 3 leaf waits behind 2.b.i.zo. OWNER DECISION NEEDED to avoid idling - approve pulling Phase 5 (container image, 5.a.i.zi onward) forward, since it needs no evidence. Open, not blocking - desktop browser or phone only; preferred hand-back route; default base URL is the test host (sessions/1.a.i.zo.md Part 2). 5.b.ii.zi is the owner's.
+CURRENT_LEAF: 2.b.i.zo
+CURRENT_LEAF_TITLE: Record the final resource design for all 201 new endpoints
+CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "2.b.i.zo"  (read docs/research/BUNDLE-EVIDENCE.md and sessions/2.b.i.zi.md first)
+FOCUS_RUN: "9 done of 73"
+LAST_COMPLETED_LEAF: 2.b.i.zi
+MARKER_COMMIT_SUBJECT_PREFIX: "2.b.i.zi:"
+LAST_PATCH_NAME: 0010-2.b.i.zi-bundle-evidence.patch
+NEXT_PATCH_NUMBER: "0011"
+STATUS: READY
+BLOCKERS: none that stop work. `2.b.i.zo` is the design leaf and needs no external input. Known limits, recorded so no session overclaims - (1) request/response SHAPES for the 201 new endpoints are NOT evidenced; source maps are 404, so the bundle yields paths and some methods but no types. Apply the shape rule in Section 2: implement the path with `unknown` bodies and status `unverified`, then tighten in 4.a.i.zi, OR wait for an owner capture for that domain. (2) 24 of 53 probed endpoints returned 404, which is inconclusive and must not be read as absence - see BUNDLE-EVIDENCE.md section 3. (3) The `v2.0` uploads, `v3.0` sounds and `v4.3` soundbanks routes do not resolve from the web host; they are mobile/studio-client routes. (4) P0 is ANSWERED: spec servers are `test.bandlab.com/api/v1.3` (test) and `bandlab.com/api/v1.3` (production); the SDK default already matches the first. The owner may still choose to change the default - that is a product decision, not an evidence gap. (5) 5.b.ii.zi remains the owner's leaf.
 ```
+
+**Shape rule (added 2026-10-15, see rule D12 in Section 2).** The bundle proves a path exists; it does not prove the request or response shape. A session may therefore add a method whose body and response types are `unknown`, marked `unverified` in `docs/endpoint-status.md`, provided it says so in the JSDoc and the Done note. A session must **not** invent field names, required flags, enum values or nested types. Shapes are tightened only when evidence arrives.
 
 **Sanity check at session start:**
 ```bash
@@ -147,6 +207,8 @@ If the marker is **not** in `git log`, the previous patch was never applied or p
 | D9 | Wire paths stay exactly as the server expects; follow the naming of neighbouring files. |
 | D10 | **Combined patch rule:** the patch is always built from `origin/main`, so it carries every commit not yet pushed. The owner applies one patch. |
 | D11 | **Never bake secrets into an image.** Tokens are supplied at runtime only. |
+| D12 | **Shape rule (2026-10-15).** Evidence proves a *path*; it does not prove a *shape*. A session may implement an evidenced path with `unknown` request/response types and status `unverified`, but must never invent field names, required flags, enum values or nested types. Shapes are tightened only when evidence arrives (`4.a.i.zi`). |
+| D13 | **Evidence sources, in order of strength (2026-10-15):** (1) an authenticated capture by the owner; (2) the OpenAPI spec at the `openapi_spec_url` in `.stats.yml`; (3) the shipped web app bundle and its chunks; (4) a live unauthenticated probe. **A 404 is never evidence of absence** — real endpoints return 404 unauthenticated. Record which source each claim rests on. |
 
 ---
 
@@ -185,4 +247,6 @@ If a leaf cannot finish: mark it `[~]`, commit what exists with a `WIP:` prefix,
 | `docs/handover/LEDGER.md` | Append-only: one line per leaf. |
 | `docs/handover/ORIGINAL-PLAN-TREE.md` | The cancelled MCP plan, kept as a domain checklist only. |
 | `docs/handover/sessions/` | Done notes: `S00`, `S00B`, `S00C` (history) and one `<leaf path>.md` per leaf. |
+| `docs/research/BUNDLE-EVIDENCE.md` | **The bundle evidence (2026-10-15):** sources, the 123-vs-225 finding, per-endpoint verification status, and what is still unevidenced. Read before any Phase 3 leaf. |
+| `docs/research/bundle-endpoints.md` | All 225 clean endpoint paths, grouped by segment, each flagged SDK/NEW with its live probe result. |
 | `scripts/handover/make-patch.sh` | Builds the combined patch. |
