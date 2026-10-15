@@ -19,3 +19,4 @@ Never rewrite or reorder lines.
 - 2.a.ii.zi — added scripts/research/scrub-har.py (scrubber plus structured --check, stdlib only), a synthetic fixture and 24 tests; replaced the false-alarm keyword check in HAND-BACK.md; 7 done of 47
 - 2.a.ii.zo — added scripts/research/har-to-endpoints.py (endpoint shapes from scrubbed captures, flags what the SDK lacks, refuses unscrubbed input) and 20 mutation-checked tests; 44 python tests total; next leaf is blocked on owner evidence; 8 done of 47
 - 2.b.i.zi — recorded the bundle evidence and the spec server block, answering P0; fetched the web app bundle plus 217 chunks and found 201 endpoints the spec omits; M raised 47 -> 73; 9 done of 73
+- 2.b.i.zo — decompiled the Android app and recovered 353 missing endpoints with a verb for all of them and a real response shape for 272; designed 35 resources and resplit Phase 3 into 40 domains; M raised 73 -> 101; 10 done of 101

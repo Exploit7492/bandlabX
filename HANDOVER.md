@@ -1,4 +1,4 @@
-# HANDOVER — READ THIS FIRST
+# HANDOVER ‚Äî READ THIS FIRST
 
 > Every session (human or AI) that clones this repo **must read this file before doing anything else**, then work **the one leaf** named in "Current position".
 > This file is the single source of truth for sequencing. **The owner's rules override everything here.** If the owner states a new rule, update Section 2 in the same session.
@@ -11,9 +11,9 @@ Work follows a fixed hierarchy (adapted from the D-Store handover; see `docs/han
 
 ```
 Phase        1, 2, 3, 4, 5
- ‚îî‚îÄ Track     a, b, c, d, e
-     ‚îî‚îÄ Milestone   i, ii, iii, iv, v
-         ‚îî‚îÄ Leaf        zi, zo
+ ‚Äö√Æ√Æ‚Äö√Æ√Ñ Track     a, b, c, d, e
+     ‚Äö√Æ√Æ‚Äö√Æ√Ñ Milestone   i, ii, iii, iv, v
+         ‚Äö√Æ√Æ‚Äö√Æ√Ñ Leaf        zi, zo
 ```
 
 - A **leaf** is exactly **one task**. It is never bundled with another and never left partial. Its path is e.g. `3.c.i.zi`; use it in commit subjects, patch names, ledger lines and status updates.
@@ -24,160 +24,180 @@ Phase        1, 2, 3, 4, 5
 ### The splitting rule
 1. A session that finds its leaf is bigger than one task **splits it before writing any code**. The split itself (docs only) is that session's one task.
 2. The parent is kept and marked `[-]` (superseded) so its ID stays addressable. It no longer counts toward M.
-3. The children get **new paths**: the next unused milestone numerals in the same track, one `zi`/`zo` pair per milestone. Their checklist numbers are the parent's number plus a letter (`29` becomes `29a`, `29b`, ‚Ä¶).
+3. The children get **new paths**: the next unused milestone numerals in the same track, one `zi`/`zo` pair per milestone. Their checklist numbers are the parent's number plus a letter (`29` becomes `29a`, `29b`, ‚Äö√Ñ¬∂).
 4. M changes accordingly (children added, parent removed). The session reports the new total and updates the history line under "Done so far", so the count never changes meaning quietly.
 5. Likely splits are flagged in advance: `3.b.i` (mix and effects), `3.b.ii` (audio upload), `3.c.i` (messaging). New G-items found by `2.b.i.zi` add leaves and raise M the same way.
 
 ### Status markers
-`[ ]` open ¬∑ `[~]` in progress (a session started but could not finish; commit as `WIP:`) ¬∑ `[x]` done and handed off by patch ¬∑ `[-]` superseded or split; never pick it up.
+`[ ]` open ¬¨‚àë `[~]` in progress (a session started but could not finish; commit as `WIP:`) ¬¨‚àë `[x]` done and handed off by patch ¬¨‚àë `[-]` superseded or split; never pick it up.
 
 ---
 
-## 1. Focus run — the 82 leaves of the SDK full-coverage program
+## 1. Focus run - the 101 leaves of the SDK full-coverage program
 
-*Active until "82 done ✅ of 82". Owner directive 2026-10-03; **rescoped 2026-10-15** from 47 to 82 leaves after the bundle evidence (below) revealed 201 endpoints the spec never described. Scope and rules: Section 2. Leaf specs: `docs/handover/TASKS.md`. Coverage matrix and the G-item register: `docs/handover/COVERAGE.md`.*
+*Active until "101 done of 101". Owner directive 2026-10-03; **rescoped twice on 2026-10-15**: 47 to 73 after the bundle evidence revealed 201 endpoints the spec never described, then 73 to 101 after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 353 endpoints, every one with a verb and 272 with a real response shape. Scope and rules: Section 2. Leaf specs: `docs/handover/TASKS.md`. Coverage matrix and the G-item register: `docs/handover/COVERAGE.md`.*
 
-**The 2026-10-15 rescope, in one paragraph.** The original run assumed the only way to learn a
-missing endpoint was for the owner to hand back scrubbed HAR captures, so Phase 2 was built as a
-capture kit and Phase 3 waited behind it. A session then fetched BandLab's own web app bundle and
-the OpenAPI spec URL already recorded in `.stats.yml`, and found that the spec is a **narrow
-subset** — 80 paths, 123 operations, with no messaging, effects, sounds or uploads at all —
-while the shipped app calls **236 path templates / 225 clean paths**, of which **201 are not in
-the SDK**. The evidence was publicly available the whole time. Full method, sources and the
-limits of the evidence: `docs/research/BUNDLE-EVIDENCE.md`; the path list:
-`docs/research/bundle-endpoints.md`. **The capture kit is no longer a blocking gate**: it is now
-only needed for the one thing the bundle cannot supply, which is typed request/response *shapes*
-(see the shape rule in Section 2).
+**The 2026-10-15 rescope, in one paragraph.** The original run assumed the only way to learn a missing endpoint was for the owner to hand back scrubbed HAR captures, so Phase 2 was built as a capture kit and Phase 3 waited behind it. A session then fetched BandLab's own web app bundle and the OpenAPI spec URL already recorded in `.stats.yml`, and found that the spec is a **narrow subset** (80 paths, 123 operations, no messaging, effects, sounds or uploads) while the shipped app calls 236 path templates, of which 201 are not in the SDK. A later session went further and decompiled the **Android app**, whose kotlinx.serialization descriptors preserve the real class and field names, which raised the evidenced surface to **353 endpoints** with a verb for every one and a **real response shape for 272**. Full method, sources and limits: `docs/research/BUNDLE-EVIDENCE.md` and `docs/research/APK-EVIDENCE.md`; the path list: `docs/research/apk-endpoints.md`. **The capture kit is no longer a blocking gate**: it is now only needed for request bodies and live confirmation (see the shape rule in Section 2).
 
+**Phase 1 ‚Äî Baseline and coverage tooling**
 
-**Phase 1 — Baseline and coverage tooling**
+- [x] 1 ‚Äî `1.a.i.zi` Record the build baseline
+- [x] 2 ‚Äî `1.a.i.zo` Record which tests need the Prism mock or the network, and report the base-URL finding
+- [x] 3 ‚Äî `1.a.ii.zi` `scripts/utils/coverage-report.cjs`
+- [x] 4 ‚Äî `1.a.ii.zo` Generate `docs/endpoint-status.md` and verify every `COVERAGE.md` row against the code
 
-- [x] 1 — `1.a.i.zi` Record the build baseline
-- [x] 2 — `1.a.i.zo` Record which tests need the Prism mock or the network, and report the base-URL finding
-- [x] 3 — `1.a.ii.zi` `scripts/utils/coverage-report.cjs`
-- [x] 4 — `1.a.ii.zo` Generate `docs/endpoint-status.md` and verify every `COVERAGE.md` row against the code
+**Phase 2 - Evidence for the missing endpoints** *(rescoped 2026-10-15: the decompiled Android app is the evidence, and it supplies shapes as well as paths; the capture kit is now only for request bodies and live confirmation)*
 
-**Phase 2 — Evidence for the missing endpoints** *(rescoped 2026-10-15: the bundle is the evidence; the capture kit is now only for shapes)*
+- [x] 5 ‚Äî `2.a.i.zi` `docs/research/CAPTURE-GUIDE.md`
+- [x] 6 ‚Äî `2.a.i.zo` Evidence hand-back format
+- [x] 7 ‚Äî `2.a.ii.zi` `scripts/research/scrub-har.py` and a synthetic fixture
+- [x] 8 ‚Äî `2.a.ii.zo` `scripts/research/har-to-endpoints.py` and a fixture
+- [x] 9 ‚Äî `2.b.i.zi` Record the bundle evidence and the spec's server block; **P0 answered**; `docs/research/BUNDLE-EVIDENCE.md` + `docs/research/bundle-endpoints.md` *(was the owner's leaf; a session resolved it from public sources)*
+- [x] 10 ‚Äî `2.b.i.zo` Record the final resource design for all 353 APK-evidenced endpoints: 35 resources, file names, accessors, method names and type strategy per domain (`docs/handover/RESOURCE-DESIGN.md`); regenerate `COVERAGE.md` and `docs/endpoint-status.md` from the union; split Phase 3 into the 40 domains below and raise M -- **DONE**: design in `docs/handover/RESOURCE-DESIGN.md`; M raised 73 -> 101.
 
-- [x] 5 — `2.a.i.zi` `docs/research/CAPTURE-GUIDE.md`
-- [x] 6 — `2.a.i.zo` Evidence hand-back format
-- [x] 7 — `2.a.ii.zi` `scripts/research/scrub-har.py` and a synthetic fixture
-- [x] 8 — `2.a.ii.zo` `scripts/research/har-to-endpoints.py` and a fixture
-- [x] 9 — `2.b.i.zi` Record the bundle evidence and the spec's server block; **P0 answered**; `docs/research/BUNDLE-EVIDENCE.md` + `docs/research/bundle-endpoints.md` *(was the owner's leaf; a session resolved it from public sources)*
-- [ ] 10 — `2.b.i.zo` Record the final resource design for all 201 new endpoints: file names, accessors, methods and type strategy per domain; regenerate `COVERAGE.md` and `docs/endpoint-status.md` from the union; split Phase 3 into the leaves below
+**Phase 3 ‚Äî Implementation by domain** *(80 leaves: 40 domains x `zi`/`zo`. Every domain has APK evidence for its paths, and 272 of the 353 paths also have a real response shape. Shapes follow rule D12 and the design in `docs/handover/RESOURCE-DESIGN.md`.)*
 
-**Phase 3 — Implementation by domain** *(52 leaves: 26 domains √ó `zi`/`zo`. Every domain has bundle evidence for its paths; shapes follow the shape rule in Section 2.)*
+**3.a ‚Äî Songs, revisions, tracks, bands, albums**
 
-**3.a — Songs, revisions, collaborators**
+- [ ] 11 ‚Äî `3.a.i.zi` songs: list, create, invite-link, collaborators (5 endpoints): implement
+- [ ] 12 ‚Äî `3.a.i.zo` songs: tests and records
+- [ ] 13 ‚Äî `3.a.ii.zi` revisions: breakdown, mixdown, download-options, forks (9 endpoints): implement
+- [ ] 14 ‚Äî `3.a.ii.zo` revisions: tests and records
+- [ ] 15 ‚Äî `3.a.iii.zi` tracks (2 endpoints): implement
+- [ ] 16 ‚Äî `3.a.iii.zo` tracks: tests and records
+- [ ] 17 ‚Äî `3.a.iv.zi` bands: members, invites, follow-invitees, suggestions (7 endpoints): implement
+- [ ] 18 ‚Äî `3.a.iv.zo` bands: tests and records
+- [ ] 19 ‚Äî `3.a.v.zi` albums: themes, likes, comments, posts, state, pictures (15 endpoints): implement
+- [ ] 20 ‚Äî `3.a.v.zo` albums: tests and records
 
-- [ ] 11 — `3.a.i.zi` G04 songs: create, list, invite-link, collaborators (3 new endpoints): implement
-- [ ] 12 — `3.a.i.zo` G04 songs: tests and records
-- [ ] 13 — `3.a.ii.zi` G05 delete revision: implement
-- [ ] 14 — `3.a.ii.zo` G05 delete revision: tests and records
-- [ ] 15 — `3.a.iii.zi` G11 add and update collaborator: implement
-- [ ] 16 — `3.a.iii.zo` G11 add and update collaborator: tests and records
+**3.b ‚Äî Studio: effects, sounds, uploads, soundbanks**
 
-**3.b — Studio: effects and revisions**
+- [ ] 21 ‚Äî `3.b.i.zi` effects: presets, favourites, trending, promo, artist presets (10 endpoints): implement
+- [ ] 22 ‚Äî `3.b.i.zo` effects: tests and records
+- [ ] 23 ‚Äî `3.b.ii.zi` sounds: samples, packs, libraries, credits (part 1) (16 endpoints): implement
+- [ ] 24 ‚Äî `3.b.ii.zo` sounds: tests and records
+- [ ] 25 ‚Äî `3.b.iii.zi` sounds: claims, uploads, sampler-kits, stamps (part 2) (15 endpoints): implement
+- [ ] 26 ‚Äî `3.b.iii.zo` sounds: tests and records
+- [ ] 27 ‚Äî `3.b.iv.zi` uploads v2.0: create, part, complete (4 endpoints): implement
+- [ ] 28 ‚Äî `3.b.iv.zo` uploads v2.0: tests and records
+- [ ] 29 ‚Äî `3.b.v.zi` soundbanks v4.3 and metronome v3.0 (1 endpoints): implement
+- [ ] 30 ‚Äî `3.b.v.zo` soundbanks v4.3 and metronome v3.0: tests and records
 
-- [ ] 17 — `3.b.i.zi` G02a effects: effect-presets, favourites, trending, artist presets (11 endpoints, likely split): implement
-- [ ] 18 — `3.b.i.zo` G02a effects: tests and records
-- [ ] 19 — `3.b.ii.zi` G02b revisions: studio-breakdown, mixdown, tracks, download-options, forks (7 endpoints): implement
-- [ ] 20 — `3.b.ii.zo` G02b revisions: tests and records
+**3.c ‚Äî AI, audio tooling and misc**
 
-**3.c — Audio: sounds, uploads, soundbanks**
+- [ ] 31 ‚Äî `3.c.i.zi` AI: separation, transfer, task, model, presets (part 1) (17 endpoints): implement
+- [ ] 32 ‚Äî `3.c.i.zo` AI: tests and records
+- [ ] 33 ‚Äî `3.c.ii.zi` AI: remix, autocomplete, captcha, genres, ideas (part 2) (16 endpoints): implement
+- [ ] 34 ‚Äî `3.c.ii.zo` AI: tests and records
+- [ ] 35 ‚Äî `3.c.iii.zi` ai-videos: jobs, styles, generate, tokens (5 endpoints): implement
+- [ ] 36 ‚Äî `3.c.iii.zo` ai-videos: tests and records
+- [ ] 37 ‚Äî `3.c.iv.zi` synced lyrics (2 endpoints): implement
+- [ ] 38 ‚Äî `3.c.iv.zo` synced lyrics: tests and records
+- [ ] 39 ‚Äî `3.c.v.zi` misc: settings, options, tracking, external (4 endpoints): implement
+- [ ] 40 ‚Äî `3.c.v.zo` misc: tests and records
 
-- [ ] 21 — `3.c.i.zi` G03a sounds: samples, packs, libraries, claims, credits, uploads (22 endpoints, **must split**): implement
-- [ ] 22 — `3.c.i.zo` G03a sounds: tests and records
-- [ ] 23 — `3.c.ii.zi` G03b uploads v2.0: create, part (2 endpoints): implement
-- [ ] 24 — `3.c.ii.zo` G03b uploads: tests and records
-- [ ] 25 — `3.c.iii.zi` G03c soundbanks v4.3 + metronome v3.0 (3 endpoints): implement
-- [ ] 26 — `3.c.iii.zo` G03c soundbanks: tests and records
+**3.d ‚Äî Messaging, communities and posts**
 
-**3.d — Messaging**
+- [ ] 41 ‚Äî `3.d.i.zi` messaging: conversations, messages, receipts (part 1) (10 endpoints): implement
+- [ ] 42 ‚Äî `3.d.i.zo` messaging: tests and records
+- [ ] 43 ‚Äî `3.d.ii.zi` messaging: reactions, chat channels, read receipts (part 2) (9 endpoints): implement
+- [ ] 44 ‚Äî `3.d.ii.zo` messaging: tests and records
+- [ ] 45 ‚Äî `3.d.iii.zi` communities: rules, active, invites (5 endpoints): implement
+- [ ] 46 ‚Äî `3.d.iii.zo` communities: tests and records
+- [ ] 47 ‚Äî `3.d.iv.zi` posts: create, plays, polls, track-posts, mentions (11 endpoints): implement
+- [ ] 48 ‚Äî `3.d.iv.zo` posts: tests and records
+- [ ] 49 ‚Äî `3.d.v.zi` images: upload and variants (12 endpoints): implement
+- [ ] 50 ‚Äî `3.d.v.zo` images: tests and records
 
-- [ ] 27 — `3.d.i.zi` G01 messaging: conversations, messages, reactions, receipts, chat authorizations (10 endpoints, **must split**): implement
-- [ ] 28 — `3.d.i.zo` G01 messaging: tests and records
+**3.e ‚Äî Profile, library and feeds**
 
-**3.e — Social and media**
+- [ ] 51 ‚Äî `3.e.i.zi` users: profile, pictures, views, gear (part 1) (18 endpoints): implement
+- [ ] 52 ‚Äî `3.e.i.zo` users: tests and records
+- [ ] 53 ‚Äî `3.e.ii.zi` users: followers, invites, mutual-connections, pins (part 2) (18 endpoints): implement
+- [ ] 54 ‚Äî `3.e.ii.zo` users: tests and records
+- [ ] 55 ‚Äî `3.e.iii.zi` users: settings, warnings, verified, two-factor (part 3) (18 endpoints): implement
+- [ ] 56 ‚Äî `3.e.iii.zo` users: tests and records
+- [ ] 57 ‚Äî `3.e.iv.zi` library: likes, purchases, collections, recommendations (14 endpoints): implement
+- [ ] 58 ‚Äî `3.e.iv.zo` library: tests and records
+- [ ] 59 ‚Äî `3.e.v.zi` feeds: for-you, following, featured, media, trending, explore (12 endpoints): implement
+- [ ] 60 ‚Äî `3.e.v.zo` feeds: tests and records
 
-- [ ] 29 — `3.e.i.zi` G06 posts: create, plays, polls, track-posts, song-posts, feeds (7 endpoints): implement
-- [ ] 30 — `3.e.i.zo` G06 posts: tests and records
-- [ ] 31 — `3.e.ii.zi` G07 comments and mentions (1 endpoint): implement
-- [ ] 32 — `3.e.ii.zo` G07 comments: tests and records
-- [ ] 33 — `3.e.iii.zi` G14 share and repost: implement
-- [ ] 34 — `3.e.iii.zo` G14 share and repost: tests and records
-- [ ] 35 — `3.e.iv.zi` G08 search: collaborators, trending by genre (2 endpoints): implement
-- [ ] 36 — `3.e.iv.zo` G08 search: tests and records
-- [ ] 37 — `3.e.v.zi` G12 media: profile pictures, backgrounds, video views (4 endpoints): implement
-- [ ] 38 — `3.e.v.zo` G12 media: tests and records
+**3.f ‚Äî Account, membership and payments**
 
-**3.f — Account**
+- [ ] 61 ‚Äî `3.f.i.zi` me: activity status, privacy, marketing consent, parental consent (11 endpoints): implement
+- [ ] 62 ‚Äî `3.f.i.zo` me: tests and records
+- [ ] 63 ‚Äî `3.f.ii.zi` streaks (3 endpoints): implement
+- [ ] 64 ‚Äî `3.f.ii.zo` streaks: tests and records
+- [ ] 65 ‚Äî `3.f.iii.zi` membership: plan, coins, wallet, AI-token balance (read-only) (4 endpoints): implement
+- [ ] 66 ‚Äî `3.f.iii.zo` membership: tests and records
+- [ ] 67 ‚Äî `3.f.iv.zi` payments: checkout payment intents (6 endpoints): implement
+- [ ] 68 ‚Äî `3.f.iv.zo` payments: tests and records
+- [ ] 69 ‚Äî `3.f.v.zi` authorizations: registration, assertion, logout, passkeys (9 endpoints): implement
+- [ ] 70 ‚Äî `3.f.v.zo` authorizations: tests and records
 
-- [ ] 39 — `3.f.i.zi` G09 account: membership, privacy settings, marketing consent, streaks, activity status, verification (10 endpoints): implement
-- [ ] 40 — `3.f.i.zo` G09 account: tests and records
-- [ ] 41 — `3.f.ii.zi` G10 delete account, warnings, violations (3 endpoints; JSDoc marks deletes destructive): implement
-- [ ] 42 — `3.f.ii.zo` G10 account: tests and records
+**3.g ‚Äî Search, validation and catalogues**
 
-**3.g — Newly discovered domains** *(none of these were in the original 47-leaf plan)*
+- [ ] 71 ‚Äî `3.g.i.zi` search: collaborators, trending, hashtags, suggestions (8 endpoints): implement
+- [ ] 72 ‚Äî `3.g.i.zo` search: tests and records
+- [ ] 73 ‚Äî `3.g.ii.zi` validation and captcha (4 endpoints): implement
+- [ ] 74 ‚Äî `3.g.ii.zo` validation and captcha: tests and records
+- [ ] 75 ‚Äî `3.g.iii.zi` passwords and account recovery (1 endpoints): implement
+- [ ] 76 ‚Äî `3.g.iii.zo` passwords and account recovery: tests and records
+- [ ] 77 ‚Äî `3.g.iv.zi` collections (1 endpoints): implement
+- [ ] 78 ‚Äî `3.g.iv.zo` collections: tests and records
+- [ ] 79 ‚Äî `3.g.v.zi` genres and displayed genres (1 endpoints): implement
+- [ ] 80 ‚Äî `3.g.v.zo` genres and displayed genres: tests and records
 
-- [ ] 43 — `3.g.i.zi` G13a beats: marketplace, collections, genres, promo, free-claims (8 endpoints): implement
-- [ ] 44 — `3.g.i.zo` G13a beats: tests and records
-- [ ] 45 — `3.g.ii.zi` G13b albums and artists (4 endpoints): implement
-- [ ] 46 — `3.g.ii.zo` G13b albums: tests and records
-- [ ] 47 — `3.g.iii.zi` G13c distribution: releases, analytics, quotas, splits (9 endpoints): implement
-- [ ] 48 — `3.g.iii.zo` G13c distribution: tests and records
-- [ ] 49 — `3.g.iv.zi` G13d promotion: campaigns, statistics, reach estimates (12 endpoints): implement
-- [ ] 50 — `3.g.iv.zo` G13d promotion: tests and records
-- [ ] 51 — `3.g.v.zi` G13e payments and checkout: payment methods, payouts, plan change (12 endpoints): implement
-- [ ] 52 — `3.g.v.zo` G13e payments: tests and records
-- [ ] 53 — `3.g.vi.zi` G13f pages: bio, links, press kits, revisions, statistics (11 endpoints): implement
-- [ ] 54 — `3.g.vi.zo` G13f pages: tests and records
-- [ ] 55 — `3.g.vii.zi` G13g feeds: for-you, following, featured, media, trending, explore (14 endpoints, **must split**): implement
-- [ ] 56 — `3.g.vii.zo` G13g feeds: tests and records
-- [ ] 57 — `3.g.viii.zi` G13h profile: playing-now, profile-views, gear, goals, mutual-connections (13 endpoints, **must split**): implement
-- [ ] 58 — `3.g.viii.zo` G13h profile: tests and records
-- [ ] 59 — `3.g.ix.zi` G13i library: likes, purchases, collections, recommendations, notifications (13 endpoints, **must split**): implement
-- [ ] 60 — `3.g.ix.zo` G13i library: tests and records
-- [ ] 61 — `3.g.x.zi` G13j misc + unclassified: settings, events, places, opportunities, schools, recaptcha, preview, projects, gears, options (20 endpoints): implement
-- [ ] 62 — `3.g.x.zo` G13j misc: tests and records
+**3.h ‚Äî Beats, distribution, promotion and pages**
 
-**Phase 4 — Consistency and final audit**
+- [ ] 81 ‚Äî `3.h.i.zi` beats: marketplace, collections, genres, promo, free-claims (16 endpoints): implement
+- [ ] 82 ‚Äî `3.h.i.zo` beats: tests and records
+- [ ] 83 ‚Äî `3.h.ii.zi` distribution: releases, analytics, quotas, splits (15 endpoints): implement
+- [ ] 84 ‚Äî `3.h.ii.zo` distribution: tests and records
+- [ ] 85 ‚Äî `3.h.iii.zi` promotion: campaigns, statistics, reach, banners (9 endpoints): implement
+- [ ] 86 ‚Äî `3.h.iii.zo` promotion: tests and records
+- [ ] 87 ‚Äî `3.h.iv.zi` pages: bio, links, press kits, projects, statistics (3 endpoints): implement
+- [ ] 88 ‚Äî `3.h.iv.zo` pages: tests and records
+- [ ] 89 ‚Äî `3.h.v.zi` videos and video-mix (2 endpoints): implement
+- [ ] 90 ‚Äî `3.h.v.zo` videos and video-mix: tests and records
 
-- [ ] 63 — `4.a.i.zi` Tighten types where evidence gave real shapes
-- [ ] 64 — `4.a.i.zo` JSDoc statuses, naming consistency, `api.md` complete
-- [ ] 65 — `4.a.ii.zi` README: new resources and one example per new domain
-- [ ] 66 — `4.a.ii.zo` Final coverage audit
+**Phase 4 ‚Äî Consistency and final audit**
 
-**Phase 5 — Container image on GHCR (if possible)**
+- [ ] 91 ‚Äî `4.a.i.zi` Tighten the remaining request bodies where a capture supplies them
+- [ ] 92 ‚Äî `4.a.i.zo` JSDoc statuses, naming consistency, `api.md` complete
+- [ ] 93 ‚Äî `4.a.ii.zi` README: new resources and one example per new domain
+- [ ] 94 ‚Äî `4.a.ii.zo` Final coverage audit
 
-- [ ] 67 — `5.a.i.zi` Multi-stage `Dockerfile` and `.dockerignore`
-- [ ] 68 — `5.a.i.zo` `scripts/container-smoke`
-- [ ] 69 — `5.a.ii.zi` README container section
-- [ ] 70 — `5.a.ii.zo` Default command
-- [ ] 71 — `5.b.i.zi` `.github/workflows/container.yml`
-- [ ] 72 — `5.b.i.zo` Owner steps document
-- [ ] 73 — `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
+**Phase 5 ‚Äî Container image on GHCR (if possible)**
 
-**Done so far: 9 of 73.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** — leaf 9 (`2.b.i.zi`) completed from public evidence, and Phase 3 was resplit from 12 gaps into 26 domains (12 ‚Üí 52 leaves) and Phase 4/5 renumbered, because the bundle evidence showed 201 endpoints the spec never described. No parent was superseded, so no leaf ID was retired.
+- [ ] 95 ‚Äî `5.a.i.zi` Multi-stage `Dockerfile` and `.dockerignore`
+- [ ] 96 ‚Äî `5.a.i.zo` `scripts/container-smoke`
+- [ ] 97 ‚Äî `5.a.ii.zi` README container section
+- [ ] 98 ‚Äî `5.a.ii.zo` Default command
+- [ ] 99 ‚Äî `5.b.i.zi` `.github/workflows/container.yml`
+- [ ] 100 ‚Äî `5.b.i.zo` Owner steps document
+- [ ] 101 ‚Äî `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs *(owner's leaf)*
 
-**Reporting rule:** a session that completes a leaf ends its final message with `N done ✅ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed — still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
+**Done so far: 10 of 101.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** after the bundle evidence showed 201 endpoints the spec never described; **raised to 101 on 2026-10-15** (`2.b.i.zo`) after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 353 endpoints with a verb for all of them and a real response shape for 272. Phase 3 was resplit from 26 domains / 52 leaves into 40 domains / 80 leaves (12 → 52 → 80), and Phase 4/5 renumbered behind it. No parent was superseded, so no leaf ID was retired.
+
+**Reporting rule:** a session that completes a leaf ends its final message with `N done ‚úÖ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed ‚Äî still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
 
 ---
 
 ## 1a. Current position
 
 ```yaml
-CURRENT_LEAF: 2.b.i.zo
-CURRENT_LEAF_TITLE: Record the final resource design for all 201 new endpoints
-CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "2.b.i.zo"  (read docs/research/BUNDLE-EVIDENCE.md and sessions/2.b.i.zi.md first)
-FOCUS_RUN: "9 done of 73"
-LAST_COMPLETED_LEAF: 2.b.i.zi
-MARKER_COMMIT_SUBJECT_PREFIX: "2.b.i.zi:"
+CURRENT_LEAF: 3.a.i.zi
+CURRENT_LEAF_TITLE: G-songs: list, create, invite-link, collaborators — implement
+CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "3.a.i.zi"  (read docs/handover/RESOURCE-DESIGN.md and docs/research/APK-EVIDENCE.md first)
+FOCUS_RUN: "10 done of 101"
+LAST_COMPLETED_LEAF: 2.b.i.zo
+MARKER_COMMIT_SUBJECT_PREFIX: "2.b.i.zo:"
 STATUS: READY
-BLOCKERS: none that stop work. `2.b.i.zo` is the design leaf and needs no external input. Known limits, recorded so no session overclaims - (1) request/response SHAPES for the 201 new endpoints are NOT evidenced; source maps are 404, so the bundle yields paths and some methods but no types. Apply the shape rule in Section 2: implement the path with `unknown` bodies and status `unverified`, then tighten in 4.a.i.zi, OR wait for an owner capture for that domain. (2) 24 of 53 probed endpoints returned 404, which is inconclusive and must not be read as absence - see BUNDLE-EVIDENCE.md section 3. (3) The `v2.0` uploads, `v3.0` sounds and `v4.3` soundbanks routes do not resolve from the web host; they are mobile/studio-client routes. (4) P0 is ANSWERED: spec servers are `test.bandlab.com/api/v1.3` (test) and `bandlab.com/api/v1.3` (production); the SDK default already matches the first. The owner may still choose to change the default - that is a product decision, not an evidence gap. (5) 5.b.ii.zi remains the owner's leaf.
+BLOCKERS: none. `2.b.i.zo` is DONE — the resource design is recorded in `docs/handover/RESOURCE-DESIGN.md` (35 resources, 353 endpoints) and Phase 3 is split into 40 domains / 80 leaves. Known limits, recorded so no session overclaims - (1) REQUEST BODIES are evidenced only where the app method takes a `@c74` body parameter whose model is in the descriptor set; the rest stay `unknown` under D12 and are marked `apk-path-only`. (2) `@lik` = PUT is the one verb with realistic doubt (15/28 direct, resolved by in-file coherence); rows using it are flagged. (3) 81 of 353 paths have a verb but no response shape. (4) The AI/ML host groups (`SMART_COMPOSE`, `MIDI_GENERATE`, `AUTO_MIX`, `AUDIO_TO_MIDI`, `VOICE_CLEANER`, `OPEN_MIC`, `FX`, `REALTIME`, `AUDIO_SONG_STARTER`) are evidenced but their deployment host (staging vs production) is not. (5) `AMPLITUDE_*` and `BRANCH` host groups are third-party SDKs and are deliberately EXCLUDED. (6) Nothing has been run against BandLab; rows are `apk`, never `live-ok`. (7) 5.b.ii.zi remains the owner's leaf.
 ```
 
-**Shape rule (added 2026-10-15, see rule D12 in Section 2).** The bundle proves a path exists; it does not prove the request or response shape. A session may therefore add a method whose body and response types are `unknown`, marked `unverified` in `docs/endpoint-status.md`, provided it says so in the JSDoc and the Done note. A session must **not** invent field names, required flags, enum values or nested types. Shapes are tightened only when evidence arrives.
+**Shape rule (added 2026-10-15, revised 2026-10-15 after the APK evidence, see rule D12).** Evidence proves a *path*; the APK also proves a *shape* wherever a kotlinx.serialization descriptor names the field. A session therefore types a response with the real field names when `docs/research/apk-shapes.tsv` has them, and uses `unknown` with status `apk-path-only` when it does not. A session must **not** invent field names, required flags, enum values or nested types. Request bodies are typed only where a `@c74` body model is in the descriptor set.
 
 **Sanity check at session start:**
 ```bash
@@ -200,13 +220,15 @@ If the marker is **not** in `git log`, the previous patch was never applied or p
 | D4 | **Additive only.** Every existing `client.*` call keeps working unchanged. |
 | D5 | Python is allowed only in `scripts/research/` for evidence tooling. Never shipped, never imported by `src/`. |
 | D6 | **Never invent an endpoint or a response shape.** Every new endpoint needs evidence (capture, spec or owner confirmation) and a status: `spec` / `captured` / `unverified` / `live-ok` / `missing`. |
-| D7 | **Network reach (revised 2026-10-15).** The sandbox **can** reach `www.bandlab.com` and `test.bandlab.com` over HTTPS — the bundle and spec were fetched this way. `ghcr.io` and Docker Hub are still untested, and there is no container runtime without sudo. Live checks against BandLab should still be read-only and unauthenticated; a session must never claim an endpoint is live-verified on the basis of a probe alone (see D13). |
+| D7 | **Network reach (revised 2026-10-15).** The sandbox **can** reach `www.bandlab.com` and `test.bandlab.com` over HTTPS ‚Äî the bundle and spec were fetched this way. `ghcr.io` and Docker Hub are still untested, and there is no container runtime without sudo. Live checks against BandLab should still be read-only and unauthenticated; a session must never claim an endpoint is live-verified on the basis of a probe alone (see D13). |
 | D8 | Stainless and release scaffolding is left untouched. Do not run or merge codegen (it would overwrite hand edits). |
 | D9 | Wire paths stay exactly as the server expects; follow the naming of neighbouring files. |
-| D10 | **Direct-push rule (owner directive, 2026-10-15, supersedes the combined-patch rule).** Sessions **push directly to `main`**. Do **not** run the patch handoff: no `make-patch.sh`, no `.patch` file, no `git am` on the owner's side, no `NEXT_PATCH_NUMBER` bump. The commit on `main` *is* the handoff. The owner confirmed this after the 47→73 rescope. `scripts/handover/make-patch.sh` is retained only as a fallback if the owner asks for it again. |
+| D10 | **Direct-push rule (owner directive, 2026-10-15, supersedes the combined-patch rule).** Sessions **push directly to `main`**. Do **not** run the patch handoff: no `make-patch.sh`, no `.patch` file, no `git am` on the owner's side, no `NEXT_PATCH_NUMBER` bump. The commit on `main` *is* the handoff. The owner confirmed this after the 47‚Üí73 rescope. `scripts/handover/make-patch.sh` is retained only as a fallback if the owner asks for it again. |
 | D11 | **Never bake secrets into an image.** Tokens are supplied at runtime only. |
 | D12 | **Shape rule (2026-10-15).** Evidence proves a *path*; it does not prove a *shape*. A session may implement an evidenced path with `unknown` request/response types and status `unverified`, but must never invent field names, required flags, enum values or nested types. Shapes are tightened only when evidence arrives (`4.a.i.zi`). |
-| D13 | **Evidence sources, in order of strength (2026-10-15):** (1) an authenticated capture by the owner; (2) the OpenAPI spec at the `openapi_spec_url` in `.stats.yml`; (3) the shipped web app bundle and its chunks; (4) a live unauthenticated probe. **A 404 is never evidence of absence** — real endpoints return 404 unauthenticated. Record which source each claim rests on. |
+| D13 | **Evidence sources, in order of strength (revised 2026-10-15):** (1) an authenticated capture by the owner; (2) the **decompiled Android app** (`docs/research/APK-EVIDENCE.md`) — it proves the path, the host group, the auth flag, the verb and the response shape; (3) the OpenAPI spec at the `openapi_spec_url` in `.stats.yml`; (4) the shipped web app bundle; (5) a live unauthenticated probe. **A 404 is never evidence of absence** — real endpoints return 404 unauthenticated. Record which source each claim rests on, as the row status. |
+| D14 | **No entitlement bypass (owner request, 2026-10-15).** The owner asked for "all services free" so nothing is gated. The investigation (`APK-EVIDENCE.md` §8) found gating is **server-side**: the app holds only presentation state (`MembershipStatusShort.isActive`, `MembershipLimits`, quota banners) and delegates purchase to Purchasely/Google Play. A client change cannot make a paid feature free, and patching or redistributing the app to bypass payment would breach BandLab’s terms and, for store purchases, circumvent a technical protection measure. **This project does not do that.** It instead exposes the complete **free** surface so no account lacks capability, and exposes membership, coin, wallet and quota endpoints **read-only** so callers can read their own state. Those JSDoc lines must say entitlement is enforced server-side. |
+| D15 | **Third-party surface is excluded.** The APK bundles non-BandLab SDKs. `AMPLITUDE_EXPERIMENT`, `AMPLITUDE_ANALYTICS` and `BRANCH` host groups are analytics/attribution, not BandLab API. They are listed in `APK-EVIDENCE.md` §5 so they can be excluded deliberately, and no leaf implements them. |
 
 ---
 
@@ -245,5 +267,10 @@ If a leaf cannot finish: mark it `[~]`, commit what exists with a `WIP:` prefix,
 | `docs/handover/ORIGINAL-PLAN-TREE.md` | The cancelled MCP plan, kept as a domain checklist only. |
 | `docs/handover/sessions/` | Done notes: `S00`, `S00B`, `S00C` (history) and one `<leaf path>.md` per leaf. |
 | `docs/research/BUNDLE-EVIDENCE.md` | **The bundle evidence (2026-10-15):** sources, the 123-vs-225 finding, per-endpoint verification status, and what is still unevidenced. Read before any Phase 3 leaf. |
+| `docs/research/APK-EVIDENCE.md` | **The APK evidence (2026-10-15), the stronger source:** how the Android app yields paths, host groups, auth flags, verbs and real response shapes; the verb map and its validation; the entitlement finding. Read before any Phase 3 leaf. |
+| `docs/research/apk-endpoints.md` | All 353 APK-evidenced paths the SDK lacks, with verb, auth flag, service and response class. |
+| `docs/research/apk-shapes.tsv` | Class → field → required, from the kotlinx.serialization descriptors (1,094 models, 1,973 fields). |
+| `docs/handover/RESOURCE-DESIGN.md` | **The `2.b.i.zo` design:** all 353 paths assigned to 35 resources with file, accessor and type strategy, and the Phase 3 leaf mapping. |
+| `scripts/research/apk-to-endpoints.py` | Reproducible extractor: jadx output → `apk-endpoints.md` + `apk-shapes.tsv`. Stdlib only. |
 | `docs/research/bundle-endpoints.md` | All 225 clean endpoint paths, grouped by segment, each flagged SDK/NEW with its live probe result. |
 | `scripts/handover/make-patch.sh` | Builds the combined patch. |

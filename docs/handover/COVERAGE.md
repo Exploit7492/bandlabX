@@ -67,51 +67,82 @@ Verified against the code in `1.a.ii.zo`. **7 Covered · 8 Partial · 2 Missing.
 
 ## 3. Escape hatch for anything not yet modelled
 `client.get|post|patch|put|delete(path, opts)` already exist on `BandlabSDK`. Research scripts and unverified experiments use these,
-so no endpoint is ever blocked by the SDK itself.
-## 4. Live target after the 2026-10-15 bundle evidence
+so no endpoint is ever blocked by the SDK itself.## 4. Live target after the 2026-10-15 APK evidence
 
-Every path below is evidenced by the shipped BandLab web app (`docs/research/bundle-endpoints.md`). **Shapes are not evidenced** — see rule D12. Totals: 201 new endpoints across 24 groups, on top of the SDK's existing 123 (union 281 path templates, 324 operations once methods are settled).
+`docs/research/APK-EVIDENCE.md` supersedes the bundle as the evidence source (rule D13). The
+decompiled Android app proves **353 paths the SDK does not expose**, a verb for **all 353**, and a
+real response shape for **272**. The bundle's 201 was a subset; the APK adds 271 paths it never had
+and supplies verbs for the rest.
 
-| Group | Leaf | New endpoints | Proposed file | Contents |
-|-------|------|---------------|---------------|----------|
-| G01 Messaging | `3.d.i` | 10 | `src/resources/messaging/` | conversations, messages, reactions, receipts, chat authorizations |
-| G02a Effects | `3.b.i` | 11 | `src/resources/effects.ts` | effect-presets, favourites, trending, artist presets |
-| G02b Studio | `3.b.ii` | 7 | `src/resources/revisions.ts` (extend) | studio-breakdown, mixdown, tracks, download-options, forks |
-| G03a Sounds | `3.c.i` | 22 | `src/resources/sounds/` | samples, packs, libraries, claims, credits, uploads — 22 endpoints, must split |
-| G03b Uploads | `3.c.ii` | 2 | `src/resources/uploads.ts` | v2.0 create + part upload |
-| G03c Soundbanks | `3.c.iii` | 3 | `src/resources/soundbanks.ts` | v4.3 soundbanks + v3.0 metronome |
-| G04 Songs | `3.a.i` | 3 | `src/resources/songs/songs.ts` (extend) | create, list, invite-link, collaborators |
-| G06 Posts | `3.e.i` | 7 | `src/resources/posts/posts.ts` (extend) | create, plays, polls, track-posts, song-posts |
-| G07 Comments | `3.e.ii` | 1 | `src/resources/posts/comments.ts` (extend) | mentions/suggestions |
-| G08 Search | `3.e.iv` | 2 | `src/resources/search.ts` (extend) | collaborators, trending by genre |
-| G09 Account | `3.f.i` | 10 | `src/resources/me.ts` (extend) | membership, privacy, marketing consent, streaks, activity status, verification |
-| G10 Account | `3.f.ii` | 3 | `src/resources/me.ts` (extend) | delete account, warnings, violations |
-| G12 Media | `3.e.v` | 4 | `src/resources/users.ts` (extend) | profile pictures, backgrounds, video views |
-| G13a Beats | `3.g.i` | 8 | `src/resources/beats.ts` | marketplace, collections, genres, promo, free-claims |
-| G13b Albums | `3.g.ii` | 4 | `src/resources/albums.ts` | albums, artists |
-| G13c Distribution | `3.g.iii` | 9 | `src/resources/distro.ts` | releases, analytics, quotas, distribution splits |
-| G13d Promotion | `3.g.iv` | 12 | `src/resources/promote.ts` | campaigns, statistics, reach estimates |
-| G13e Payments | `3.g.v` | 12 | `src/resources/payments.ts` | payment methods, payouts, checkout, plan change |
-| G13f Pages | `3.g.vi` | 11 | `src/resources/pages.ts` | bio, links, press kits, revisions, statistics |
-| G13g Feeds | `3.g.vii` | 14 | `src/resources/feeds.ts` | for-you, following, featured, media, trending, explore |
-| G13h Profile | `3.g.viii` | 13 | `src/resources/users.ts` (extend) | playing-now, profile-views, gear, goals, mutual-connections |
-| G13i Library | `3.g.ix` | 13 | `src/resources/users.ts` (extend) | likes, purchases, collections, recommendations, notifications |
-| G13j Misc | `3.g.x` | 10 | `src/resources/misc.ts` | settings, events, places, opportunities, schools, recaptcha, preview, projects |
-| G13z Unclassified | `3.g.x` | 10 | assign in `2.b.i.zo` | residual paths not yet assigned to a domain |
-| **Total** | | **201** | | |
+The full resource assignment, with file, accessor and type strategy per path, is
+`docs/handover/RESOURCE-DESIGN.md`. Summary:
 
-### 4.1 Methods recovered from call sites
+| Resource | File | Endpoints | Typed |
+|----------|------|-----------|-------|
+| `users` | `src/resources/users.ts` (extend) | 54 | 42 |
+| `ai` | `src/resources/ai/` | 33 | 24 |
+| `sounds` | `src/resources/sounds/` | 31 | 27 |
+| `messaging` | `src/resources/messaging/` | 19 | 14 |
+| `beats` | `src/resources/beats.ts` | 16 | 13 |
+| `albums` | `src/resources/albums.ts` | 15 | 8 |
+| `distro` | `src/resources/distro.ts` | 15 | 12 |
+| `library` | `src/resources/library.ts` | 14 | 12 |
+| `feeds` | `src/resources/feeds.ts` | 12 | 11 |
+| `images` | `src/resources/images.ts` (extend) | 12 | 12 |
+| `posts` | `src/resources/posts/` (extend) | 11 | 4 |
+| `me` | `src/resources/me.ts` (extend) | 11 | 5 |
+| `effects` | `src/resources/effects.ts` | 10 | 7 |
+| `revisions` | `src/resources/revisions.ts` (extend) | 9 | 7 |
+| `promote` | `src/resources/promote.ts` | 9 | 8 |
+| `authorizations` | `src/resources/authorizations.ts` (extend) | 9 | 7 |
+| `search` | `src/resources/search.ts` (extend) | 8 | 7 |
+| `bands` | `src/resources/bands/` (extend) | 7 | 5 |
+| `payments` | `src/resources/payments.ts` | 6 | 5 |
+| `aiVideos` | `src/resources/ai-videos.ts` | 5 | 4 |
+| `songs` | `src/resources/songs/` (extend) | 5 | 4 |
+| `communities` | `src/resources/communities/` (extend) | 5 | 4 |
+| `validation` | `src/resources/validation.ts` (extend) | 4 | 4 |
+| `membership` | `src/resources/membership.ts` | 4 | 3 |
+| `uploads` | `src/resources/uploads.ts` | 4 | 3 |
+| `misc` | `src/resources/misc.ts` | 4 | 2 |
+| `pages` | `src/resources/pages.ts` | 3 | 3 |
+| `streaks` | `src/resources/streaks.ts` | 3 | 1 |
+| `syncedLyrics` | `src/resources/synced-lyrics.ts` | 2 | 2 |
+| `videos` | `src/resources/videos.ts` (extend) | 2 | 2 |
+| `tracks` | `src/resources/tracks.ts` | 2 | 2 |
+| `collections` | `src/resources/collections/` (extend) | 1 | 1 |
+| `soundbanks` | `src/resources/soundbanks.ts` | 1 | 1 |
+| `passwords` | `src/resources/passwords.ts` (extend) | 1 | 0 |
+| `genres` | `src/resources/genres.ts` (extend) | 1 | 1 |
+| *(excluded)* | Amplitude experiment SDK, third-party (rule D15) | 5 | 0 |
+| **Total** | | **353** | **272** |
 
-145 method+path pairs were recovered from the bundle (77 GET, 35 POST, 16 DELETE, 10 PUT, 7 PATCH). The remaining paths are path-only, so their verb is `unverified` until a capture arrives. A session must not assume REST convention fills the gap — `POST /songs` returned 404 while `GET /songs/{id}/invite-link` returned 403, so verbs genuinely differ from the obvious guess.
+35 resources: 14 extend an existing file, 21 are new. Union with the SDK's existing 123 endpoints
+is 476 operations.
 
-### 4.2 What is still blocked
+### 4.1 Methods recovered
+
+The APK gives a verb for every path: 353 of 353. Distribution is in
+`docs/research/apk-endpoints.md`. The verb map is derived from method names and validated against
+the spec and by in-file coherence; `@lik` = PUT is the one entry with realistic doubt
+(`APK-EVIDENCE.md` §4).
+
+### 4.2 What is still open
 
 | Item | Status | Unblock route |
 |------|--------|---------------|
-| Request/response shapes for the 201 new endpoints | **blocked** | Owner capture per domain, or implement untyped per D12 |
-| Verbs for the ~80 path-only endpoints | **partially blocked** | Owner capture; D12 allows `unverified` |
-| `v2.0` uploads / `v3.0` sounds / `v4.3` soundbanks behaviour | **blocked** | These do not resolve from the web host; need a mobile/studio capture |
-| P0 base host | **resolved** | Spec servers block: test + production hosts both recorded |
-| G04 create song verb | **unconfirmed** | `POST /songs` gave 404; needs a capture |
+| Request bodies for ~half the endpoints | **partially open** | typed where a `@c74` body model is in the descriptor set; the rest take `unknown` under D12, or an owner capture |
+| Response shape for 81 of 353 paths | **open** | owner capture, or leave `apk-path-only` |
+| `@lik` = PUT confirmation | **open** | owner capture or a live probe |
+| AI/ML host deployment (staging vs production) | **open** | owner confirmation |
+| Entitlement / subscriptions | **not applicable** | server-side by design; rule D14 |
 
-Nothing above stops `2.b.i.zo` (the design leaf) or any `zi` leaf from starting under D12.
+Nothing here stops any Phase 3 leaf: each implements the evidenced path and marks the row
+`apk` or `apk-path-only`.
+
+### 4.3 Subscriptions
+
+The owner asked for all services to be free. Gating is server-side; a client cannot remove it, and
+bypassing payment would breach BandLab's terms. Rule D14 records the decision and the legitimate
+alternative (expose the full free surface; expose membership/quota read-only). Details:
+`APK-EVIDENCE.md` §8.
