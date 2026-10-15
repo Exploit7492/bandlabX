@@ -2,6 +2,66 @@
 
 export * from './shared';
 export {
+  AI,
+  type AIListDisplayedGenresParams,
+  type AIListGenresParams,
+  type AIListIdeasParams,
+  type AIListInstructionSuggestionsParams,
+  type AIListModelsParams,
+  type AIListPresetsParams,
+  type AIListPreviewsParams,
+  type AIListPromptsParams,
+  type AIListSimilarSoundsParams,
+  type AIListV2ModelsParams,
+  type AIRetrieveModelParams,
+  type AIRetrievePreviewParams,
+  type AutoMixGenresDto,
+  type AutoMixPromptExamplesDto,
+  type AutoMixResultDto,
+  type GenreResponseModel,
+  type GenreResponseModelList,
+  type GetModelsDTO,
+  type HarmonizerPresetDto,
+  type HarmonizerPresetDtoList,
+  type HarmonizerVoiceDto,
+  type HarmonizerVoiceDtoList,
+  type Link,
+  type PaletteStackTaskDto,
+  type PaletteStackTaskResultDto,
+  type PromptsDTO,
+  type SongExamplesDTO,
+  type TaskStatusDTO,
+} from './ai/index';
+export {
+  AIVideos,
+  type AIVideoListJobsParams,
+  type AIVideoListStylesParams,
+  type AIVideoListUpdatesParams,
+  type VideoGenerationCost,
+  type VideoGenerationJob,
+  type VideoGenerationJobList,
+  type VideoGenerationUnseenUpdates,
+  type VisualStyle,
+  type VisualStyleListResult,
+} from './ai-videos';
+export {
+  Albums,
+  type Album,
+  type AlbumComment,
+  type AlbumCommentList,
+  type AlbumCounters,
+  type AlbumListArtistsParams,
+  type AlbumListCommentLikesUsersParams,
+  type AlbumListCommentsParams,
+  type AlbumListLikesUsersParams,
+  type AlbumPost,
+  type AlbumTheme,
+  type AlbumThemeList,
+  type InspiredArtist,
+  type InspiredArtistList,
+  type UserSummaryList,
+} from './albums';
+export {
   Authorizations,
   type Provider,
   type AuthorizationCreateSessionKeyResponse,
@@ -18,6 +78,13 @@ export {
   type BandUpdateParams,
   type BandListPostsParams,
   type BandListSongsParams,
+  type BandListSuggestedParams,
+  type BandListFollowersParams,
+  type BandListMemberFollowInviteesParams,
+  type BandListVideoPostsParams,
+  type BandPinPostParams,
+  type SuggestedBand,
+  type SuggestedBandList,
 } from './bands/bands';
 export {
   Collections,
@@ -35,6 +102,22 @@ export {
   type CommunityUpdateParams,
 } from './communities/communities';
 export { Emails } from './emails/emails';
+export {
+  Effects,
+  type EffectDeletePresetLinkParams,
+  type EffectListFavoriteEffectsParams,
+  type EffectListFavoritePresetsParams,
+  type EffectListTrendingPresetsParams,
+  type EffectRetrievePromoPresetParams,
+  type EffectUpdatePresetParams,
+  type FavoriteEffect,
+  type FavoriteEffectList,
+  type PresetAttributor,
+  type RemotePreset,
+  type RemotePresetList,
+  type SavedPreset,
+  type UnSavedPreset,
+} from './effects';
 export { Feedback, type FeedbackCreateParams } from './feedback';
 export { Genres, type Genre, type GenreListResponse } from './genres';
 export { Images, type ImageCreatePostParams } from './images';
@@ -57,6 +140,14 @@ export {
   type UserCounters,
   type MeUpdateParams,
 } from './me';
+export {
+  Misc,
+  type BeatsFilters,
+  type ChatWebSocketsUrl,
+  type MiscListSocialLinksParams,
+  type SocialLink,
+  type SocialLinkList,
+} from './misc';
 export {
   Passwords,
   type PasswordChangeParams,
@@ -94,6 +185,63 @@ export {
 } from './search';
 export { Settings } from './settings/settings';
 export { Skills, type Skill, type SkillListResponse } from './skills';
+export { Soundbanks, type SoundBanksLibrary } from './soundbanks';
+export {
+  Sounds,
+  type ClaimedSampleIdsResponse,
+  type CreateUploadUrlResponse,
+  type CreditsResponse,
+  type FilterDto,
+  type FilterDtoList,
+  type FilterRange,
+  type ForwardResultResponse,
+  type IdeasResponseModel,
+  type LoopMatch,
+  type LoopMatchList,
+  type LoopPack,
+  type LoopPackList,
+  type LoopSample,
+  type LoopSampleList,
+  type LoopsFilter,
+  type LoopsFilterList,
+  type MySoundsLibraryResponse,
+  type NativeAds,
+  type PaletteInstrument,
+  type PaletteInstrumentList,
+  type SamplePackIdDto,
+  type SamplePackIdDtoList,
+  type SampleStorageInfoDto,
+  type SamplerKitDTO,
+  type SeparationLimitsResponse,
+  type SeparationProgressResponse,
+  type SeparationStatusResponse,
+  type SoundClaimSampleParams,
+  type SoundDeleteUploadParams,
+  type SoundListClaimedSampleIDsParams,
+  type SoundListIdeasParams,
+  type SoundListInstrumentsParams,
+  type SoundListLibraryPacksParams,
+  type SoundListLibrarySamplesParams,
+  type SoundListLoopMatchesParams,
+  type SoundListPackFiltersParams,
+  type SoundListPacksParams,
+  type SoundListSampleFiltersParams,
+  type SoundListSamplesParams,
+  type SoundListUserPacksParams,
+  type SoundListUserSamplesParams,
+  type SoundRetrieveNativeAdsParams,
+  type SoundRetrieveSampleDownloadParams,
+  type SoundRetrieveSampleMIDIDownloadParams,
+  type SoundRetrieveVideoAdParams,
+  type SoundUpdateSamplerKitParams,
+  type SoundUpdateUserPackParams,
+  type SoundUpdateUserSampleParams,
+  type SoundsPackDto,
+  type SoundsPackDtoList,
+  type SoundsSampleDto,
+  type SoundsSampleDtoList,
+  type StorageObject,
+} from './sounds/index';
 export {
   Songs,
   type Author,
@@ -103,6 +251,21 @@ export {
   type SongUpdateParams,
   type SongListPostsParams,
 } from './songs/songs';
+export {
+  SyncedLyrics,
+  type SyncedLyricPrice,
+  type SyncedLyricResponse,
+  type SyncedLyricsLyrics,
+} from './synced-lyrics';
+export { Tracks, type TrackRetrieveDownloadParams } from './tracks';
+export {
+  Uploads,
+  type FileUploadPart,
+  type FileUploadSession,
+  type SpatialStudioUploadResponse,
+  type UploadCreateProjectSampleParams,
+  type UploadMedia,
+} from './uploads';
 export {
   Users,
   type CollectionList,

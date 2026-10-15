@@ -17,12 +17,88 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  AI,
+  AIListDisplayedGenresParams,
+  AIListGenresParams,
+  AIListIdeasParams,
+  AIListInstructionSuggestionsParams,
+  AIListModelsParams,
+  AIListPresetsParams,
+  AIListPreviewsParams,
+  AIListPromptsParams,
+  AIListSimilarSoundsParams,
+  AIListV2ModelsParams,
+  AIRetrieveModelParams,
+  AIRetrievePreviewParams,
+  AutoMixGenresDto,
+  AutoMixPromptExamplesDto,
+  AutoMixResultDto,
+  GenreResponseModel,
+  GenreResponseModelList,
+  GetModelsDTO,
+  HarmonizerPresetDto,
+  HarmonizerPresetDtoList,
+  HarmonizerVoiceDto,
+  HarmonizerVoiceDtoList,
+  Link,
+  PaletteStackTaskDto,
+  PaletteStackTaskResultDto,
+  PromptsDTO,
+  SongExamplesDTO,
+  TaskStatusDTO,
+} from './resources/ai/ai';
+import {
+  AIVideoListJobsParams,
+  AIVideoListStylesParams,
+  AIVideoListUpdatesParams,
+  AIVideos,
+  VideoGenerationCost,
+  VideoGenerationJob,
+  VideoGenerationJobList,
+  VideoGenerationUnseenUpdates,
+  VisualStyle,
+  VisualStyleListResult,
+} from './resources/ai-videos';
+import {
+  Album,
+  AlbumComment,
+  AlbumCommentList,
+  AlbumCounters,
+  AlbumListArtistsParams,
+  AlbumListCommentLikesUsersParams,
+  AlbumListCommentsParams,
+  AlbumListLikesUsersParams,
+  AlbumPost,
+  Albums,
+  AlbumTheme,
+  AlbumThemeList,
+  InspiredArtist,
+  InspiredArtistList,
+  UserSummaryList,
+} from './resources/albums';
+import {
   AuthorizationCreateSessionKeyParams,
   AuthorizationCreateSessionKeyResponse,
   Authorizations,
   Provider,
 } from './resources/authorizations';
 import { Badge, BadgeListResponse, Badges } from './resources/badges';
+import {
+  EffectDeletePresetLinkParams,
+  EffectListFavoriteEffectsParams,
+  EffectListFavoritePresetsParams,
+  EffectListTrendingPresetsParams,
+  EffectRetrievePromoPresetParams,
+  Effects,
+  EffectUpdatePresetParams,
+  FavoriteEffect,
+  FavoriteEffectList,
+  PresetAttributor,
+  RemotePreset,
+  RemotePresetList,
+  SavedPreset,
+  UnSavedPreset,
+} from './resources/effects';
 import { Feedback, FeedbackCreateParams } from './resources/feedback';
 import { Genre, GenreListResponse, Genres } from './resources/genres';
 import { ImageCreatePostParams, Images } from './resources/images';
@@ -37,6 +113,14 @@ import {
   ProviderType139,
 } from './resources/logins';
 import { GeoCoordinate, Location, Me, MeUpdateParams, Picture, Profile, UserCounters } from './resources/me';
+import {
+  BeatsFilters,
+  ChatWebSocketsUrl,
+  Misc,
+  MiscListSocialLinksParams,
+  SocialLink,
+  SocialLinkList,
+} from './resources/misc';
 import {
   PasswordChangeParams,
   PasswordResetParams,
@@ -73,6 +157,78 @@ import {
   SearchSearchUsersParams,
 } from './resources/search';
 import { Skill, SkillListResponse, Skills } from './resources/skills';
+import { SoundBanksLibrary, Soundbanks } from './resources/soundbanks';
+import {
+  ClaimedSampleIdsResponse,
+  CreateUploadUrlResponse,
+  CreditsResponse,
+  FilterDto,
+  FilterDtoList,
+  FilterRange,
+  ForwardResultResponse,
+  IdeasResponseModel,
+  LoopMatch,
+  LoopMatchList,
+  LoopPack,
+  LoopPackList,
+  LoopSample,
+  LoopSampleList,
+  LoopsFilter,
+  LoopsFilterList,
+  MySoundsLibraryResponse,
+  NativeAds,
+  PaletteInstrument,
+  PaletteInstrumentList,
+  SamplePackIdDto,
+  SamplePackIdDtoList,
+  SampleStorageInfoDto,
+  SamplerKitDTO,
+  SeparationLimitsResponse,
+  SeparationProgressResponse,
+  SeparationStatusResponse,
+  SoundClaimSampleParams,
+  SoundDeleteUploadParams,
+  SoundListClaimedSampleIDsParams,
+  SoundListIdeasParams,
+  SoundListInstrumentsParams,
+  SoundListLibraryPacksParams,
+  SoundListLibrarySamplesParams,
+  SoundListLoopMatchesParams,
+  SoundListPackFiltersParams,
+  SoundListPacksParams,
+  SoundListSampleFiltersParams,
+  SoundListSamplesParams,
+  SoundListUserPacksParams,
+  SoundListUserSamplesParams,
+  SoundRetrieveNativeAdsParams,
+  SoundRetrieveSampleDownloadParams,
+  SoundRetrieveSampleMIDIDownloadParams,
+  SoundRetrieveVideoAdParams,
+  Sounds,
+  SoundsPackDto,
+  SoundsPackDtoList,
+  SoundsSampleDto,
+  SoundsSampleDtoList,
+  SoundUpdateSamplerKitParams,
+  SoundUpdateUserPackParams,
+  SoundUpdateUserSampleParams,
+  StorageObject,
+} from './resources/sounds/sounds';
+import {
+  SyncedLyricPrice,
+  SyncedLyricResponse,
+  SyncedLyrics,
+  SyncedLyricsLyrics,
+} from './resources/synced-lyrics';
+import { Tracks, TrackRetrieveDownloadParams } from './resources/tracks';
+import {
+  FileUploadPart,
+  FileUploadSession,
+  SpatialStudioUploadResponse,
+  UploadCreateProjectSampleParams,
+  UploadMedia,
+  Uploads as UploadsResource,
+} from './resources/uploads';
 import { Validation, ValidationValidateParams, ValidationValidateResponse } from './resources/validation';
 import {
   VersionRetrieveResponse,
@@ -85,12 +241,19 @@ import {
   Band,
   BandCounters,
   BandCreateParams,
+  BandListFollowersParams,
+  BandListMemberFollowInviteesParams,
   BandListPostsParams,
   BandListSongsParams,
+  BandListSuggestedParams,
+  BandListVideoPostsParams,
+  BandPinPostParams,
   BandUpdateParams,
   Bands,
   Creator,
   GroupMemberSummary,
+  SuggestedBand,
+  SuggestedBandList,
 } from './resources/bands/bands';
 import {
   Collection,
@@ -880,6 +1043,16 @@ export class BandlabSDK {
   settings: API.Settings = new API.Settings(this);
   communities: API.Communities = new API.Communities(this);
   songs: API.Songs = new API.Songs(this);
+  tracks: API.Tracks = new API.Tracks(this);
+  albums: API.Albums = new API.Albums(this);
+  effects: API.Effects = new API.Effects(this);
+  sounds: API.Sounds = new API.Sounds(this);
+  uploads: API.Uploads = new API.Uploads(this);
+  soundbanks: API.Soundbanks = new API.Soundbanks(this);
+  ai: API.AI = new API.AI(this);
+  aiVideos: API.AIVideos = new API.AIVideos(this);
+  syncedLyrics: API.SyncedLyrics = new API.SyncedLyrics(this);
+  misc: API.Misc = new API.Misc(this);
 }
 
 BandlabSDK.Validation = Validation;
@@ -908,9 +1081,183 @@ BandlabSDK.Passwords = Passwords;
 BandlabSDK.Settings = Settings;
 BandlabSDK.Communities = Communities;
 BandlabSDK.Songs = Songs;
+BandlabSDK.Tracks = Tracks;
+BandlabSDK.Albums = Albums;
+BandlabSDK.Effects = Effects;
+BandlabSDK.Sounds = Sounds;
+BandlabSDK.Uploads = UploadsResource;
+BandlabSDK.Soundbanks = Soundbanks;
+BandlabSDK.AI = AI;
+BandlabSDK.AIVideos = AIVideos;
+BandlabSDK.SyncedLyrics = SyncedLyrics;
+BandlabSDK.Misc = Misc;
 
 export declare namespace BandlabSDK {
   export type RequestOptions = Opts.RequestOptions;
+
+  export {
+    AI as AI,
+    type AIListDisplayedGenresParams as AIListDisplayedGenresParams,
+    type AIListGenresParams as AIListGenresParams,
+    type AIListIdeasParams as AIListIdeasParams,
+    type AIListInstructionSuggestionsParams as AIListInstructionSuggestionsParams,
+    type AIListModelsParams as AIListModelsParams,
+    type AIListPresetsParams as AIListPresetsParams,
+    type AIListPreviewsParams as AIListPreviewsParams,
+    type AIListPromptsParams as AIListPromptsParams,
+    type AIListSimilarSoundsParams as AIListSimilarSoundsParams,
+    type AIListV2ModelsParams as AIListV2ModelsParams,
+    type AIRetrieveModelParams as AIRetrieveModelParams,
+    type AIRetrievePreviewParams as AIRetrievePreviewParams,
+    type AutoMixGenresDto as AutoMixGenresDto,
+    type AutoMixPromptExamplesDto as AutoMixPromptExamplesDto,
+    type AutoMixResultDto as AutoMixResultDto,
+    type GenreResponseModel as GenreResponseModel,
+    type GenreResponseModelList as GenreResponseModelList,
+    type GetModelsDTO as GetModelsDTO,
+    type HarmonizerPresetDto as HarmonizerPresetDto,
+    type HarmonizerPresetDtoList as HarmonizerPresetDtoList,
+    type HarmonizerVoiceDto as HarmonizerVoiceDto,
+    type HarmonizerVoiceDtoList as HarmonizerVoiceDtoList,
+    type Link as Link,
+    type PaletteStackTaskDto as PaletteStackTaskDto,
+    type PaletteStackTaskResultDto as PaletteStackTaskResultDto,
+    type PromptsDTO as PromptsDTO,
+    type SongExamplesDTO as SongExamplesDTO,
+    type TaskStatusDTO as TaskStatusDTO,
+  };
+
+  export {
+    AIVideos as AIVideos,
+    type AIVideoListJobsParams as AIVideoListJobsParams,
+    type AIVideoListStylesParams as AIVideoListStylesParams,
+    type AIVideoListUpdatesParams as AIVideoListUpdatesParams,
+    type VideoGenerationCost as VideoGenerationCost,
+    type VideoGenerationJob as VideoGenerationJob,
+    type VideoGenerationJobList as VideoGenerationJobList,
+    type VideoGenerationUnseenUpdates as VideoGenerationUnseenUpdates,
+    type VisualStyle as VisualStyle,
+    type VisualStyleListResult as VisualStyleListResult,
+  };
+
+  export {
+    Albums as Albums,
+    type Album as Album,
+    type AlbumComment as AlbumComment,
+    type AlbumCommentList as AlbumCommentList,
+    type AlbumCounters as AlbumCounters,
+    type AlbumListArtistsParams as AlbumListArtistsParams,
+    type AlbumListCommentLikesUsersParams as AlbumListCommentLikesUsersParams,
+    type AlbumListCommentsParams as AlbumListCommentsParams,
+    type AlbumListLikesUsersParams as AlbumListLikesUsersParams,
+    type AlbumPost as AlbumPost,
+    type AlbumTheme as AlbumTheme,
+    type AlbumThemeList as AlbumThemeList,
+    type InspiredArtist as InspiredArtist,
+    type InspiredArtistList as InspiredArtistList,
+    type UserSummaryList as UserSummaryList,
+  };
+
+  export {
+    Effects as Effects,
+    type EffectDeletePresetLinkParams as EffectDeletePresetLinkParams,
+    type EffectListFavoriteEffectsParams as EffectListFavoriteEffectsParams,
+    type EffectListFavoritePresetsParams as EffectListFavoritePresetsParams,
+    type EffectListTrendingPresetsParams as EffectListTrendingPresetsParams,
+    type EffectRetrievePromoPresetParams as EffectRetrievePromoPresetParams,
+    type EffectUpdatePresetParams as EffectUpdatePresetParams,
+    type FavoriteEffect as FavoriteEffect,
+    type FavoriteEffectList as FavoriteEffectList,
+    type PresetAttributor as PresetAttributor,
+    type RemotePreset as RemotePreset,
+    type RemotePresetList as RemotePresetList,
+    type SavedPreset as SavedPreset,
+    type UnSavedPreset as UnSavedPreset,
+  };
+
+  export {
+    Misc as Misc,
+    type BeatsFilters as BeatsFilters,
+    type ChatWebSocketsUrl as ChatWebSocketsUrl,
+    type MiscListSocialLinksParams as MiscListSocialLinksParams,
+    type SocialLink as SocialLink,
+    type SocialLinkList as SocialLinkList,
+  };
+
+  export { Soundbanks as Soundbanks, type SoundBanksLibrary as SoundBanksLibrary };
+
+  export {
+    Sounds as Sounds,
+    type ClaimedSampleIdsResponse as ClaimedSampleIdsResponse,
+    type CreateUploadUrlResponse as CreateUploadUrlResponse,
+    type CreditsResponse as CreditsResponse,
+    type FilterDto as FilterDto,
+    type FilterDtoList as FilterDtoList,
+    type FilterRange as FilterRange,
+    type ForwardResultResponse as ForwardResultResponse,
+    type IdeasResponseModel as IdeasResponseModel,
+    type LoopMatch as LoopMatch,
+    type LoopMatchList as LoopMatchList,
+    type LoopPack as LoopPack,
+    type LoopPackList as LoopPackList,
+    type LoopSample as LoopSample,
+    type LoopSampleList as LoopSampleList,
+    type LoopsFilter as LoopsFilter,
+    type LoopsFilterList as LoopsFilterList,
+    type MySoundsLibraryResponse as MySoundsLibraryResponse,
+    type NativeAds as NativeAds,
+    type PaletteInstrument as PaletteInstrument,
+    type PaletteInstrumentList as PaletteInstrumentList,
+    type SamplePackIdDto as SamplePackIdDto,
+    type SamplePackIdDtoList as SamplePackIdDtoList,
+    type SampleStorageInfoDto as SampleStorageInfoDto,
+    type SamplerKitDTO as SamplerKitDTO,
+    type SeparationLimitsResponse as SeparationLimitsResponse,
+    type SeparationProgressResponse as SeparationProgressResponse,
+    type SeparationStatusResponse as SeparationStatusResponse,
+    type SoundClaimSampleParams as SoundClaimSampleParams,
+    type SoundDeleteUploadParams as SoundDeleteUploadParams,
+    type SoundListClaimedSampleIDsParams as SoundListClaimedSampleIDsParams,
+    type SoundListIdeasParams as SoundListIdeasParams,
+    type SoundListInstrumentsParams as SoundListInstrumentsParams,
+    type SoundListLibraryPacksParams as SoundListLibraryPacksParams,
+    type SoundListLibrarySamplesParams as SoundListLibrarySamplesParams,
+    type SoundListLoopMatchesParams as SoundListLoopMatchesParams,
+    type SoundListPackFiltersParams as SoundListPackFiltersParams,
+    type SoundListPacksParams as SoundListPacksParams,
+    type SoundListSampleFiltersParams as SoundListSampleFiltersParams,
+    type SoundListSamplesParams as SoundListSamplesParams,
+    type SoundListUserPacksParams as SoundListUserPacksParams,
+    type SoundListUserSamplesParams as SoundListUserSamplesParams,
+    type SoundRetrieveNativeAdsParams as SoundRetrieveNativeAdsParams,
+    type SoundRetrieveSampleDownloadParams as SoundRetrieveSampleDownloadParams,
+    type SoundRetrieveSampleMIDIDownloadParams as SoundRetrieveSampleMIDIDownloadParams,
+    type SoundRetrieveVideoAdParams as SoundRetrieveVideoAdParams,
+    type SoundsPackDto as SoundsPackDto,
+    type SoundsPackDtoList as SoundsPackDtoList,
+    type SoundsSampleDto as SoundsSampleDto,
+    type SoundsSampleDtoList as SoundsSampleDtoList,
+    type SoundUpdateSamplerKitParams as SoundUpdateSamplerKitParams,
+    type SoundUpdateUserPackParams as SoundUpdateUserPackParams,
+    type SoundUpdateUserSampleParams as SoundUpdateUserSampleParams,
+    type StorageObject as StorageObject,
+  };
+
+  export {
+    SyncedLyrics as SyncedLyrics,
+    type SyncedLyricPrice as SyncedLyricPrice,
+    type SyncedLyricResponse as SyncedLyricResponse,
+    type SyncedLyricsLyrics as SyncedLyricsLyrics,
+  };
+
+  export {
+    UploadsResource as Uploads,
+    type FileUploadPart as FileUploadPart,
+    type FileUploadSession as FileUploadSession,
+    type SpatialStudioUploadResponse as SpatialStudioUploadResponse,
+    type UploadCreateProjectSampleParams as UploadCreateProjectSampleParams,
+    type UploadMedia as UploadMedia,
+  };
 
   export {
     Validation as Validation,
@@ -948,10 +1295,17 @@ export declare namespace BandlabSDK {
     type BandCounters as BandCounters,
     type Creator as Creator,
     type GroupMemberSummary as GroupMemberSummary,
+    type SuggestedBand as SuggestedBand,
+    type SuggestedBandList as SuggestedBandList,
     type BandCreateParams as BandCreateParams,
     type BandUpdateParams as BandUpdateParams,
     type BandListPostsParams as BandListPostsParams,
     type BandListSongsParams as BandListSongsParams,
+    type BandListFollowersParams as BandListFollowersParams,
+    type BandListMemberFollowInviteesParams as BandListMemberFollowInviteesParams,
+    type BandListSuggestedParams as BandListSuggestedParams,
+    type BandListVideoPostsParams as BandListVideoPostsParams,
+    type BandPinPostParams as BandPinPostParams,
   };
 
   export {
@@ -972,6 +1326,7 @@ export declare namespace BandlabSDK {
   };
 
   export { Videos as Videos, type VideoCreatePostParams as VideoCreatePostParams };
+  export { Tracks as Tracks, type TrackRetrieveDownloadParams as TrackRetrieveDownloadParams };
 
   export { Images as Images, type ImageCreatePostParams as ImageCreatePostParams };
 

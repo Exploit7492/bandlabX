@@ -17,6 +17,7 @@ import {
 } from './members';
 import * as PostsAPI from '../posts/posts';
 import * as UsersAPI from '../users/users';
+import * as FollowersAPI from '../users/followers';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -118,6 +119,91 @@ export class Bands extends APIResource {
     options?: RequestOptions,
   ): APIPromise<UsersAPI.SongList> {
     return this._client.get(path`/bands/${bandID}/songs`, { query, ...options });
+  }
+
+  /**
+   * Returns suggested bands
+   *
+   * Evidence: `apk` — `BandService`, `GET bands/suggested`. The response element is
+   * `com.bandlab.band.api.suggested.SuggestedBand`.
+   */
+  listSuggested(
+    query: BandListSuggestedParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SuggestedBandList> {
+    return this._client.get('/bands/suggested', { query, ...options });
+  }
+
+  /**
+   * Returns a band's followers
+   *
+   * Evidence: `apk` — `BandService`, `GET bands/{id}/followers`. The response element is
+   * `com.bandlab.user.models.User`.
+   */
+  listFollowers(
+    bandID: string,
+    query: BandListFollowersParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<FollowersAPI.UserList> {
+    return this._client.get(path`/bands/${bandID}/followers`, { query, ...options });
+  }
+
+  /**
+   * Adds a follower to a band
+   *
+   * Evidence: `apk` — `SocialActionService`, `POST bands/{id}/followers/{userId}`.
+   */
+  addFollower(bandID: string, userID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/bands/${bandID}/followers/${userID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Returns a band member's follow invitees
+   *
+   * Evidence: `apk` — `InviteToBandService`,
+   * `GET bands/{bandId}/members/{userId}/follow-invitees`. The response element is
+   * `com.bandlab.user.models.User`.
+   */
+  listMemberFollowInvitees(
+    userID: string,
+    params: BandListMemberFollowInviteesParams,
+    options?: RequestOptions,
+  ): APIPromise<FollowersAPI.UserList> {
+    const { bandId, ...query } = params;
+    return this._client.get(path`/bands/${bandId}/members/${userID}/follow-invitees`, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
+   * Pins a post to a band
+   *
+   * Evidence: `apk` — `PinnedPostsService`, `POST bands/{bandId}/pins/posts/{postId}`.
+   */
+  pinPost(postID: string, params: BandPinPostParams, options?: RequestOptions): APIPromise<void> {
+    const { bandId } = params;
+    return this._client.post(path`/bands/${bandId}/pins/posts/${postID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Returns a band's video posts
+   *
+   * Evidence: `apk` — `PostsService`, `GET bands/{id}/videos/posts`. The response element is
+   * `com.bandlab.post.objects.Post`.
+   */
+  listVideoPosts(
+    bandID: string,
+    query: BandListVideoPostsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PostsAPI.PostList> {
+    return this._client.get(path`/bands/${bandID}/videos/posts`, { query, ...options });
   }
 }
 
@@ -243,6 +329,82 @@ export interface BandListSongsParams {
   offset?: number;
 }
 
+/**
+ * Evidence: `apk` — `com.bandlab.band.api.suggested.SuggestedBand`.
+ */
+export interface SuggestedBand {
+  id?: string;
+
+  counters?: unknown;
+
+  followingState?: string;
+
+  picture?: MeAPI.Picture;
+
+  userName?: string;
+}
+
+/**
+ * Evidence: `apk` — paged wrapper around `com.bandlab.band.api.suggested.SuggestedBand`.
+ */
+export interface SuggestedBandList {
+  data?: Array<SuggestedBand>;
+
+  paging?: FollowersAPI.Paging;
+}
+
+export interface BandListSuggestedParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface BandListFollowersParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface BandListVideoPostsParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface BandListMemberFollowInviteesParams {
+  /**
+   * Path param:
+   */
+  bandId: string;
+
+  /**
+   * Query param:
+   */
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface BandPinPostParams {
+  bandId: string;
+}
+
 Bands.Members = Members;
 Bands.Invites = Invites;
 
@@ -256,6 +418,13 @@ export declare namespace Bands {
     type BandUpdateParams as BandUpdateParams,
     type BandListPostsParams as BandListPostsParams,
     type BandListSongsParams as BandListSongsParams,
+    type BandListSuggestedParams as BandListSuggestedParams,
+    type BandListFollowersParams as BandListFollowersParams,
+    type BandListMemberFollowInviteesParams as BandListMemberFollowInviteesParams,
+    type BandListVideoPostsParams as BandListVideoPostsParams,
+    type BandPinPostParams as BandPinPostParams,
+    type SuggestedBand as SuggestedBand,
+    type SuggestedBandList as SuggestedBandList,
   };
 
   export {

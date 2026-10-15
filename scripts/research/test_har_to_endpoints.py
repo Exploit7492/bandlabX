@@ -114,11 +114,12 @@ class PathTest(unittest.TestCase):
     def test_sdk_table_matches_endpoint_status(self):
         table = ex.load_sdk_table(STATUS)
         # 123 at the pre-Phase-3 baseline; +2 from leaf 3.a.i.zi (songs.forks,
-        # songs.retrieveInviteLink); +8 from leaf 3.a.ii.zi. That leaf adds 9 rows but
-        # `revisions.retrieve` and `revisions.retrieveDownload` share `get /revisions/{id}`
-        # and the loader keys by verb+path, so one row collapses. Bump this when a leaf adds
-        # a row to endpoint-status.md.
-        self.assertEqual(len(table), 133)
+        # songs.retrieveInviteLink); +8 from leaf 3.a.ii.zi; +110 from the Phase 3.1 domains
+        # that landed after it. endpoint-status.md has 244 rows but the loader keys by
+        # verb+path, and 27 rows share a key with another row (the same route serving two
+        # operations, e.g. `GET /revisions/{id}` plain vs `?format=m4a`), so 217 keys remain.
+        # Bump this when a leaf adds a row to endpoint-status.md.
+        self.assertEqual(len(table), 217)
         self.assertEqual(table[ex.normalise("get", "/users/{id}/followers")], "client.users.followers.list()")
         self.assertEqual(table[ex.normalise("PUT", "/passwords")], "client.passwords.change()")
         self.assertNotIn(ex.normalise("get", "/messages"), table)
@@ -167,11 +168,12 @@ class PipelineTest(unittest.TestCase):
     def test_runs_and_writes_one_file_per_domain(self):
         self.assertEqual(self.proc.returncode, 0, self.proc.stdout + self.proc.stderr)
         self.assertEqual(sorted(self.files), ["account.json", "comments.json", "followers.json", "search.json", "unknown.json"])
-        self.assertIn("2 capture file(s), 11 endpoint(s): 5 already in the SDK, 6 NOT in the SDK", self.proc.stdout)
+        # `POST /upload` is now in the SDK (leaf 3.b.iv.zi), so it counts as known.
+        self.assertIn("2 capture file(s), 11 endpoint(s): 6 already in the SDK, 5 NOT in the SDK", self.proc.stdout)
 
     def test_flags_endpoints_missing_from_the_sdk(self):
         new = sorted((e["method"], e["path"]) for d in self.docs.values() for e in d["endpoints"] if not e["inSdk"])
-        self.assertEqual(new, [("GET", "/confirm"), ("GET", "/go"), ("GET", "/objects/{id}"), ("GET", "/ping"), ("POST", "/forms/example"), ("POST", "/upload")])
+        self.assertEqual(new, [("GET", "/confirm"), ("GET", "/go"), ("GET", "/objects/{id}"), ("GET", "/ping"), ("POST", "/forms/example")])
         known = self.endpoint("followers", "GET", "/users/{id}/followers")
         self.assertTrue(known["inSdk"])
         self.assertEqual(known["sdkCall"], "client.users.followers.list()")

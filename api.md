@@ -147,6 +147,19 @@ Methods:
 - <code title="get /bands/{bandId}/posts">client.bands.<a href="./src/resources/bands/bands.ts">listPosts</a>(bandID, { ...params }) -> PostList</code>
 - <code title="get /bands/{bandId}/songs">client.bands.<a href="./src/resources/bands/bands.ts">listSongs</a>(bandID, { ...params }) -> SongList</code>
 
+Types:
+
+- <code><a href="./src/resources/bands/bands.ts">SuggestedBand</a></code>
+- <code><a href="./src/resources/bands/bands.ts">SuggestedBandList</a></code>
+
+Methods:
+
+- <code title="get /bands/suggested">client.bands.<a href="./src/resources/bands/bands.ts">listSuggested</a>({ ...params }) -> SuggestedBandList</code>
+- <code title="get /bands/{bandID}/followers">client.bands.<a href="./src/resources/bands/bands.ts">listFollowers</a>(bandID, { ...params }) -> FollowersAPI.UserList</code>
+- <code title="post /bands/{bandID}/followers/{userID}">client.bands.<a href="./src/resources/bands/bands.ts">addFollower</a>(bandID, userID) -> void</code>
+- <code title="get /bands/{bandId}/members/{userID}/follow-invitees">client.bands.<a href="./src/resources/bands/bands.ts">listMemberFollowInvitees</a>(userID, { ...params }) -> FollowersAPI.UserList</code>
+- <code title="post /bands/{bandId}/pins/posts/{postID}">client.bands.<a href="./src/resources/bands/bands.ts">pinPost</a>(postID, { ...params }) -> void</code>
+- <code title="get /bands/{bandID}/videos/posts">client.bands.<a href="./src/resources/bands/bands.ts">listVideoPosts</a>(bandID, { ...params }) -> PostsAPI.PostList</code>
 ## Members
 
 Types:
@@ -551,3 +564,257 @@ Methods:
 
 - <code title="get /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">listInvites</a>(songID, { ...params }) -> InviteListResponse</code>
 - <code title="post /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">sendInvites</a>(songID, { ...params }) -> void</code>
+# Albums
+
+Types:
+
+- <code><a href="./src/resources/albums.ts">Album</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumCounters</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumTheme</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumComment</a></code>
+- <code><a href="./src/resources/albums.ts">InspiredArtist</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumPost</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumThemeList</a></code>
+- <code><a href="./src/resources/albums.ts">InspiredArtistList</a></code>
+- <code><a href="./src/resources/albums.ts">UserSummaryList</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumCommentList</a></code>
+
+Methods:
+
+- <code title="post /albums">client.albums.<a href="./src/resources/albums.ts">create</a>({ ...params }) -> Album</code>
+- <code title="get /albums/{albumID}">client.albums.<a href="./src/resources/albums.ts">retrieve</a>(albumID) -> Album</code>
+- <code title="get /albums/themes">client.albums.<a href="./src/resources/albums.ts">listThemes</a>() -> AlbumThemeList</code>
+- <code title="get /artists">client.albums.<a href="./src/resources/albums.ts">listArtists</a>({ ...params }) -> InspiredArtistList</code>
+- <code title="put /albums/{albumID}/picture">client.albums.<a href="./src/resources/albums.ts">updatePicture</a>(albumID, { ...params }) -> void</code>
+- <code title="put /albums/{albumID}/state">client.albums.<a href="./src/resources/albums.ts">updateState</a>(albumID, { ...params }) -> void</code>
+- <code title="post /albums/{albumID}/likes/users/{userID}">client.albums.<a href="./src/resources/albums.ts">addLike</a>(albumID, userID) -> void</code>
+- <code title="get /albums/{albumID}/likes/users">client.albums.<a href="./src/resources/albums.ts">listLikesUsers</a>(albumID, { ...params }) -> UserSummaryList</code>
+- <code title="post /albums/{albumID}/posts">client.albums.<a href="./src/resources/albums.ts">createPost</a>(albumID, { ...params }) -> AlbumPost</code>
+- <code title="post /albums/{albumID}/posts/{postID}">client.albums.<a href="./src/resources/albums.ts">addPost</a>(albumID, postID) -> void</code>
+- <code title="put /albums/{albumID}/posts/{postID}/order">client.albums.<a href="./src/resources/albums.ts">updatePostOrder</a>(albumID, postID, { ...params }) -> void</code>
+- <code title="get /albums/{albumID}/comments">client.albums.<a href="./src/resources/albums.ts">listComments</a>(albumID, { ...params }) -> AlbumCommentList</code>
+- <code title="delete /albums/{albumID}/comments/{commentID}">client.albums.<a href="./src/resources/albums.ts">deleteComment</a>(albumID, commentID) -> void</code>
+- <code title="get /albums/{albumID}/comments/{commentID}/likes/users">client.albums.<a href="./src/resources/albums.ts">listCommentLikesUsers</a>(albumID, commentID, { ...params }) -> UserSummaryList</code>
+- <code title="post /albums/{albumID}/comments/{commentID}/likes/users/{userID}">client.albums.<a href="./src/resources/albums.ts">addCommentLike</a>(albumID, commentID, userID) -> void</code>
+# Effects
+
+Types:
+
+- <code><a href="./src/resources/effects.ts">UnSavedPreset</a></code>
+- <code><a href="./src/resources/effects.ts">SavedPreset</a></code>
+- <code><a href="./src/resources/effects.ts">RemotePreset</a></code>
+- <code><a href="./src/resources/effects.ts">PresetAttributor</a></code>
+- <code><a href="./src/resources/effects.ts">FavoriteEffect</a></code>
+- <code><a href="./src/resources/effects.ts">RemotePresetList</a></code>
+- <code><a href="./src/resources/effects.ts">FavoriteEffectList</a></code>
+
+Methods:
+
+- <code title="get /effect-presets/{linkToken}">client.effects.<a href="./src/resources/effects.ts">retrievePresetByLink</a>(linkToken) -> UnSavedPreset</code>
+- <code title="post /users/{userID}/effect-presets">client.effects.<a href="./src/resources/effects.ts">createPreset</a>(userID, { ...params }) -> SavedPreset</code>
+- <code title="patch /users/{userId}/effect-presets/{presetID}">client.effects.<a href="./src/resources/effects.ts">updatePreset</a>(presetID, { ...params }) -> SavedPreset</code>
+- <code title="delete /users/{userId}/effect-presets/{presetID}/link">client.effects.<a href="./src/resources/effects.ts">deletePresetLink</a>(presetID, { ...params }) -> SavedPreset</code>
+- <code title="get /users/{userId}/effect-presets/promo-campaigns/{campaignID}/content">client.effects.<a href="./src/resources/effects.ts">retrievePromoPreset</a>(campaignID, { ...params }) -> RemotePreset</code>
+- <code title="get /users/{userID}/trending-effect-presets">client.effects.<a href="./src/resources/effects.ts">listTrendingPresets</a>(userID, { ...params }) -> RemotePresetList</code>
+- <code title="get /users/{userID}/favorite-effect-ids">client.effects.<a href="./src/resources/effects.ts">listFavoriteEffects</a>(userID, { ...params }) -> FavoriteEffectList</code>
+- <code title="post /users/{userID}/favorite-effect-ids/{effectID}">client.effects.<a href="./src/resources/effects.ts">addFavoriteEffect</a>(userID, effectID) -> void</code>
+- <code title="get /users/{userID}/favorite-effect-presets-ids">client.effects.<a href="./src/resources/effects.ts">listFavoritePresets</a>(userID, { ...params }) -> unknown</code>
+- <code title="post /users/{userID}/favorite-effect-presets-ids/{presetID}">client.effects.<a href="./src/resources/effects.ts">addFavoritePreset</a>(userID, presetID) -> void</code>
+# Sounds
+
+Types:
+
+- <code><a href="./src/resources/sounds/sounds.ts">SeparationStatusResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SeparationLimitsResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">ForwardResultResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SeparationProgressResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">PaletteInstrument</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopMatch</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopPack</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopsFilter</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">FilterRange</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopSample</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">FilterDto</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SamplePackIdDto</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">StorageObject</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">CreditsResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">ClaimedSampleIdsResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">MySoundsLibraryResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SoundsPackDto</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SamplerKitDTO</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SoundsSampleDto</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SampleStorageInfoDto</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">CreateUploadUrlResponse</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">IdeasResponseModel</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">NativeAds</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">PaletteInstrumentList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopMatchList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopPackList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopsFilterList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">LoopSampleList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">FilterDtoList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SamplePackIdDtoList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SoundsPackDtoList</a></code>
+- <code><a href="./src/resources/sounds/sounds.ts">SoundsSampleDtoList</a></code>
+
+Methods:
+
+- <code title="post /v4/separation">client.sounds.<a href="./src/resources/sounds/sounds.ts">createSeparation</a>({ ...params }) -> SeparationStatusResponse</code>
+- <code title="get /instruments">client.sounds.<a href="./src/resources/sounds/sounds.ts">listInstruments</a>({ ...params }) -> PaletteInstrumentList</code>
+- <code title="get /loops/matches">client.sounds.<a href="./src/resources/sounds/sounds.ts">listLoopMatches</a>({ ...params }) -> LoopMatchList</code>
+- <code title="get /packs">client.sounds.<a href="./src/resources/sounds/sounds.ts">listPacks</a>({ ...params }) -> LoopPackList</code>
+- <code title="get /packs/filters">client.sounds.<a href="./src/resources/sounds/sounds.ts">listPackFilters</a>({ ...params }) -> LoopsFilterList</code>
+- <code title="get /samples">client.sounds.<a href="./src/resources/sounds/sounds.ts">listSamples</a>({ ...params }) -> LoopSampleList</code>
+- <code title="get /samples/filters">client.sounds.<a href="./src/resources/sounds/sounds.ts">listSampleFilters</a>({ ...params }) -> FilterDtoList</code>
+- <code title="post /samples/pack-ids">client.sounds.<a href="./src/resources/sounds/sounds.ts">resolveSamplePackIDs</a>({ ...params }) -> SamplePackIdDtoList</code>
+- <code title="put /samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">updateSample</a>(sampleID, { ...params }) -> StorageObject</code>
+- <code title="get /samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveSampleDownload</a>(sampleID, { ...params }) -> RevisionsAPI.SampleUri</code>
+- <code title="get /samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveSampleMIDIDownload</a>(sampleID, { ...params }) -> RevisionsAPI.SampleUri</code>
+- <code title="get /stamps/{stamp}/revision">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveStampRevision</a>(stamp) -> RevisionsAPI.Revision</code>
+- <code title="post /users/{userID}/claims/samples">client.sounds.<a href="./src/resources/sounds/sounds.ts">claimSamples</a>(userID, { ...params }) -> CreditsResponse</code>
+- <code title="get /users/{userID}/claims/samples/ids">client.sounds.<a href="./src/resources/sounds/sounds.ts">listClaimedSampleIDs</a>(userID, { ...params }) -> ClaimedSampleIdsResponse</code>
+- <code title="put /users/{userId}/claims/samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">claimSample</a>(sampleID, { ...params }) -> CreditsResponse</code>
+- <code title="get /users/{userID}/credits">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveCredits</a>(userID) -> CreditsResponse</code>
+- <code title="get /users/{userID}/libraries/packs">client.sounds.<a href="./src/resources/sounds/sounds.ts">listLibraryPacks</a>(userID, { ...params }) -> MySoundsLibraryResponse</code>
+- <code title="get /users/{userID}/libraries/samples">client.sounds.<a href="./src/resources/sounds/sounds.ts">listLibrarySamples</a>(userID, { ...params }) -> MySoundsLibraryResponse</code>
+- <code title="get /users/{userID}/packs">client.sounds.<a href="./src/resources/sounds/sounds.ts">listUserPacks</a>(userID, { ...params }) -> SoundsPackDtoList</code>
+- <code title="put /users/{userId}/packs/{packID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">updateUserPack</a>(packID, { ...params }) -> void</code>
+- <code title="post /users/{userID}/sampler-kits">client.sounds.<a href="./src/resources/sounds/sounds.ts">createSamplerKit</a>(userID, { ...params }) -> SamplerKitDTO</code>
+- <code title="put /users/{userId}/sampler-kits/{samplerKitID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">updateSamplerKit</a>(samplerKitID, { ...params }) -> SamplerKitDTO</code>
+- <code title="get /users/{userID}/samples">client.sounds.<a href="./src/resources/sounds/sounds.ts">listUserSamples</a>(userID, { ...params }) -> SoundsSampleDtoList</code>
+- <code title="put /users/{userId}/samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">updateUserSample</a>(sampleID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/uploads">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveUploadStorage</a>(userID) -> SampleStorageInfoDto</code>
+- <code title="post /users/{userID}/uploads/samples">client.sounds.<a href="./src/resources/sounds/sounds.ts">createUploadURL</a>(userID, { ...params }) -> CreateUploadUrlResponse</code>
+- <code title="delete /users/{userId}/uploads/samples/{sampleID}">client.sounds.<a href="./src/resources/sounds/sounds.ts">deleteUpload</a>(sampleID, { ...params }) -> void</code>
+- <code title="get /v3/ideas">client.sounds.<a href="./src/resources/sounds/sounds.ts">listIdeas</a>({ ...params }) -> IdeasResponseModel</code>
+- <code title="get /v3/native">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveNativeAds</a>({ ...params }) -> NativeAds</code>
+- <code title="get /v3/video">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveVideoAd</a>({ ...params }) -> unknown</code>
+# Uploads
+
+Types:
+
+- <code><a href="./src/resources/uploads.ts">SpatialStudioUploadResponse</a></code>
+- <code><a href="./src/resources/uploads.ts">FileUploadSession</a></code>
+- <code><a href="./src/resources/uploads.ts">FileUploadPart</a></code>
+- <code><a href="./src/resources/uploads.ts">UploadMedia</a></code>
+
+Methods:
+
+- <code title="post /upload">client.uploads.<a href="./src/resources/uploads.ts">createSpatialProject</a>({ ...params }) -> SpatialStudioUploadResponse</code>
+- <code title="post /upload/{projectID}/{regionID}/{activeSampleID}">client.uploads.<a href="./src/resources/uploads.ts">createProjectSample</a>(activeSampleID, { ...params }) -> unknown</code>
+- <code title="post /uploads/videos">client.uploads.<a href="./src/resources/uploads.ts">createVideoSession</a>({ ...params }) -> FileUploadSession</code>
+- <code title="put /uploads/videos/{uploadID}">client.uploads.<a href="./src/resources/uploads.ts">completeVideoUpload</a>(uploadID, { ...params }) -> UploadMedia</code>
+# Soundbanks
+
+Types:
+
+- <code><a href="./src/resources/soundbanks.ts">SoundBanksLibrary</a></code>
+
+Methods:
+
+- <code title="get /soundbanks">client.soundbanks.<a href="./src/resources/soundbanks.ts">list</a>() -> SoundBanksLibrary</code>
+# AI
+
+Types:
+
+- <code><a href="./src/resources/ai/ai.ts">Link</a></code>
+- <code><a href="./src/resources/ai/ai.ts">PaletteStackTaskDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">PaletteStackTaskResultDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">GenreResponseModel</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AutoMixGenresDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AutoMixPromptExamplesDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AutoMixResultDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">HarmonizerVoiceDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">HarmonizerPresetDto</a></code>
+- <code><a href="./src/resources/ai/ai.ts">SongExamplesDTO</a></code>
+- <code><a href="./src/resources/ai/ai.ts">PromptsDTO</a></code>
+- <code><a href="./src/resources/ai/ai.ts">TaskStatusDTO</a></code>
+- <code><a href="./src/resources/ai/ai.ts">GetModelsDTO</a></code>
+- <code><a href="./src/resources/ai/ai.ts">HarmonizerVoiceDtoList</a></code>
+- <code><a href="./src/resources/ai/ai.ts">HarmonizerPresetDtoList</a></code>
+- <code><a href="./src/resources/ai/ai.ts">GenreResponseModelList</a></code>
+
+Methods:
+
+- <code title="get /v1/daily_limits">client.ai.<a href="./src/resources/ai/ai.ts">retrieveDailyLimits</a>() -> SoundsAPI.SeparationLimitsResponse</code>
+- <code title="get /v1/model/{modelId}/{version}/{feature}">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModel</a>(feature, { ...params }) -> unknown</code>
+- <code title="delete /v1/separation">client.ai.<a href="./src/resources/ai/ai.ts">deleteSeparation</a>() -> void</code>
+- <code title="get /v1/separation/prediction">client.ai.<a href="./src/resources/ai/ai.ts">retrieveSeparationPrediction</a>() -> SoundsAPI.SeparationStatusResponse</code>
+- <code title="post /v1/separation/sample">client.ai.<a href="./src/resources/ai/ai.ts">createSeparationSample</a>({ ...params }) -> SoundsAPI.ForwardResultResponse</code>
+- <code title="get /v1/separation/status">client.ai.<a href="./src/resources/ai/ai.ts">retrieveSeparationStatus</a>() -> SoundsAPI.SeparationProgressResponse</code>
+- <code title="get /preview">client.ai.<a href="./src/resources/ai/ai.ts">retrievePreview</a>({ ...params }) -> Link</code>
+- <code title="post /task">client.ai.<a href="./src/resources/ai/ai.ts">createTask</a>({ ...params }) -> PaletteStackTaskDto</code>
+- <code title="get /task/{taskID}">client.ai.<a href="./src/resources/ai/ai.ts">retrieveTask</a>(taskID) -> PaletteStackTaskDto</code>
+- <code title="get /task/{taskID}/download">client.ai.<a href="./src/resources/ai/ai.ts">retrieveTaskResult</a>(taskID) -> PaletteStackTaskResultDto</code>
+- <code title="get /v0/similar">client.ai.<a href="./src/resources/ai/ai.ts">listSimilarSounds</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/autocomplete">client.ai.<a href="./src/resources/ai/ai.ts">autocomplete</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/check_captcha">client.ai.<a href="./src/resources/ai/ai.ts">checkCaptcha</a>({ ...params }) -> unknown</code>
+- <code title="get /v1/displayed_genres">client.ai.<a href="./src/resources/ai/ai.ts">listDisplayedGenres</a>({ ...params }) -> GenreResponseModelList</code>
+- <code title="get /v1/genres">client.ai.<a href="./src/resources/ai/ai.ts">listGenres</a>({ ...params }) -> AutoMixGenresDto</code>
+- <code title="get /v1/ideas">client.ai.<a href="./src/resources/ai/ai.ts">listIdeas</a>({ ...params }) -> SoundsAPI.IdeasResponseModel</code>
+- <code title="get /v1/instruction-suggestions">client.ai.<a href="./src/resources/ai/ai.ts">listInstructionSuggestions</a>({ ...params }) -> AutoMixPromptExamplesDto</code>
+- <code title="get /v1/models">client.ai.<a href="./src/resources/ai/ai.ts">listModels</a>({ ...params }) -> HarmonizerVoiceDtoList</code>
+- <code title="get /v1/presets">client.ai.<a href="./src/resources/ai/ai.ts">listPresets</a>({ ...params }) -> HarmonizerPresetDtoList</code>
+- <code title="get /v1/previews">client.ai.<a href="./src/resources/ai/ai.ts">listPreviews</a>({ ...params }) -> SongExamplesDTO</code>
+- <code title="get /v1/prompts">client.ai.<a href="./src/resources/ai/ai.ts">listPrompts</a>({ ...params }) -> PromptsDTO</code>
+- <code title="post /v1/remix">client.ai.<a href="./src/resources/ai/ai.ts">createRemix</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/task">client.ai.<a href="./src/resources/ai/ai.ts">createAITask</a>({ ...params }) -> TaskStatusDTO</code>
+- <code title="get /v1/task/{taskID}">client.ai.<a href="./src/resources/ai/ai.ts">retrieveAITask</a>(taskID) -> TaskStatusDTO</code>
+- <code title="get /v1/task/{taskID}/download">client.ai.<a href="./src/resources/ai/ai.ts">retrieveAITaskResult</a>(taskID) -> AutoMixResultDto</code>
+- <code title="post /v1/transfer">client.ai.<a href="./src/resources/ai/ai.ts">createTransfer</a>({ ...params }) -> TaskStatusDTO</code>
+- <code title="get /v1/transfer/{transferID}">client.ai.<a href="./src/resources/ai/ai.ts">retrieveTransfer</a>(transferID) -> TaskStatusDTO</code>
+- <code title="get /v1/transfer/{transferID}/download">client.ai.<a href="./src/resources/ai/ai.ts">retrieveTransferDownload</a>(transferID) -> unknown</code>
+- <code title="get /v2/models">client.ai.<a href="./src/resources/ai/ai.ts">listV2Models</a>({ ...params }) -> GetModelsDTO</code>
+- <code title="get /v2/report/bandlab_user/{userID}">client.ai.<a href="./src/resources/ai/ai.ts">reportBandlabUser</a>(userID) -> unknown</code>
+# AI Videos
+
+Types:
+
+- <code><a href="./src/resources/ai-videos.ts">VideoGenerationCost</a></code>
+- <code><a href="./src/resources/ai-videos.ts">VideoGenerationJob</a></code>
+- <code><a href="./src/resources/ai-videos.ts">VisualStyle</a></code>
+- <code><a href="./src/resources/ai-videos.ts">VisualStyleListResult</a></code>
+- <code><a href="./src/resources/ai-videos.ts">VideoGenerationUnseenUpdates</a></code>
+- <code><a href="./src/resources/ai-videos.ts">VideoGenerationJobList</a></code>
+
+Methods:
+
+- <code title="get /ai-videos/ai-tokens/price">client.aiVideos.<a href="./src/resources/ai-videos.ts">retrieveTokenPrice</a>() -> VideoGenerationCost</code>
+- <code title="post /ai-videos/generate">client.aiVideos.<a href="./src/resources/ai-videos.ts">generate</a>({ ...params }) -> unknown</code>
+- <code title="get /ai-videos/jobs">client.aiVideos.<a href="./src/resources/ai-videos.ts">listJobs</a>({ ...params }) -> VideoGenerationJobList</code>
+- <code title="get /ai-videos/styles">client.aiVideos.<a href="./src/resources/ai-videos.ts">listStyles</a>({ ...params }) -> VisualStyleListResult</code>
+- <code title="get /ai-videos/updates">client.aiVideos.<a href="./src/resources/ai-videos.ts">listUpdates</a>({ ...params }) -> VideoGenerationUnseenUpdates</code>
+# Synced Lyrics
+
+Types:
+
+- <code><a href="./src/resources/synced-lyrics.ts">SyncedLyricPrice</a></code>
+- <code><a href="./src/resources/synced-lyrics.ts">SyncedLyricsLyrics</a></code>
+- <code><a href="./src/resources/synced-lyrics.ts">SyncedLyricResponse</a></code>
+
+Methods:
+
+- <code title="get /synced-lyrics/ai-tokens/price">client.syncedLyrics.<a href="./src/resources/synced-lyrics.ts">retrieveTokenPrice</a>() -> SyncedLyricPrice</code>
+- <code title="get /synced-lyrics/{postID}">client.syncedLyrics.<a href="./src/resources/synced-lyrics.ts">retrieve</a>(postID) -> SyncedLyricResponse</code>
+# Misc
+
+Types:
+
+- <code><a href="./src/resources/misc.ts">ChatWebSocketsUrl</a></code>
+- <code><a href="./src/resources/misc.ts">BeatsFilters</a></code>
+- <code><a href="./src/resources/misc.ts">SocialLink</a></code>
+- <code><a href="./src/resources/misc.ts">SocialLinkList</a></code>
+
+Methods:
+
+- <code title="post /chat/authorizations">client.misc.<a href="./src/resources/misc.ts">createChatAuthorization</a>({ ...params }) -> ChatWebSocketsUrl</code>
+- <code title="get /experiment/beats-filters">client.misc.<a href="./src/resources/misc.ts">retrieveBeatsFilters</a>() -> BeatsFilters</code>
+- <code title="get /options">client.misc.<a href="./src/resources/misc.ts">retrieveOptions</a>() -> unknown</code>
+- <code title="get /social-links">client.misc.<a href="./src/resources/misc.ts">listSocialLinks</a>({ ...params }) -> SocialLinkList</code>
+- <code title="post /tracking/v2/collect">client.misc.<a href="./src/resources/misc.ts">collectTracking</a>({ ...params }) -> unknown</code>
+# Tracks
+
+Methods:
+
+- <code title="get /tracks/{trackID}/artist">client.tracks.<a href="./src/resources/tracks.ts">retrieveArtist</a>(trackID) -> RevisionsAPI.Artist</code>
+- <code title="get /tracks/{trackID}">client.tracks.<a href="./src/resources/tracks.ts">retrieveDownload</a>(trackID, { ...params }) -> RevisionsAPI.SampleUri</code>

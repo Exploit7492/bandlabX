@@ -63,38 +63,38 @@ Phase        1, 2, 3, 4, 5
 - [x] 12 ‚Äî `3.a.i.zo` songs: tests and records
 - [x] 13 ‚Äî `3.a.ii.zi` revisions: breakdown, mixdown, download-options, forks (9 endpoints): implement
 - [x] 14 ‚Äî `3.a.ii.zo` revisions: tests and records
-- [ ] 15 ‚Äî `3.a.iii.zi` tracks (2 endpoints): implement
-- [ ] 16 ‚Äî `3.a.iii.zo` tracks: tests and records
-- [ ] 17 ‚Äî `3.a.iv.zi` bands: members, invites, follow-invitees, suggestions (7 endpoints): implement
-- [ ] 18 ‚Äî `3.a.iv.zo` bands: tests and records
-- [ ] 19 ‚Äî `3.a.v.zi` albums: themes, likes, comments, posts, state, pictures (15 endpoints): implement
-- [ ] 20 ‚Äî `3.a.v.zo` albums: tests and records
+- [x] 15 ‚Äî `3.a.iii.zi` tracks (2 endpoints): implement
+- [x] 16 ‚Äî `3.a.iii.zo` tracks: tests and records
+- [x] 17 ‚Äî `3.a.iv.zi` bands: members, invites, follow-invitees, suggestions (7 endpoints): implement
+- [x] 18 ‚Äî `3.a.iv.zo` bands: tests and records
+- [x] 19 ‚Äî `3.a.v.zi` albums: themes, likes, comments, posts, state, pictures (15 endpoints): implement
+- [x] 20 ‚Äî `3.a.v.zo` albums: tests and records
 
 **3.b ‚Äî Studio: effects, sounds, uploads, soundbanks**
 
-- [ ] 21 ‚Äî `3.b.i.zi` effects: presets, favourites, trending, promo, artist presets (10 endpoints): implement
-- [ ] 22 ‚Äî `3.b.i.zo` effects: tests and records
-- [ ] 23 ‚Äî `3.b.ii.zi` sounds: samples, packs, libraries, credits (part 1) (16 endpoints): implement
-- [ ] 24 ‚Äî `3.b.ii.zo` sounds: tests and records
-- [ ] 25 ‚Äî `3.b.iii.zi` sounds: claims, uploads, sampler-kits, stamps (part 2) (15 endpoints): implement
-- [ ] 26 ‚Äî `3.b.iii.zo` sounds: tests and records
-- [ ] 27 ‚Äî `3.b.iv.zi` uploads v2.0: create, part, complete (4 endpoints): implement
-- [ ] 28 ‚Äî `3.b.iv.zo` uploads v2.0: tests and records
-- [ ] 29 ‚Äî `3.b.v.zi` soundbanks v4.3 and metronome v3.0 (1 endpoints): implement
-- [ ] 30 ‚Äî `3.b.v.zo` soundbanks v4.3 and metronome v3.0: tests and records
+- [x] 21 ‚Äî `3.b.i.zi` effects: presets, favourites, trending, promo, artist presets (10 endpoints): implement
+- [x] 22 ‚Äî `3.b.i.zo` effects: tests and records
+- [x] 23 ‚Äî `3.b.ii.zi` sounds: samples, packs, libraries, credits (part 1) (16 endpoints): implement
+- [x] 24 ‚Äî `3.b.ii.zo` sounds: tests and records
+- [x] 25 ‚Äî `3.b.iii.zi` sounds: claims, uploads, sampler-kits, stamps (part 2) (15 endpoints): implement
+- [x] 26 ‚Äî `3.b.iii.zo` sounds: tests and records
+- [x] 27 ‚Äî `3.b.iv.zi` uploads v2.0: create, part, complete (4 endpoints): implement
+- [x] 28 ‚Äî `3.b.iv.zo` uploads v2.0: tests and records
+- [x] 29 ‚Äî `3.b.v.zi` soundbanks v4.3 and metronome v3.0 (1 endpoints): implement
+- [x] 30 ‚Äî `3.b.v.zo` soundbanks v4.3 and metronome v3.0: tests and records
 
 **3.c ‚Äî AI, audio tooling and misc**
 
-- [ ] 31 ‚Äî `3.c.i.zi` AI: separation, transfer, task, model, presets (part 1) (17 endpoints): implement
-- [ ] 32 ‚Äî `3.c.i.zo` AI: tests and records
-- [ ] 33 ‚Äî `3.c.ii.zi` AI: remix, autocomplete, captcha, genres, ideas (part 2) (16 endpoints): implement
-- [ ] 34 ‚Äî `3.c.ii.zo` AI: tests and records
-- [ ] 35 ‚Äî `3.c.iii.zi` ai-videos: jobs, styles, generate, tokens (5 endpoints): implement
-- [ ] 36 ‚Äî `3.c.iii.zo` ai-videos: tests and records
-- [ ] 37 ‚Äî `3.c.iv.zi` synced lyrics (2 endpoints): implement
-- [ ] 38 ‚Äî `3.c.iv.zo` synced lyrics: tests and records
-- [ ] 39 ‚Äî `3.c.v.zi` misc: settings, options, tracking, external (4 endpoints): implement
-- [ ] 40 ‚Äî `3.c.v.zo` misc: tests and records
+- [x] 31 ‚Äî `3.c.i.zi` AI: separation, transfer, task, model, presets (part 1) (17 endpoints): implement
+- [x] 32 ‚Äî `3.c.i.zo` AI: tests and records
+- [x] 33 ‚Äî `3.c.ii.zi` AI: remix, autocomplete, captcha, genres, ideas (part 2) (16 endpoints): implement
+- [x] 34 ‚Äî `3.c.ii.zo` AI: tests and records
+- [x] 35 ‚Äî `3.c.iii.zi` ai-videos: jobs, styles, generate, tokens (5 endpoints): implement
+- [x] 36 ‚Äî `3.c.iii.zo` ai-videos: tests and records
+- [x] 37 ‚Äî `3.c.iv.zi` synced lyrics (2 endpoints): implement
+- [x] 38 ‚Äî `3.c.iv.zo` synced lyrics: tests and records
+- [x] 39 ‚Äî `3.c.v.zi` misc: settings, options, tracking, external (4 endpoints): implement
+- [x] 40 ‚Äî `3.c.v.zo` misc: tests and records
 
 **3.d ‚Äî Messaging, communities and posts**
 

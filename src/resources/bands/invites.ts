@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as UsersInvitesAPI from '../users/invites';
+import * as SongsInvitesAPI from '../songs/invites';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -10,6 +10,9 @@ import { path } from '../../internal/utils/path';
 export class Invites extends APIResource {
   /**
    * Returns a list of invites
+   *
+   * Evidence: `apk` — `InviteService`, `GET bands/{id}/invites?accepted=false`. The response is
+   * typed from `com.bandlab.invite.api.Invite` (the same shape the songs invites list uses).
    *
    * @example
    * ```ts
@@ -22,7 +25,7 @@ export class Invites extends APIResource {
     bandID: string,
     query: InviteListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<UsersInvitesAPI.InviteList> {
+  ): APIPromise<InviteListResponse> {
     return this._client.get(path`/bands/${bandID}/invites`, { query, ...options });
   }
 
@@ -44,6 +47,11 @@ export class Invites extends APIResource {
 }
 
 export interface InviteListParams {
+  /**
+   * The app sends `false` to list invites that are still pending.
+   */
+  accepted?: boolean;
+
   after?: string;
 
   before?: string;
@@ -61,6 +69,16 @@ export interface InviteSendParams {
   userIds?: Array<string>;
 }
 
+/**
+ * Evidence: `apk` — paged wrapper around `com.bandlab.invite.api.Invite`. Reuses the songs
+ * invites shape so the two lists cannot drift.
+ */
+export type InviteListResponse = SongsInvitesAPI.InviteListResponse;
+
 export declare namespace Invites {
-  export { type InviteListParams as InviteListParams, type InviteSendParams as InviteSendParams };
+  export {
+    type InviteListParams as InviteListParams,
+    type InviteListResponse as InviteListResponse,
+    type InviteSendParams as InviteSendParams,
+  };
 }
