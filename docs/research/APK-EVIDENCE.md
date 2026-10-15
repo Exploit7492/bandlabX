@@ -20,21 +20,21 @@ uses **kotlinx.serialization**, each model's generated serializer descriptor pre
 therefore recoverable from the shipped artifact, with no account and no capture.
 
 This document is the evidence record required by D13. It outranks the bundle: the bundle proves a
-path, the APK proves the path *and* its verb *and* its response shape.
+path, the APK proves the path _and_ its verb _and_ its response shape.
 
 ---
 
 ## 2. Provenance (how to reproduce)
 
-| Item | Value |
-|---|---|
-| App | `com.bandlab.bandlab` — BandLab: Music Maker & Studio **11.33.2** |
-| Version code | `11330200` · released 2026-10-07 |
-| Source | APKMirror release page → `wp-content/themes/APKMirror/download.php?id=…&key=…` |
-| Downloaded artifact | 89,090,301 bytes, `sha256 132910680e75e7cd6f424a88295bb2997c8445d6e60e5083a4dfa4c1c478bfe5` |
-| Inner package | `base.apk` 71,330,244 bytes, `sha256 5047b8bb2eb701dbf30e6a9ff1cc0a6ec59598b869c735f123a27cac964ede49` |
-| Decompiler | jadx **1.5.6** (`github.com/skylot/jadx`), JDK 21 |
-| Output | 60,400 `.java` files, 170 API service interfaces |
+| Item                | Value                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------ |
+| App                 | `com.bandlab.bandlab` — BandLab: Music Maker & Studio **11.33.2**                                      |
+| Version code        | `11330200` · released 2026-10-07                                                                       |
+| Source              | APKMirror release page → `wp-content/themes/APKMirror/download.php?id=…&key=…`                         |
+| Downloaded artifact | 89,090,301 bytes, `sha256 132910680e75e7cd6f424a88295bb2997c8445d6e60e5083a4dfa4c1c478bfe5`            |
+| Inner package       | `base.apk` 71,330,244 bytes, `sha256 5047b8bb2eb701dbf30e6a9ff1cc0a6ec59598b869c735f123a27cac964ede49` |
+| Decompiler          | jadx **1.5.6** (`github.com/skylot/jadx`), JDK 21                                                      |
+| Output              | 60,400 `.java` files, 170 API service interfaces                                                       |
 
 The download is gated by Cloudflare but not by a challenge: `download.php` returns a `302` to a
 signed R2 URL, and it only requires an ordinary `Referer` from the release page. No account, no
@@ -64,13 +64,13 @@ public interface TrackVideoPostsService {
 
 Four things are recoverable from each method, and one is not printed:
 
-| Piece | Where it lives | Recoverable? |
-|---|---|---|
-| Path | value of the path annotation (`@xbc`) | yes, verbatim |
-| Host group | `@ApiService.endpoint`, a `j11` constant | yes, via the `j11` static initializer |
-| Auth required | `@ApiService.isAuthorized` | yes |
+| Piece          | Where it lives                                       | Recoverable?                                                            |
+| -------------- | ---------------------------------------------------- | ----------------------------------------------------------------------- |
+| Path           | value of the path annotation (`@xbc`)                | yes, verbatim                                                           |
+| Host group     | `@ApiService.endpoint`, a `j11` constant             | yes, via the `j11` static initializer                                   |
+| Auth required  | `@ApiService.isAuthorized`                           | yes                                                                     |
 | Response model | argument of the Kotlin continuation `ng7<? super …>` | yes — **not** the Java return type, which jadx renders as bare `Object` |
-| HTTP verb | the path annotation **class** | **not printed** — derived, see §4 |
+| HTTP verb      | the path annotation **class**                        | **not printed** — derived, see §4                                       |
 
 Parameter annotations are `@acl` (path), `@cao` (query map), `@c74` (body), `@z9o` (query).
 
@@ -80,13 +80,13 @@ The path annotations are custom and obfuscated (`@xbc`, `@kik`, …), each with 
 `String value()`. Nothing in the dex states which verb each one means, so it is derived from
 **method names**, which Kotlin does not obfuscate, and then validated two ways.
 
-| Annotation | Verb | Method-name evidence | Confidence |
-|---|---|---|---|
-| `@xbc` | **GET** | 234 of 237 methods begin `get`, `list`, `search`, `find` | high |
-| `@kik` | **POST** | 91 of 107 begin `create`, `add`, `post`, `send`, `follow` | high |
-| `@sa8` | **DELETE** | 44 of 52 begin `delete`, `remove`, `unfollow`, `unlike` | high |
-| `@thk` | **PATCH** | 30 of 33 begin `update`, `mark`, `save`, `modify` | high |
-| `@lik` | **PUT** | 15 of 28 directly; resolved by in-file coherence | medium-high |
+| Annotation | Verb       | Method-name evidence                                      | Confidence  |
+| ---------- | ---------- | --------------------------------------------------------- | ----------- |
+| `@xbc`     | **GET**    | 234 of 237 methods begin `get`, `list`, `search`, `find`  | high        |
+| `@kik`     | **POST**   | 91 of 107 begin `create`, `add`, `post`, `send`, `follow` | high        |
+| `@sa8`     | **DELETE** | 44 of 52 begin `delete`, `remove`, `unfollow`, `unlike`   | high        |
+| `@thk`     | **PATCH**  | 30 of 33 begin `update`, `mark`, `save`, `modify`         | high        |
+| `@lik`     | **PUT**    | 15 of 28 directly; resolved by in-file coherence          | medium-high |
 
 Validation 1 — against the OpenAPI spec. Where an APK path matches a spec path that carries
 exactly one verb, the derived map agrees: `@xbc` 19/19 GET, `@kik` 8/8 POST, `@sa8` 2/2 DELETE.
@@ -130,19 +130,19 @@ BandLab API surface. They are listed so they can be **excluded** deliberately.
 
 ## 6. Totals
 
-| Measure | Count |
-|---|---|
-| API service interfaces | 170 |
-| Methods | 587 |
-| Path templates (all) | 401 |
-| **Paths the SDK does not expose** | **344** |
-| … with a derived verb | **344 (100%)** |
-| … with a real response shape | **265 (77%)** |
-| Distinct response classes | 163 |
-| Distinct serializer descriptors | 1,215 |
-| Model classes with recoverable fields | 1,094 |
-| Distinct JSON field names | 1,973 |
-| Path segments (candidate domains) | 74 |
+| Measure                               | Count          |
+| ------------------------------------- | -------------- |
+| API service interfaces                | 170            |
+| Methods                               | 587            |
+| Path templates (all)                  | 401            |
+| **Paths the SDK does not expose**     | **344**        |
+| … with a derived verb                 | **344 (100%)** |
+| … with a real response shape          | **265 (77%)**  |
+| Distinct response classes             | 163            |
+| Distinct serializer descriptors       | 1,215          |
+| Model classes with recoverable fields | 1,094          |
+| Distinct JSON field names             | 1,973          |
+| Path segments (candidate domains)     | 74             |
 
 Against the bundle: the bundle found 225 clean paths / 201 missing. The APK finds 344 missing,
 i.e. **262 paths the bundle never had**, and supplies a verb for all 344 rather than for the ~145
@@ -154,6 +154,7 @@ the bundle's call sites happened to reveal.
 response class names and field names, plus required/optional flags from the serializer descriptors.
 
 **Is not:**
+
 1. **Not a live check.** Nothing here has been run against BandLab. Rows are `apk`, not `live-ok`.
 2. **Not a request-shape source for every endpoint.** Response shapes are strong (265/344). Request
    bodies are recoverable only where a method takes a `@c74` body parameter whose model is in the
@@ -161,7 +162,7 @@ response class names and field names, plus required/optional flags from the seri
 3. **Not a verb certainty for `@lik`.** See §4.
 4. **Not a completeness proof for AI/ML hosts.** Those paths are evidenced, but their deployment
    host (staging vs production) is not, and some may be studio-client only.
-5. **Not proof that a path works for every account.** Auth flags say the endpoint *expects* a
+5. **Not proof that a path works for every account.** Auth flags say the endpoint _expects_ a
    bearer token; they say nothing about entitlements. See §8.
 
 ## 8. Subscriptions, quotas and entitlement — what the app does and does not show
@@ -171,13 +172,13 @@ how the app gates features. The finding is recorded here because it bounds what 
 
 **Gating is server-side.** The app carries only presentation and state for membership:
 
-| Class | Fields | Role |
-|---|---|---|
-| `com.bandlab.network.models.MembershipStatusShort` | `isActive` | read-only status |
-| `com.bandlab.network.models.MembershipStatus` | `plan`, `displayName`, `paymentProvider`, `billingIssue`, `isTrial`, `billingInterval`, `nextBillingInterval`, `startedOn`, `expiresOn`, `priceCurrency`, `availableFeatures`, `canceledOn`, `isTrialAllowed`, `nextRenewalPrice`, `nextPlan`, `pauseEffectiveAt`, `unpauseEffectiveAt` | read-only status, full form |
-| `com.bandlab.video.uploader.api.MembershipLimits` | `membership_limit`, `non_membership_limit` | server-supplied limits |
-| `com.bandlab.beat.api.quota.QuotaPopupMembershipBanner` | `title`, `buttonText` | popup copy |
-| `com.bandlab.payments.membership.manage.dashboard.screen.SubscriptionOfferBannerConfig` | `badge`, `title`, `url`, `cta` | upsell banner |
+| Class                                                                                   | Fields                                                                                                                                                                                                                                                                                  | Role                        |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `com.bandlab.network.models.MembershipStatusShort`                                      | `isActive`                                                                                                                                                                                                                                                                              | read-only status            |
+| `com.bandlab.network.models.MembershipStatus`                                           | `plan`, `displayName`, `paymentProvider`, `billingIssue`, `isTrial`, `billingInterval`, `nextBillingInterval`, `startedOn`, `expiresOn`, `priceCurrency`, `availableFeatures`, `canceledOn`, `isTrialAllowed`, `nextRenewalPrice`, `nextPlan`, `pauseEffectiveAt`, `unpauseEffectiveAt` | read-only status, full form |
+| `com.bandlab.video.uploader.api.MembershipLimits`                                       | `membership_limit`, `non_membership_limit`                                                                                                                                                                                                                                              | server-supplied limits      |
+| `com.bandlab.beat.api.quota.QuotaPopupMembershipBanner`                                 | `title`, `buttonText`                                                                                                                                                                                                                                                                   | popup copy                  |
+| `com.bandlab.payments.membership.manage.dashboard.screen.SubscriptionOfferBannerConfig` | `badge`, `title`, `url`, `cta`                                                                                                                                                                                                                                                          | upsell banner               |
 
 **The premium flag endpoint the owner asked about does exist.** It is real, it is fully typed from
 the descriptor, and it is in the plan as a read-only resource:
@@ -196,16 +197,16 @@ public interface RemoteMembershipService {
 `MembershipStatusShort.isActive` and `MembershipStatus.availableFeatures` are the entitlement flags.
 Both endpoints are assigned to the `membership` resource (leaf `3.f.iii`, read-only).
 
-**Why the flag cannot be used to unlock anything.** The flag is an *output*, not an *input*. Every
+**Why the flag cannot be used to unlock anything.** The flag is an _output_, not an _input_. Every
 gated action is authorised again by the server against the account, and the server mints the quota
 values the client only displays:
 
-| Model | Fields | Who decides |
-|---|---|---|
-| `com.bandlab.distro.api.models.DistroQuota` | `remaining`, `limit`, `period`, `resetsAt` | server |
-| `com.bandlab.beat.api.quota.FreeBeatsQuota` | `canClaimPaidBeats`, `dailyLimitLabel` | server |
-| `com.bandlab.video.uploader.api.VideoLimit` | `duration_s`, `file_size_mb` | server |
-| `com.bandlab.tools.splitter.screen.api.SeparationLimitsResponse` | `result` | server |
+| Model                                                            | Fields                                     | Who decides |
+| ---------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `com.bandlab.distro.api.models.DistroQuota`                      | `remaining`, `limit`, `period`, `resetsAt` | server      |
+| `com.bandlab.beat.api.quota.FreeBeatsQuota`                      | `canClaimPaidBeats`, `dailyLimitLabel`     | server      |
+| `com.bandlab.video.uploader.api.VideoLimit`                      | `duration_s`, `file_size_mb`               | server      |
+| `com.bandlab.tools.splitter.screen.api.SeparationLimitsResponse` | `result`                                   | server      |
 
 So forcing `isActive = true` in a patched client changes the badge and hides the popup, and nothing
 else: the next gated call (`POST ai-videos/generate`, a beats claim, a distro release) is still
@@ -226,7 +227,7 @@ with **Google Play Billing**, and the API side is `POST checkout/products/member
    not do that.
 4. What the SDK **can** legitimately do — and this is already in the plan — is expose the full
    **free** API surface so nothing is missing for any account, and expose the membership/quota
-   endpoints read-only so callers can *see* their own state. Those paths are in
+   endpoints read-only so callers can _see_ their own state. Those paths are in
    `apk-endpoints.md` (`membership/*`, `coins/*`, `wallet/*`, `checkout/*`).
 
 Recommendation: treat G13e Payments and the membership/quota paths as **read-only, evidenced,

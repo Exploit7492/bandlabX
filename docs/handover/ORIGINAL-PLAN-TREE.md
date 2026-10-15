@@ -1,10 +1,11 @@
 # Original Plan Tree — REFERENCE ONLY (superseded layout)
 
 > **Superseded by owner ruling (S00C).** We are **not** building an MCP server and we are **not** adding this directory layout.
-> The project is: *update the existing SDK for full BandLab API coverage*, extending the existing tree in place (see `ARCHITECTURE.md`).
+> The project is: _update the existing SDK for full BandLab API coverage_, extending the existing tree in place (see `ARCHITECTURE.md`).
 > This file is kept only as a **checklist of capabilities/domains** the owner wanted covered. Ignore everything about
 > `tools/`, `workflows/`, `permissions/`, `bulk/`, `server.ts`, MCP registries and the folder structure.
 > The domain list (section 3) and the API-layer domain folders (`bandlab/api/*`) are what remain relevant: they define coverage targets.
+
 ## 1. Full target tree
 
 ```text

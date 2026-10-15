@@ -31,6 +31,27 @@ SECTIONS = [
         'listSuggested', 'listFollowers', 'addFollower',
         'listMemberFollowInvitees', 'pinPost', 'listVideoPosts',
     }),
+    # Phase 3.2 (leaves 41-61).
+    ('Messaging', 'messaging', 'messaging.conversations', 'src/resources/messaging/messaging.ts', None),
+    ('Messaging Channels', 'messaging-channels', 'messaging.channels', 'src/resources/messaging/messaging.ts', None),
+    ('Library', 'library', 'library', 'src/resources/library.ts', None),
+    ('Feeds', 'feeds', 'feeds', 'src/resources/feeds.ts', None),
+    # Phase 3.3 (leaves 63-90).
+    ('Streaks', 'streaks', 'streaks', 'src/resources/streaks.ts', None),
+    ('Membership', 'membership', 'membership', 'src/resources/membership.ts', None),
+    ('Payments', 'payments', 'payments', 'src/resources/payments.ts', None),
+    ('Beats', 'beats', 'beats', 'src/resources/beats.ts', None),
+    ('Distro', 'distro', 'distro', 'src/resources/distro.ts', None),
+    ('Promote', 'promote', 'promote', 'src/resources/promote.ts', None),
+    ('Pages', 'pages', 'pages', 'src/resources/pages.ts', None),
+    # Extended resources: new methods added to files that already had tests.
+    ('Search', 'search', 'search', 'src/resources/search.ts', None),
+    ('Authorizations', 'authorizations', 'authorizations', 'src/resources/authorizations.ts', None),
+    ('Validation', 'validation', 'validation', 'src/resources/validation.ts', None),
+    ('Genres', 'genres', 'genres', 'src/resources/genres.ts', None),
+    ('Videos', 'videos', 'videos', 'src/resources/videos.ts', None),
+    ('Passwords', 'passwords', 'passwords', 'src/resources/passwords.ts', None),
+    ('Collection Likes', 'collections-likes', 'collections.likes', 'src/resources/collections/likes.ts', None),
 ]
 
 ROW = re.compile(
@@ -97,25 +118,45 @@ def required_fields(source, iface):
     return fields
 
 
-def params_interface(source, method):
-    """The `*Params` interface used by `method`, if any."""
+CLASS_RE = re.compile(r'^export class (\w+) extends APIResource \{', re.M)
+
+
+def class_body(source, class_name):
+    """The body of `export class <class_name>`, or the whole file when it has no nested classes."""
     src = io.open(os.path.join(REPO, source), encoding='utf-8').read()
-    m = re.search(r'^  %s\((.*?)\): APIPromise' % re.escape(method), src, re.M | re.S)
-    if not m:
+    starts = [(m.group(1), m.start()) for m in CLASS_RE.finditer(src)]
+    for i, (name, pos) in enumerate(starts):
+        if name == class_name:
+            end = starts[i + 1][1] if i + 1 < len(starts) else len(src)
+            return src[pos:end]
+    return src
+
+
+def params_interface(source, method, class_name):
+    """The `*Params` interface used by `method` inside `class_name`."""
+    sig = method_signature(source, method, class_name)
+    if sig is None:
         return None
-    found = re.findall(r'(\w+Params)\b', m.group(1))
+    found = re.findall(r'(\w+Params)\b', sig)
     return found[-1] if found else None
+
+
+def method_signature(source, method, class_name):
+    """The raw parameter list of `method` inside `class_name`."""
+    body = class_body(source, class_name)
+    m = re.search(r'^  %s\((.*?)\): APIPromise' % re.escape(method), body, re.M | re.S)
+    return m.group(1) if m else None
 
 
 def value_for(field):
     return '{}' if field == 'body' else "'%s'" % PLACEHOLDER
 
 
-def build_params_object(source, method, args):
+def build_params_object(source, method, args, class_name):
     """Replace the trailing `{ ...params }` with an object literal of required fields."""
     if '{ ...params }' not in args:
         return args
-    fields = required_fields(source, params_interface(source, method))
+    fields = required_fields(source, params_interface(source, method, class_name))
     literal = '{ %s }' % ', '.join('%s: %s' % (f, value_for(f)) for f in fields) if fields else '{}'
     return args.replace('{ ...params }', literal)
 
@@ -138,26 +179,62 @@ def split_top_level(raw):
     return parts
 
 
-def build_call(accessor, method, args):
+def build_call(accessor, method, args, source, class_name):
     """Turn an api.md signature into a callable expression with placeholder arguments."""
+    sig = method_signature(source, method, class_name)
     parts = []
-    for arg in split_top_level(args):
+    for i, arg in enumerate(split_top_level(args)):
         if arg.startswith('{'):
             parts.append(arg)
         else:
-            parts.append("'%s'" % PLACEHOLDER)
+            parts.append(scalar_arg(sig, i))
     return 'c.%s.%s(%s)' % (accessor, method, ', '.join(parts))
 
 
-def literal_path(path):
-    return re.sub(r'\{[^}]+\}', PLACEHOLDER, path)
+LITERAL_UNION = re.compile(r"^\s*(\w+):\s*'(\w+)'(?:\s*\|\s*'(\w+)')+")
+
+
+def scalar_arg(sig, index):
+    """A placeholder for the `index`-th non-object parameter, honouring string-literal unions."""
+    if sig is None:
+        return "'%s'" % PLACEHOLDER
+    params = split_top_level(sig)
+    scalars = [p for p in params if not p.startswith('{')]
+    if index < len(scalars):
+        m = LITERAL_UNION.match(scalars[index])
+        if m:
+            return "'%s'" % m.group(2)
+    return "'%s'" % PLACEHOLDER
+
+
+def path_values(sig):
+    """Placeholder name -> literal value, so the asserted path matches the value the call sends."""
+    if sig is None:
+        return {}
+    out = {}
+    for param in split_top_level(sig):
+        m = LITERAL_UNION.match(param)
+        if m:
+            out[m.group(1)] = m.group(2)
+    return out
+
+
+def literal_path(path, sig):
+    """The path as it should appear in the request, with literal-union values filled in."""
+    values = path_values(sig)
+
+    def sub(m):
+        name = m.group(1)
+        return values.get(name, PLACEHOLDER)
+
+    return re.sub(r'\{(\w+)\}', sub, path)
 
 
 def main():
     force = '--force' in sys.argv
     rows = list(api_rows())
     for title, directory, accessor, source, method_filter in SECTIONS:
-        mine = [r for r in rows if r[2] == accessor]
+        mine = [r for r in rows if r[2] == accessor or r[2].startswith(accessor + '.')]
         if method_filter is not None:
             mine = [r for r in mine if r[4] in method_filter]
         if not mine:
@@ -168,12 +245,17 @@ def main():
             print('skipped %s (exists; use --force to rewrite)' % target)
             continue
         out = [HEADER.format(title=title)]
-        for verb, path, _acc, row_source, method, args in mine:
-            args = build_params_object(row_source, method, args)
-            call = build_call(accessor, method, args)
+        for verb, path, row_accessor, row_source, method, args in mine:
+            # `messaging.conversations.messages` -> class `Messages`, so nested classes get the
+            # right `*Params` interface instead of the first one in the file.
+            class_name = row_accessor.split('.')[-1]
+            class_name = class_name[:1].upper() + class_name[1:]
+            args = build_params_object(row_source, method, args, class_name)
+            call = build_call(row_accessor, method, args, row_source, class_name)
+            sig = method_signature(row_source, method, class_name)
             out.append("  test('%s %s hits %s', async () => {" % (verb.upper(), path, path))
             out.append('    const url = await captureURL((c) => %s);' % call)
-            out.append("    expect(url).toContain('%s');" % literal_path(path))
+            out.append("    expect(url).toContain('%s');" % literal_path(path, sig))
             out.append('  });')
             out.append('')
         out.append('});')

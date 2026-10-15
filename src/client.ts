@@ -107,6 +107,13 @@ import { InviteBatch, InviteSendParams, Invites } from './resources/invites';
 import { LabelListResponse, Labels } from './resources/labels';
 import { Library } from './resources/library';
 import { Messaging } from './resources/messaging/messaging';
+import { Streaks } from './resources/streaks';
+import { Membership } from './resources/membership';
+import { Payments } from './resources/payments';
+import { Beats } from './resources/beats';
+import { Distro } from './resources/distro';
+import { Promote } from './resources/promote';
+import { Pages } from './resources/pages';
 import {
   Login,
   LoginCreateParams,
@@ -1073,6 +1080,13 @@ export class BandlabSDK {
   messaging: API.Messaging = new API.Messaging(this);
   library: API.Library = new API.Library(this);
   feeds: API.Feeds = new API.Feeds(this);
+  streaks: API.Streaks = new API.Streaks(this);
+  membership: API.Membership = new API.Membership(this);
+  payments: API.Payments = new API.Payments(this);
+  beats: API.Beats = new API.Beats(this);
+  distro: API.Distro = new API.Distro(this);
+  promote: API.Promote = new API.Promote(this);
+  pages: API.Pages = new API.Pages(this);
 }
 
 BandlabSDK.Validation = Validation;
@@ -1114,6 +1128,13 @@ BandlabSDK.Misc = Misc;
 BandlabSDK.Messaging = Messaging;
 BandlabSDK.Library = Library;
 BandlabSDK.Feeds = Feeds;
+BandlabSDK.Streaks = Streaks;
+BandlabSDK.Membership = Membership;
+BandlabSDK.Payments = Payments;
+BandlabSDK.Beats = Beats;
+BandlabSDK.Distro = Distro;
+BandlabSDK.Promote = Promote;
+BandlabSDK.Pages = Pages;
 
 export declare namespace BandlabSDK {
   export type RequestOptions = Opts.RequestOptions;
@@ -1467,4 +1488,11 @@ export declare namespace BandlabSDK {
   export type VideoSampleCounters = API.VideoSampleCounters;
 
   export { Messaging as Messaging, Library as Library, Feeds as Feeds };
+  export { Streaks as Streaks };
+  export { Membership as Membership };
+  export { Payments as Payments };
+  export { Beats as Beats };
+  export { Distro as Distro };
+  export { Promote as Promote };
+  export { Pages as Pages };
 }

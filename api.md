@@ -19,6 +19,8 @@ Types:
 Methods:
 
 - <code title="get /validation/{entityType}">client.validation.<a href="./src/resources/validation.ts">validate</a>(entityType, { ...params }) -> ValidationValidateResponse</code>
+- <code title="get /validation/community">client.validation.<a href="./src/resources/validation.ts">validateCommunity</a>({ ...params }) -> ValidationValidateResponse</code>
+- <code title="get /validation/distro">client.validation.<a href="./src/resources/validation.ts">validateDistro</a>({ ...params }) -> FieldValidationResponse</code>
 
 # Me
 
@@ -160,6 +162,7 @@ Methods:
 - <code title="get /bands/{bandId}/members/{userID}/follow-invitees">client.bands.<a href="./src/resources/bands/bands.ts">listMemberFollowInvitees</a>(userID, { ...params }) -> FollowersAPI.UserList</code>
 - <code title="post /bands/{bandId}/pins/posts/{postID}">client.bands.<a href="./src/resources/bands/bands.ts">pinPost</a>(postID, { ...params }) -> void</code>
 - <code title="get /bands/{bandID}/videos/posts">client.bands.<a href="./src/resources/bands/bands.ts">listVideoPosts</a>(bandID, { ...params }) -> PostsAPI.PostList</code>
+
 ## Members
 
 Types:
@@ -220,7 +223,10 @@ Methods:
 
 - <code title="get /collections/{collectionId}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">list</a>(collectionID, { ...params }) -> UserSummaryList</code>
 - <code title="post /collections/{collectionId}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">add</a>(collectionID) -> void</code>
-- <code title="delete /collections/{collectionId}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">remove</a>(collectionID) -> void</code>
+- <code title="get /collections/{collectionID}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">list</a>(collectionID, { ...params }) -> UserSummaryList</code>
+- <code title="post /collections/{collectionID}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">add</a>(collectionID) -> void</code>
+- <code title="delete /collections/{collectionID}/likes">client.collections.likes.<a href="./src/resources/collections/likes.ts">remove</a>(collectionID) -> void</code>
+- <code title="get /collections/{collectionID}/likes/users">client.collections.likes.<a href="./src/resources/collections/likes.ts">listUsers</a>(collectionID, { ...params }) -> UserSummaryList</code>
 
 # Posts
 
@@ -264,7 +270,10 @@ Methods:
 Methods:
 
 - <code title="post /videos/{videoId}/views">client.videos.<a href="./src/resources/videos.ts">addView</a>(videoID) -> void</code>
-- <code title="post /videos/{videoId}/posts">client.videos.<a href="./src/resources/videos.ts">createPost</a>(videoID, { ...params }) -> Post</code>
+- <code title="post /videos/{videoID}/views">client.videos.<a href="./src/resources/videos.ts">addView</a>(videoID) -> void</code>
+- <code title="post /videos/{videoID}/posts">client.videos.<a href="./src/resources/videos.ts">createPost</a>(videoID, { ...params }) -> PostsAPI.Post</code>
+- <code title="get /video-mix/stickers">client.videos.<a href="./src/resources/videos.ts">listStickers</a>({ ...params }) -> StickerListResponse</code>
+- <code title="get /videos/{videoID}">client.videos.<a href="./src/resources/videos.ts">retrieve</a>(videoID, { ...params }) -> VideoFile</code>
 
 # Images
 
@@ -358,6 +367,7 @@ Types:
 Methods:
 
 - <code title="get /genres">client.genres.<a href="./src/resources/genres.ts">list</a>() -> GenreListResponse</code>
+- <code title="get /genres/{genreID}/posts/trending">client.genres.<a href="./src/resources/genres.ts">listTrendingPosts</a>(genreID, { ...params }) -> PostsAPI.PostList</code>
 
 # Skills
 
@@ -403,7 +413,19 @@ Methods:
 - <code title="get /search/bands">client.search.<a href="./src/resources/search.ts">searchBands</a>({ ...params }) -> SearchSearchBandsResponse</code>
 - <code title="get /search/collections">client.search.<a href="./src/resources/search.ts">searchCollections</a>({ ...params }) -> CollectionList</code>
 - <code title="get /search/songs">client.search.<a href="./src/resources/search.ts">searchSongs</a>({ ...params }) -> SongList</code>
-- <code title="get /search/users">client.search.<a href="./src/resources/search.ts">searchUsers</a>({ ...params }) -> UserList</code>
+- <code title="get /search">client.search.<a href="./src/resources/search.ts">globalSearch</a>({ ...params }) -> SearchGlobalSearchResponse</code>
+- <code title="get /search/bands">client.search.<a href="./src/resources/search.ts">searchBands</a>({ ...params }) -> SearchSearchBandsResponse</code>
+- <code title="get /search/collections">client.search.<a href="./src/resources/search.ts">searchCollections</a>({ ...params }) -> UsersAPI.CollectionList</code>
+- <code title="get /search/songs">client.search.<a href="./src/resources/search.ts">searchSongs</a>({ ...params }) -> UsersAPI.SongList</code>
+- <code title="get /search/users">client.search.<a href="./src/resources/search.ts">searchUsers</a>({ ...params }) -> FollowersAPI.UserList</code>
+- <code title="post /grouping/users/{userID}/tokens">client.search.<a href="./src/resources/search.ts">createGroupingToken</a>(userID, { ...params }) -> void</code>
+- <code title="get /hashtags/{name}/posts">client.search.<a href="./src/resources/search.ts">listHashtagPosts</a>(name, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /places">client.search.<a href="./src/resources/search.ts">listPlaces</a>({ ...params }) -> SearchLocationResultList</code>
+- <code title="get /search/albums">client.search.<a href="./src/resources/search.ts">searchAlbums</a>({ ...params }) -> AlbumsAPI.AlbumList</code>
+- <code title="get /search/communities">client.search.<a href="./src/resources/search.ts">searchCommunities</a>({ ...params }) -> CommunitiesAPI.CommunityList</code>
+- <code title="get /search/tags">client.search.<a href="./src/resources/search.ts">searchTags</a>({ ...params }) -> HashtagList</code>
+- <code title="get /suggestions">client.search.<a href="./src/resources/search.ts">listSuggestions</a>({ ...params }) -> SearchSuggestionDtoList</code>
+- <code title="get /tags">client.search.<a href="./src/resources/search.ts">listTags</a>({ ...params }) -> HashtagList</code>
 
 # Authorizations
 
@@ -415,6 +437,11 @@ Types:
 Methods:
 
 - <code title="post /authorizations">client.authorizations.<a href="./src/resources/authorizations.ts">createSessionKey</a>({ ...params }) -> AuthorizationCreateSessionKeyResponse</code>
+- <code title="get /authorization/two-factor-methods">client.authorizations.<a href="./src/resources/authorizations.ts">listTwoFactorMethods</a>({ ...params }) -> TwoFactorAuthEmailResponse</code>
+- <code title="post /authorization/two-factor-requests/email">client.authorizations.<a href="./src/resources/authorizations.ts">createTwoFactorRequest</a>({ ...params }) -> TwoFactorSendCodeResponse</code>
+- <code title="post /connect/token">client.authorizations.<a href="./src/resources/authorizations.ts">createToken</a>({ ...params }) -> Session</code>
+- <code title="get /external/token">client.authorizations.<a href="./src/resources/authorizations.ts">retrieveExternalToken</a>({ ...params }) -> NonceToken</code>
+- <code title="post /logout">client.authorizations.<a href="./src/resources/authorizations.ts">logout</a>({ ...params }) -> void</code>
 
 # Logins
 
@@ -446,7 +473,10 @@ Methods:
 
 - <code title="put /passwords">client.passwords.<a href="./src/resources/passwords.ts">change</a>({ ...params }) -> void</code>
 - <code title="post /passwords">client.passwords.<a href="./src/resources/passwords.ts">reset</a>({ ...params }) -> void</code>
+- <code title="put /passwords">client.passwords.<a href="./src/resources/passwords.ts">change</a>({ ...params }) -> void</code>
+- <code title="post /passwords">client.passwords.<a href="./src/resources/passwords.ts">reset</a>({ ...params }) -> void</code>
 - <code title="delete /passwords">client.passwords.<a href="./src/resources/passwords.ts">sendRestoreEmail</a>({ ...params }) -> void</code>
+- <code title="post /passwords/reset">client.passwords.<a href="./src/resources/passwords.ts">resetPassword</a>({ ...params }) -> void</code>
 
 # Settings
 
@@ -564,6 +594,7 @@ Methods:
 
 - <code title="get /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">listInvites</a>(songID, { ...params }) -> InviteListResponse</code>
 - <code title="post /songs/{songId}/invites">client.songs.invites.<a href="./src/resources/songs/invites.ts">sendInvites</a>(songID, { ...params }) -> void</code>
+
 # Albums
 
 Types:
@@ -596,6 +627,7 @@ Methods:
 - <code title="delete /albums/{albumID}/comments/{commentID}">client.albums.<a href="./src/resources/albums.ts">deleteComment</a>(albumID, commentID) -> void</code>
 - <code title="get /albums/{albumID}/comments/{commentID}/likes/users">client.albums.<a href="./src/resources/albums.ts">listCommentLikesUsers</a>(albumID, commentID, { ...params }) -> UserSummaryList</code>
 - <code title="post /albums/{albumID}/comments/{commentID}/likes/users/{userID}">client.albums.<a href="./src/resources/albums.ts">addCommentLike</a>(albumID, commentID, userID) -> void</code>
+
 # Effects
 
 Types:
@@ -620,6 +652,7 @@ Methods:
 - <code title="post /users/{userID}/favorite-effect-ids/{effectID}">client.effects.<a href="./src/resources/effects.ts">addFavoriteEffect</a>(userID, effectID) -> void</code>
 - <code title="get /users/{userID}/favorite-effect-presets-ids">client.effects.<a href="./src/resources/effects.ts">listFavoritePresets</a>(userID, { ...params }) -> unknown</code>
 - <code title="post /users/{userID}/favorite-effect-presets-ids/{presetID}">client.effects.<a href="./src/resources/effects.ts">addFavoritePreset</a>(userID, presetID) -> void</code>
+
 # Sounds
 
 Types:
@@ -689,6 +722,7 @@ Methods:
 - <code title="get /v3/ideas">client.sounds.<a href="./src/resources/sounds/sounds.ts">listIdeas</a>({ ...params }) -> IdeasResponseModel</code>
 - <code title="get /v3/native">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveNativeAds</a>({ ...params }) -> NativeAds</code>
 - <code title="get /v3/video">client.sounds.<a href="./src/resources/sounds/sounds.ts">retrieveVideoAd</a>({ ...params }) -> unknown</code>
+
 # Uploads
 
 Types:
@@ -704,6 +738,7 @@ Methods:
 - <code title="post /upload/{projectID}/{regionID}/{activeSampleID}">client.uploads.<a href="./src/resources/uploads.ts">createProjectSample</a>(activeSampleID, { ...params }) -> unknown</code>
 - <code title="post /uploads/videos">client.uploads.<a href="./src/resources/uploads.ts">createVideoSession</a>({ ...params }) -> FileUploadSession</code>
 - <code title="put /uploads/videos/{uploadID}">client.uploads.<a href="./src/resources/uploads.ts">completeVideoUpload</a>(uploadID, { ...params }) -> UploadMedia</code>
+
 # Soundbanks
 
 Types:
@@ -713,6 +748,7 @@ Types:
 Methods:
 
 - <code title="get /soundbanks">client.soundbanks.<a href="./src/resources/soundbanks.ts">list</a>() -> SoundBanksLibrary</code>
+
 # AI
 
 Types:
@@ -766,6 +802,7 @@ Methods:
 - <code title="get /v1/transfer/{transferID}/download">client.ai.<a href="./src/resources/ai/ai.ts">retrieveTransferDownload</a>(transferID) -> unknown</code>
 - <code title="get /v2/models">client.ai.<a href="./src/resources/ai/ai.ts">listV2Models</a>({ ...params }) -> GetModelsDTO</code>
 - <code title="get /v2/report/bandlab_user/{userID}">client.ai.<a href="./src/resources/ai/ai.ts">reportBandlabUser</a>(userID) -> unknown</code>
+
 # AI Videos
 
 Types:
@@ -784,6 +821,7 @@ Methods:
 - <code title="get /ai-videos/jobs">client.aiVideos.<a href="./src/resources/ai-videos.ts">listJobs</a>({ ...params }) -> VideoGenerationJobList</code>
 - <code title="get /ai-videos/styles">client.aiVideos.<a href="./src/resources/ai-videos.ts">listStyles</a>({ ...params }) -> VisualStyleListResult</code>
 - <code title="get /ai-videos/updates">client.aiVideos.<a href="./src/resources/ai-videos.ts">listUpdates</a>({ ...params }) -> VideoGenerationUnseenUpdates</code>
+
 # Synced Lyrics
 
 Types:
@@ -796,6 +834,7 @@ Methods:
 
 - <code title="get /synced-lyrics/ai-tokens/price">client.syncedLyrics.<a href="./src/resources/synced-lyrics.ts">retrieveTokenPrice</a>() -> SyncedLyricPrice</code>
 - <code title="get /synced-lyrics/{postID}">client.syncedLyrics.<a href="./src/resources/synced-lyrics.ts">retrieve</a>(postID) -> SyncedLyricResponse</code>
+
 # Misc
 
 Types:
@@ -812,9 +851,297 @@ Methods:
 - <code title="get /options">client.misc.<a href="./src/resources/misc.ts">retrieveOptions</a>() -> unknown</code>
 - <code title="get /social-links">client.misc.<a href="./src/resources/misc.ts">listSocialLinks</a>({ ...params }) -> SocialLinkList</code>
 - <code title="post /tracking/v2/collect">client.misc.<a href="./src/resources/misc.ts">collectTracking</a>({ ...params }) -> unknown</code>
+
 # Tracks
 
 Methods:
 
 - <code title="get /tracks/{trackID}/artist">client.tracks.<a href="./src/resources/tracks.ts">retrieveArtist</a>(trackID) -> RevisionsAPI.Artist</code>
 - <code title="get /tracks/{trackID}">client.tracks.<a href="./src/resources/tracks.ts">retrieveDownload</a>(trackID, { ...params }) -> RevisionsAPI.SampleUri</code>
+
+# Streaks
+
+Types:
+
+- <code><a href="./src/resources/streaks.ts">FeedStreaksData</a></code>
+
+Methods:
+
+- <code title="post /streaks/enroll">client.streaks.<a href="./src/resources/streaks.ts">enroll</a>({ ...params }) -> void</code>
+- <code title="get /streaks/me">client.streaks.<a href="./src/resources/streaks.ts">retrieve</a>() -> FeedStreaksData</code>
+- <code title="post /streaks/streak-lost-notified">client.streaks.<a href="./src/resources/streaks.ts">markLostNotified</a>({ ...params }) -> void</code>
+
+# Membership
+
+Types:
+
+- <code><a href="./src/resources/membership.ts">TokensBalanceDTO</a></code>
+- <code><a href="./src/resources/membership.ts">MembershipStatusShort</a></code>
+- <code><a href="./src/resources/membership.ts">SurveyQuestion</a></code>
+- <code><a href="./src/resources/membership.ts">MembershipStatus</a></code>
+- <code><a href="./src/resources/membership.ts">AiTokenBalance</a></code>
+
+Methods:
+
+- <code title="get /coins/users/{userID}/ai-tokens/balance">client.membership.<a href="./src/resources/membership.ts">retrieveCoinsTokenBalance</a>(userID) -> TokensBalanceDTO</code>
+- <code title="get /experiment/users/{userID}/membership-status">client.membership.<a href="./src/resources/membership.ts">retrieveStatus</a>(userID) -> MembershipStatusShort</code>
+- <code title="get /membership/surveys/{surveyID}">client.membership.<a href="./src/resources/membership.ts">retrieveSurvey</a>(surveyID) -> SurveyQuestion</code>
+- <code title="post /membership/surveys/{surveyID}/answers">client.membership.<a href="./src/resources/membership.ts">submitSurveyAnswers</a>(surveyID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/membership-plan">client.membership.<a href="./src/resources/membership.ts">retrievePlan</a>(userID) -> MembershipStatus</code>
+- <code title="get /wallet/users/{userID}/balances/ai-tokens">client.membership.<a href="./src/resources/membership.ts">retrieveWalletTokenBalance</a>(userID) -> AiTokenBalance</code>
+
+# Payments
+
+Types:
+
+- <code><a href="./src/resources/payments.ts">PaymentIntent</a></code>
+- <code><a href="./src/resources/payments.ts">SubsPurchaseStamp</a></code>
+
+Methods:
+
+- <code title="post /checkout/products/beats/payment-providers/google-play-store/payment-intents">client.payments.<a href="./src/resources/payments.ts">createBeatPaymentIntent</a>({ ...params }) -> PaymentIntent</code>
+- <code title="post /checkout/products/boost-profile/payment-providers/google-play-store/payment-intents">client.payments.<a href="./src/resources/payments.ts">createBoostProfilePaymentIntent</a>({ ...params }) -> PaymentIntent</code>
+- <code title="post /checkout/products/boost/payment-providers/google-play-store/payment-intents">client.payments.<a href="./src/resources/payments.ts">createBoostPaymentIntent</a>({ ...params }) -> PaymentIntent</code>
+- <code title="post /checkout/products/membership/payment-providers/google-play-store/payment-intents">client.payments.<a href="./src/resources/payments.ts">createMembershipPaymentIntent</a>({ ...params }) -> SubsPurchaseStamp</code>
+- <code title="post /checkout/products/membership/payment-providers/google-play-store/payment-intents/{paymentIntentID}/payment-confirmations">client.payments.<a href="./src/resources/payments.ts">confirmMembershipPayment</a>(paymentIntentID, { ...params }) -> MembershipStatus</code>
+- <code title="post /checkout/products/{product}/payment-providers/google-play-store/payment-intents/{paymentIntentID}/payment-confirmations">client.payments.<a href="./src/resources/payments.ts">confirmPayment</a>(paymentIntentID, { ...params }) -> void</code>
+
+# Beats
+
+Types:
+
+- <code><a href="./src/resources/beats.ts">Beat</a></code>
+- <code><a href="./src/resources/beats.ts">BeatList</a></code>
+- <code><a href="./src/resources/beats.ts">BeatsCollection</a></code>
+- <code><a href="./src/resources/beats.ts">BeatsCollectionList</a></code>
+- <code><a href="./src/resources/beats.ts">FreeBeatsQuota</a></code>
+- <code><a href="./src/resources/beats.ts">BeatUserPreferences</a></code>
+
+Methods:
+
+- <code title="get /beats">client.beats.<a href="./src/resources/beats.ts">list</a>({ ...params }) -> BeatList</code>
+- <code title="get /beats/collections">client.beats.<a href="./src/resources/beats.ts">listCollections</a>({ ...params }) -> BeatsCollectionList</code>
+- <code title="get /beats/collections/{collectionID}">client.beats.<a href="./src/resources/beats.ts">retrieveCollection</a>(collectionID) -> BeatsCollection</code>
+- <code title="get /beats/free-beats">client.beats.<a href="./src/resources/beats.ts">listFree</a>({ ...params }) -> BeatList</code>
+- <code title="get /beats/genres/{genreID}">client.beats.<a href="./src/resources/beats.ts">listByGenre</a>(genreID, { ...params }) -> BeatList</code>
+- <code title="get /beats/limited-beats">client.beats.<a href="./src/resources/beats.ts">listLimited</a>({ ...params }) -> BeatList</code>
+- <code title="get /beats/members-only-beats">client.beats.<a href="./src/resources/beats.ts">listMembersOnly</a>({ ...params }) -> BeatList</code>
+- <code title="get /beats/promo-carousels/{promoCampaignID}">client.beats.<a href="./src/resources/beats.ts">listPromoCarousel</a>(promoCampaignID, { ...params }) -> BeatList</code>
+- <code title="get /beats/promo-header-beats">client.beats.<a href="./src/resources/beats.ts">listPromoHeader</a>({ ...params }) -> BeatList</code>
+- <code title="post /beats/{beatID}/free-claims">client.beats.<a href="./src/resources/beats.ts">claimFree</a>(beatID, { ...params }) -> void</code>
+- <code title="get /experiment/beats/{beatID}">client.beats.<a href="./src/resources/beats.ts">retrieve</a>(beatID) -> Beat</code>
+- <code title="get /users/{userID}/beats/daily-free-quota">client.beats.<a href="./src/resources/beats.ts">retrieveDailyFreeQuota</a>(userID) -> FreeBeatsQuota</code>
+- <code title="put /users/{userId}/beats/played/{beatID}">client.beats.<a href="./src/resources/beats.ts">markPlayed</a>(beatID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/beats/preferences">client.beats.<a href="./src/resources/beats.ts">retrievePreferences</a>(userID) -> BeatUserPreferences</code>
+- <code title="get /users/{userID}/beats/preferred">client.beats.<a href="./src/resources/beats.ts">listPreferred</a>(userID, { ...params }) -> BeatList</code>
+- <code title="put /users/{userId}/beats/saved/{beatID}">client.beats.<a href="./src/resources/beats.ts">save</a>(beatID, { ...params }) -> void</code>
+
+# Distro
+
+Types:
+
+- <code><a href="./src/resources/distro.ts">AiGalleryItem</a></code>
+- <code><a href="./src/resources/distro.ts">AiGalleryItemList</a></code>
+- <code><a href="./src/resources/distro.ts">ArtistProfiles</a></code>
+- <code><a href="./src/resources/distro.ts">FormOptions</a></code>
+- <code><a href="./src/resources/distro.ts">DistroProject</a></code>
+- <code><a href="./src/resources/distro.ts">DistroProjectList</a></code>
+- <code><a href="./src/resources/distro.ts">DistroQuotas</a></code>
+- <code><a href="./src/resources/distro.ts">CreateReleaseDetailsResponse</a></code>
+- <code><a href="./src/resources/distro.ts">ReleaseDetails</a></code>
+- <code><a href="./src/resources/distro.ts">GenerateCoversResponse</a></code>
+- <code><a href="./src/resources/distro.ts">UpdateReleaseCoverArtResponse</a></code>
+- <code><a href="./src/resources/distro.ts">UpdatedReleaseSongs</a></code>
+- <code><a href="./src/resources/distro.ts">UserRevisions</a></code>
+- <code><a href="./src/resources/distro.ts">InitiateUploadResponse</a></code>
+
+Methods:
+
+- <code title="get /users/{userID}/distro">client.distro.<a href="./src/resources/distro.ts">retrieveOverview</a>(userID) -> unknown</code>
+- <code title="get /users/{userID}/distro/ai-covers">client.distro.<a href="./src/resources/distro.ts">listAiCovers</a>(userID, { ...params }) -> AiGalleryItemList</code>
+- <code title="get /users/{userID}/distro/artist-profiles">client.distro.<a href="./src/resources/distro.ts">retrieveArtistProfiles</a>(userID) -> ArtistProfiles</code>
+- <code title="get /users/{userID}/distro/form-options">client.distro.<a href="./src/resources/distro.ts">retrieveFormOptions</a>(userID) -> FormOptions</code>
+- <code title="get /users/{userID}/distro/projects">client.distro.<a href="./src/resources/distro.ts">listProjects</a>(userID, { ...params }) -> DistroProjectList</code>
+- <code title="get /users/{userID}/distro/quotas">client.distro.<a href="./src/resources/distro.ts">retrieveQuotas</a>(userID) -> DistroQuotas</code>
+- <code title="post /users/{userID}/distro/releases">client.distro.<a href="./src/resources/distro.ts">createRelease</a>(userID, { ...params }) -> CreateReleaseDetailsResponse</code>
+- <code title="get /users/{userId}/distro/releases/{releaseID}">client.distro.<a href="./src/resources/distro.ts">retrieveRelease</a>(releaseID, { ...params }) -> ReleaseDetails</code>
+- <code title="post /users/{userId}/distro/releases/{releaseID}/ai-covers">client.distro.<a href="./src/resources/distro.ts">generateAiCovers</a>(releaseID, { ...params }) -> GenerateCoversResponse</code>
+- <code title="post /users/{userId}/distro/releases/{releaseId}/ai-covers/{pictureID}">client.distro.<a href="./src/resources/distro.ts">selectAiCover</a>(pictureID, { ...params }) -> void</code>
+- <code title="put /users/{userId}/distro/releases/{releaseID}/cover-art">client.distro.<a href="./src/resources/distro.ts">updateCoverArt</a>(releaseID, { ...params }) -> UpdateReleaseCoverArtResponse</code>
+- <code title="put /users/{userId}/distro/releases/{releaseID}/songs">client.distro.<a href="./src/resources/distro.ts">updateSongs</a>(releaseID, { ...params }) -> UpdatedReleaseSongs</code>
+- <code title="put /users/{userId}/distro/releases/{releaseID}/state">client.distro.<a href="./src/resources/distro.ts">updateReleaseState</a>(releaseID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/distro/revisions">client.distro.<a href="./src/resources/distro.ts">listRevisions</a>(userID) -> UserRevisions</code>
+- <code title="post /users/{userID}/distro/uploads">client.distro.<a href="./src/resources/distro.ts">createUpload</a>(userID, { ...params }) -> InitiateUploadResponse</code>
+
+# Promote
+
+Types:
+
+- <code><a href="./src/resources/promote.ts">BeatsMemPromo</a></code>
+- <code><a href="./src/resources/promote.ts">BeatsMemPromoList</a></code>
+- <code><a href="./src/resources/promote.ts">OpportunitiesBanner</a></code>
+- <code><a href="./src/resources/promote.ts">OpportunitiesBannerList</a></code>
+- <code><a href="./src/resources/promote.ts">BoostCredits</a></code>
+- <code><a href="./src/resources/promote.ts">SubscriberState</a></code>
+- <code><a href="./src/resources/promote.ts">UserPayoutMethodRequired</a></code>
+- <code><a href="./src/resources/promote.ts">PackSectionsDto</a></code>
+- <code><a href="./src/resources/promote.ts">FxPromoCampaign</a></code>
+- <code><a href="./src/resources/promote.ts">FxPromoCampaignList</a></code>
+- <code><a href="./src/resources/promote.ts">AvailablePromoCarousel</a></code>
+- <code><a href="./src/resources/promote.ts">AvailablePromoCarouselList</a></code>
+
+Methods:
+
+- <code title="get /beats-promo-banners">client.promote.<a href="./src/resources/promote.ts">listBeatsPromoBanners</a>({ ...params }) -> BeatsMemPromoList</code>
+- <code title="get /populated-opportunities-banners">client.promote.<a href="./src/resources/promote.ts">listOpportunitiesBanners</a>({ ...params }) -> OpportunitiesBannerList</code>
+- <code title="get /users/{userID}/boost-credits">client.promote.<a href="./src/resources/promote.ts">retrieveBoostCredits</a>(userID) -> BoostCredits</code>
+- <code title="get /users/{userId}/fan-reach/fans/{initiatorID}">client.promote.<a href="./src/resources/promote.ts">retrieveFanReach</a>(initiatorID, { ...params }) -> SubscriberState</code>
+- <code title="get /users/{userID}/payout-methods/tipalti/balance">client.promote.<a href="./src/resources/promote.ts">retrievePayoutBalance</a>(userID) -> unknown</code>
+- <code title="get /users/{userID}/payout/method-required">client.promote.<a href="./src/resources/promote.ts">retrievePayoutMethodRequired</a>(userID) -> UserPayoutMethodRequired</code>
+- <code title="get /users/{userID}/promo">client.promote.<a href="./src/resources/promote.ts">retrievePromo</a>(userID, { ...params }) -> PackSectionsDto</code>
+- <code title="get /users/{userID}/promo-campaigns">client.promote.<a href="./src/resources/promote.ts">listPromoCampaigns</a>(userID, { ...params }) -> FxPromoCampaignList</code>
+- <code title="get /users/{userID}/promo-campaigns">client.promote.<a href="./src/resources/promote.ts">listBeatsCarouselCampaigns</a>(userID) -> AvailablePromoCarouselList</code>
+
+# Pages
+
+Types:
+
+- <code><a href="./src/resources/pages.ts">DuplicateSongResponse</a></code>
+- <code><a href="./src/resources/pages.ts">BioPage</a></code>
+- <code><a href="./src/resources/pages.ts">BioPageState</a></code>
+
+Methods:
+
+- <code title="post /projects/{projectID}/duplicates">client.pages.<a href="./src/resources/pages.ts">duplicateProject</a>(projectID, { ...params }) -> DuplicateSongResponse</code>
+- <code title="get /users/{userID}/pages/bio">client.pages.<a href="./src/resources/pages.ts">retrieveBio</a>(userID) -> BioPage</code>
+- <code title="get /users/{userID}/pages/bio/state">client.pages.<a href="./src/resources/pages.ts">retrieveBioState</a>(userID) -> BioPageState</code>
+
+# Library
+
+Types:
+
+- <code><a href="./src/resources/library.ts">Beat</a></code>
+- <code><a href="./src/resources/library.ts">BeatList</a></code>
+- <code><a href="./src/resources/library.ts">CollectionDto</a></code>
+- <code><a href="./src/resources/library.ts">PlaybackHistory</a></code>
+- <code><a href="./src/resources/library.ts">PlaybackHistoryList</a></code>
+- <code><a href="./src/resources/library.ts">PlaylistCollection</a></code>
+- <code><a href="./src/resources/library.ts">PlaylistCollectionList</a></code>
+- <code><a href="./src/resources/library.ts">RecommendedArtist</a></code>
+- <code><a href="./src/resources/library.ts">RecommendedArtistList</a></code>
+- <code><a href="./src/resources/library.ts">SoundsPacksDto</a></code>
+
+Methods:
+
+- <code title="get /users/{userID}/likes/collections">client.library.<a href="./src/resources/library.ts">listLikedCollections</a>(userID, { ...params }) -> PlaylistCollectionList</code>
+- <code title="get /users/{userID}/likes/posts">client.library.<a href="./src/resources/library.ts">listLikedPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/likes/albums">client.library.<a href="./src/resources/library.ts">listLikedAlbums</a>(userID, { ...params }) -> AlbumsAPI.AlbumList</code>
+- <code title="get /users/{userID}/purchases/albums">client.library.<a href="./src/resources/library.ts">listPurchasedAlbums</a>(userID, { ...params }) -> AlbumsAPI.AlbumList</code>
+- <code title="get /experiment/users/{userID}/purchases/beats">client.library.<a href="./src/resources/library.ts">listPurchasedBeats</a>(userID, { ...params }) -> BeatList</code>
+- <code title="get /users/{userID}/library/track-posts">client.library.<a href="./src/resources/library.ts">listTrackPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/pins/posts">client.library.<a href="./src/resources/library.ts">listPinnedPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="post /users/{userId}/pins/posts/{postID}">client.library.<a href="./src/resources/library.ts">pinPost</a>(postID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/posts-playback-history">client.library.<a href="./src/resources/library.ts">listPlaybackHistory</a>(userID, { ...params }) -> PlaybackHistoryList</code>
+- <code title="delete /users/{userId}/playback-history/posts/{postID}">client.library.<a href="./src/resources/library.ts">deletePlaybackHistory</a>(postID, { ...params }) -> void</code>
+- <code title="get /users/{userID}/recommendations/track-posts">client.library.<a href="./src/resources/library.ts">listRecommendedTrackPosts</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/recommendations/follow-back/artists">client.library.<a href="./src/resources/library.ts">listRecommendedArtists</a>(userID, { ...params }) -> RecommendedArtistList</code>
+- <code title="get /users/{userID}/recommendations/packs">client.library.<a href="./src/resources/library.ts">listRecommendedPacks</a>(userID, { ...params }) -> SoundsPacksDto</code>
+- <code title="put /users/{userId}/collections/{collectionID}/{sampleId}">client.library.<a href="./src/resources/library.ts">addSampleToCollection</a>(collectionID, { ...params }) -> CollectionDto</code>
+- <code title="put /users/{userId}/collections/{collectionID}">client.library.<a href="./src/resources/library.ts">updateCollection</a>(collectionID, { ...params }) -> CollectionDto</code>
+
+# Feeds
+
+Types:
+
+- <code><a href="./src/resources/feeds.ts">FeaturedBand</a></code>
+- <code><a href="./src/resources/feeds.ts">FeaturedBandList</a></code>
+- <code><a href="./src/resources/feeds.ts">SamplerKitDTO</a></code>
+- <code><a href="./src/resources/feeds.ts">SamplerKitDTOList</a></code>
+- <code><a href="./src/resources/feeds.ts">Section</a></code>
+- <code><a href="./src/resources/feeds.ts">SectionList</a></code>
+
+Methods:
+
+- <code title="get /users/{userID}/feeds/for-you/posts">client.feeds.<a href="./src/resources/feeds.ts">retrieveForYou</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/feeds/following/posts">client.feeds.<a href="./src/resources/feeds.ts">listFollowing</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/feeds/media/posts">client.feeds.<a href="./src/resources/feeds.ts">listMedia</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="get /users/{userID}/feeds/trending/posts">client.feeds.<a href="./src/resources/feeds.ts">listTrending</a>(userID, { ...params }) -> PostsAPI.PostList</code>
+- <code title="put /users/{id}/feeds/trending/hidden-creators/{creatorID}">client.feeds.<a href="./src/resources/feeds.ts">hideTrendingCreator</a>(creatorID, { ...params }) -> void</code>
+- <code title="get /experiment/feeds/communities/posts">client.feeds.<a href="./src/resources/feeds.ts">listCommunities</a>({ ...params }) -> PostsAPI.PostList</code>
+- <code title="get /feeds/trending/videos/posts">client.feeds.<a href="./src/resources/feeds.ts">listTrendingVideos</a>({ ...params }) -> PostsAPI.PostList</code>
+- <code title="get /recommendations/posts">client.feeds.<a href="./src/resources/feeds.ts">listRecommendedPosts</a>({ ...params }) -> PostsAPI.PostList</code>
+- <code title="get /explore/featured-bands">client.feeds.<a href="./src/resources/feeds.ts">listFeaturedBands</a>({ ...params }) -> FeaturedBandList</code>
+- <code title="get /explore/recommended-albums">client.feeds.<a href="./src/resources/feeds.ts">listRecommendedAlbums</a>({ ...params }) -> AlbumsAPI.AlbumList</code>
+- <code title="get /explore/trending-videos/posts">client.feeds.<a href="./src/resources/feeds.ts">listExploreTrendingVideos</a>({ ...params }) -> PostsAPI.PostList</code>
+- <code title="get /explore/multipadsampler/sections">client.feeds.<a href="./src/resources/feeds.ts">listSamplerSections</a>({ ...params }) -> SamplerKitDTOList</code>
+- <code title="get /explore/{features}/sections">client.feeds.<a href="./src/resources/feeds.ts">listSections</a>(features, { ...params }) -> SectionList</code>
+
+# Messaging
+
+Types:
+
+- <code><a href="./src/resources/messaging/messaging.ts">ChatCount</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ChatMediaInitUploadResponse</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ChatMember</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ChatMemberList</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ChatMessage</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ChatMessageList</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">Conversation</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">ConversationList</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">MemberReactionDTO</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">MemberReactionDTOList</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">MemberReadTimeDTO</a></code>
+- <code><a href="./src/resources/messaging/messaging.ts">MemberReadTimeDTOList</a></code>
+
+## Conversations
+
+Methods:
+
+- <code title="get /users/{currentUserID}/conversations">client.messaging.conversations.<a href="./src/resources/messaging/messaging.ts">list</a>(currentUserID, { ...params }) -> ConversationList</code>
+- <code title="get /users/{currentUserId}/conversations/{conversationID}">client.messaging.conversations.<a href="./src/resources/messaging/messaging.ts">retrieve</a>(conversationID, { ...params }) -> Conversation</code>
+- <code title="delete /users/{currentUserID}/conversations">client.messaging.conversations.<a href="./src/resources/messaging/messaging.ts">delete</a>(currentUserID, { ...params }) -> void</code>
+- <code title="get /users/{currentUserID}/conversations/hidden">client.messaging.conversations.<a href="./src/resources/messaging/messaging.ts">listHidden</a>(currentUserID) -> ConversationList</code>
+- <code title="get /users/{currentUserID}/conversations/count">client.messaging.conversations.<a href="./src/resources/messaging/messaging.ts">count</a>(currentUserID, { ...params }) -> ChatCount</code>
+
+## Channels
+
+Methods:
+
+- <code title="get /users/{currentUserId}/chat/channels/{channelID}">client.messaging.channels.<a href="./src/resources/messaging/messaging.ts">retrieve</a>(channelID, { ...params }) -> Conversation</code>
+- <code title="get /users/{currentUserId}/chat/channels/{channelID}/messages">client.messaging.channels.<a href="./src/resources/messaging/messaging.ts">listMessages</a>(channelID, { ...params }) -> ChatMessageList</code>
+
+## Attachments
+
+Methods:
+
+- <code title="post /conversations/{conversationID}/attachments/initialize-upload">client.messaging.conversations.attachments.<a href="./src/resources/messaging/messaging.ts">initializeUpload</a>(conversationID, { ...params }) -> ChatMediaInitUploadResponse</code>
+- <code title="put /conversations/{conversationId}/attachments/{attachmentID}/complete-upload">client.messaging.conversations.attachments.<a href="./src/resources/messaging/messaging.ts">completeUpload</a>(attachmentID, { ...params }) -> void</code>
+- <code title="get /conversations/{conversationId}/attachments/{attachmentID}/upload-state">client.messaging.conversations.attachments.<a href="./src/resources/messaging/messaging.ts">retrieveUploadState</a>(attachmentID, { ...params }) -> UploadsAPI.FileUploadSession</code>
+
+## Blocks
+
+Methods:
+
+- <code title="post /conversations/{conversationId}/blocks/members/{memberID}">client.messaging.conversations.blocks.<a href="./src/resources/messaging/messaging.ts">blockMember</a>(memberID, { ...params }) -> void</code>
+
+## Members
+
+Methods:
+
+- <code title="get /conversations/{conversationID}/members">client.messaging.conversations.members.<a href="./src/resources/messaging/messaging.ts">list</a>(conversationID) -> ChatMemberList</code>
+- <code title="get /conversations/{conversationId}/members/{memberID}">client.messaging.conversations.members.<a href="./src/resources/messaging/messaging.ts">retrieve</a>(memberID, { ...params }) -> ChatMember</code>
+
+## Messages
+
+Methods:
+
+- <code title="get /users/{currentUserId}/conversations/{conversationID}/messages">client.messaging.conversations.messages.<a href="./src/resources/messaging/messaging.ts">list</a>(conversationID, { ...params }) -> ChatMessageList</code>
+- <code title="delete /users/{currentUserId}/conversations/{conversationId}/messages/{messageID}">client.messaging.conversations.messages.<a href="./src/resources/messaging/messaging.ts">delete</a>(messageID, { ...params }) -> void</code>
+- <code title="get /users/{currentUserId}/conversations/{conversationId}/messages/{messageID}/reactions">client.messaging.conversations.messages.<a href="./src/resources/messaging/messaging.ts">listReactions</a>(messageID, { ...params }) -> MemberReactionDTOList</code>
+- <code title="post /users/{currentUserId}/conversations/{conversationId}/messages/{messageID}/receipts/read">client.messaging.conversations.messages.<a href="./src/resources/messaging/messaging.ts">markRead</a>(messageID, { ...params }) -> void</code>
+
+## Read Receipts
+
+Methods:
+
+- <code title="get /users/{currentUserId}/conversations/{conversationID}/read-receipts">client.messaging.conversations.readReceipts.<a href="./src/resources/messaging/messaging.ts">list</a>(conversationID, { ...params }) -> MemberReadTimeDTOList</code>

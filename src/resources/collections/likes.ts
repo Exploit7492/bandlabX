@@ -59,6 +59,20 @@ export class Likes extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Returns the users who liked a collection
+   *
+   * Evidence: `apk` — `CollectionsService`, `GET collections/{id}/likes/users`. Response typed from
+   * `com.bandlab.user.models.User`.
+   */
+  listUsers(
+    collectionID: string,
+    query: LikeListUsersParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UserSummaryList> {
+    return this._client.get(path`/collections/${collectionID}/likes/users`, { query, ...options });
+  }
 }
 
 export interface UserSummaryList {
@@ -77,6 +91,20 @@ export interface LikeListParams {
   offset?: number;
 }
 
+export interface LikeListUsersParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
 export declare namespace Likes {
-  export { type UserSummaryList as UserSummaryList, type LikeListParams as LikeListParams };
+  export {
+    type UserSummaryList as UserSummaryList,
+    type LikeListParams as LikeListParams,
+    type LikeListUsersParams as LikeListUsersParams,
+  };
 }

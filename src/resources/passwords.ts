@@ -39,6 +39,19 @@ export class Passwords extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Resets a password from an emailed code
+   *
+   * Evidence: `apk` — `AuthManagementService`, `POST passwords/reset`. No APK response shape.
+   */
+  resetPassword(body: PasswordResetPasswordParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post('/passwords/reset', {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export interface PasswordChangeParams {
@@ -59,10 +72,19 @@ export interface PasswordSendRestoreEmailParams {
   email: string;
 }
 
+export interface PasswordResetPasswordParams {
+  code?: string;
+
+  newPassword?: string;
+
+  userId?: string;
+}
+
 export declare namespace Passwords {
   export {
     type PasswordChangeParams as PasswordChangeParams,
     type PasswordResetParams as PasswordResetParams,
     type PasswordSendRestoreEmailParams as PasswordSendRestoreEmailParams,
+    type PasswordResetPasswordParams as PasswordResetPasswordParams,
   };
 }

@@ -7,7 +7,7 @@ export {
   type CollectionCreateParams,
   type CollectionUpdateParams,
 } from './collections';
-export { Likes, type UserSummaryList, type LikeListParams } from './likes';
+export { Likes, type UserSummaryList, type LikeListParams, type LikeListUsersParams } from './likes';
 export {
   Posts,
   type ClientID,

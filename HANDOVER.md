@@ -101,67 +101,67 @@ _Active until "101 done of 101". Owner directive 2026-10-03; **rescoped twice on
 **3.d ‚Äî Messaging, communities and posts**
 
 - [x] 41 ‚Äî `3.d.i.zi` messaging: conversations, messages, receipts (part 1) (10 endpoints): implement
-- [ ] 42 ‚Äî `3.d.i.zo` messaging: tests and records
+- [x] 42 ‚Äî `3.d.i.zo` messaging: tests and records
 - [x] 43 ‚Äî `3.d.ii.zi` messaging: reactions, chat channels, read receipts (part 2) (9 endpoints): implement
-- [ ] 44 ‚Äî `3.d.ii.zo` messaging: tests and records
+- [x] 44 ‚Äî `3.d.ii.zo` messaging: tests and records
 - [x] 45 ‚Äî `3.d.iii.zi` communities: rules, active, invites (5 endpoints): implement
-- [ ] 46 ‚Äî `3.d.iii.zo` communities: tests and records
+- [x] 46 ‚Äî `3.d.iii.zo` communities: tests and records
 - [x] 47 ‚Äî `3.d.iv.zi` posts: create, plays, polls, track-posts, mentions (11 endpoints): implement
-- [ ] 48 ‚Äî `3.d.iv.zo` posts: tests and records
+- [x] 48 ‚Äî `3.d.iv.zo` posts: tests and records
 - [x] 49 ‚Äî `3.d.v.zi` images: upload and variants (12 endpoints): implement
-- [ ] 50 ‚Äî `3.d.v.zo` images: tests and records
+- [x] 50 ‚Äî `3.d.v.zo` images: tests and records
 
 **3.e ‚Äî Profile, library and feeds**
 
 - [x] 51 ‚Äî `3.e.i.zi` users: profile, pictures, views, gear (part 1) (18 endpoints): implement
-- [ ] 52 ‚Äî `3.e.i.zo` users: tests and records
+- [x] 52 ‚Äî `3.e.i.zo` users: tests and records
 - [x] 53 ‚Äî `3.e.ii.zi` users: followers, invites, mutual-connections, pins (part 2) (18 endpoints): implement
-- [ ] 54 ‚Äî `3.e.ii.zo` users: tests and records
+- [x] 54 ‚Äî `3.e.ii.zo` users: tests and records
 - [x] 55 ‚Äî `3.e.iii.zi` users: settings, warnings, verified, two-factor (part 3) (18 endpoints): implement
-- [ ] 56 ‚Äî `3.e.iii.zo` users: tests and records
+- [x] 56 ‚Äî `3.e.iii.zo` users: tests and records
 - [x] 57 ‚Äî `3.e.iv.zi` library: likes, purchases, collections, recommendations (14 endpoints): implement
-- [ ] 58 ‚Äî `3.e.iv.zo` library: tests and records
+- [x] 58 ‚Äî `3.e.iv.zo` library: tests and records
 - [x] 59 ‚Äî `3.e.v.zi` feeds: for-you, following, featured, media, trending, explore (12 endpoints): implement
-- [ ] 60 ‚Äî `3.e.v.zo` feeds: tests and records
+- [x] 60 ‚Äî `3.e.v.zo` feeds: tests and records
 
 **3.f ‚Äî Account, membership and payments**
 
 - [x] 61 ‚Äî `3.f.i.zi` me: activity status, privacy, marketing consent, parental consent (11 endpoints): implement
-- [ ] 62 ‚Äî `3.f.i.zo` me: tests and records
-- [ ] 63 ‚Äî `3.f.ii.zi` streaks (3 endpoints): implement
-- [ ] 64 ‚Äî `3.f.ii.zo` streaks: tests and records
-- [ ] 65 ‚Äî `3.f.iii.zi` membership: plan, coins, wallet, AI-token balance (read-only) (4 endpoints): implement
-- [ ] 66 ‚Äî `3.f.iii.zo` membership: tests and records
-- [ ] 67 ‚Äî `3.f.iv.zi` payments: checkout payment intents (6 endpoints): implement
-- [ ] 68 ‚Äî `3.f.iv.zo` payments: tests and records
-- [ ] 69 ‚Äî `3.f.v.zi` authorizations: registration, assertion, logout, passkeys (9 endpoints): implement
-- [ ] 70 ‚Äî `3.f.v.zo` authorizations: tests and records
+- [x] 62 ‚Äî `3.f.i.zo` me: tests and records
+- [x] 63 ‚Äî `3.f.ii.zi` streaks (3 endpoints): implement
+- [x] 64 ‚Äî `3.f.ii.zo` streaks: tests and records
+- [x] 65 ‚Äî `3.f.iii.zi` membership: plan, coins, wallet, AI-token balance (read-only) (4 endpoints): implement
+- [x] 66 ‚Äî `3.f.iii.zo` membership: tests and records
+- [x] 67 ‚Äî `3.f.iv.zi` payments: checkout payment intents (6 endpoints): implement
+- [x] 68 ‚Äî `3.f.iv.zo` payments: tests and records
+- [x] 69 ‚Äî `3.f.v.zi` authorizations: registration, assertion, logout, passkeys (9 endpoints): implement
+- [x] 70 ‚Äî `3.f.v.zo` authorizations: tests and records
 
 **3.g ‚Äî Search, validation and catalogues**
 
-- [ ] 71 ‚Äî `3.g.i.zi` search: collaborators, trending, hashtags, suggestions (8 endpoints): implement
-- [ ] 72 ‚Äî `3.g.i.zo` search: tests and records
-- [ ] 73 ‚Äî `3.g.ii.zi` validation and captcha (4 endpoints): implement
-- [ ] 74 ‚Äî `3.g.ii.zo` validation and captcha: tests and records
-- [ ] 75 ‚Äî `3.g.iii.zi` passwords and account recovery (1 endpoints): implement
-- [ ] 76 ‚Äî `3.g.iii.zo` passwords and account recovery: tests and records
-- [ ] 77 ‚Äî `3.g.iv.zi` collections (1 endpoints): implement
-- [ ] 78 ‚Äî `3.g.iv.zo` collections: tests and records
-- [ ] 79 ‚Äî `3.g.v.zi` genres and displayed genres (1 endpoints): implement
-- [ ] 80 ‚Äî `3.g.v.zo` genres and displayed genres: tests and records
+- [x] 71 ‚Äî `3.g.i.zi` search: collaborators, trending, hashtags, suggestions (8 endpoints): implement
+- [x] 72 ‚Äî `3.g.i.zo` search: tests and records
+- [x] 73 ‚Äî `3.g.ii.zi` validation and captcha (4 endpoints): implement
+- [x] 74 ‚Äî `3.g.ii.zo` validation and captcha: tests and records
+- [x] 75 ‚Äî `3.g.iii.zi` passwords and account recovery (1 endpoints): implement
+- [x] 76 ‚Äî `3.g.iii.zo` passwords and account recovery: tests and records
+- [x] 77 ‚Äî `3.g.iv.zi` collections (1 endpoints): implement
+- [x] 78 ‚Äî `3.g.iv.zo` collections: tests and records
+- [x] 79 ‚Äî `3.g.v.zi` genres and displayed genres (1 endpoints): implement
+- [x] 80 ‚Äî `3.g.v.zo` genres and displayed genres: tests and records
 
 **3.h ‚Äî Beats, distribution, promotion and pages**
 
-- [ ] 81 ‚Äî `3.h.i.zi` beats: marketplace, collections, genres, promo, free-claims (16 endpoints): implement
-- [ ] 82 ‚Äî `3.h.i.zo` beats: tests and records
-- [ ] 83 ‚Äî `3.h.ii.zi` distribution: releases, analytics, quotas, splits (15 endpoints): implement
-- [ ] 84 ‚Äî `3.h.ii.zo` distribution: tests and records
-- [ ] 85 ‚Äî `3.h.iii.zi` promotion: campaigns, statistics, reach, banners (9 endpoints): implement
-- [ ] 86 ‚Äî `3.h.iii.zo` promotion: tests and records
-- [ ] 87 ‚Äî `3.h.iv.zi` pages: bio, links, press kits, projects, statistics (3 endpoints): implement
-- [ ] 88 ‚Äî `3.h.iv.zo` pages: tests and records
-- [ ] 89 ‚Äî `3.h.v.zi` videos and video-mix (2 endpoints): implement
-- [ ] 90 ‚Äî `3.h.v.zo` videos and video-mix: tests and records
+- [x] 81 ‚Äî `3.h.i.zi` beats: marketplace, collections, genres, promo, free-claims (16 endpoints): implement
+- [x] 82 ‚Äî `3.h.i.zo` beats: tests and records
+- [x] 83 ‚Äî `3.h.ii.zi` distribution: releases, analytics, quotas, splits (15 endpoints): implement
+- [x] 84 ‚Äî `3.h.ii.zo` distribution: tests and records
+- [x] 85 ‚Äî `3.h.iii.zi` promotion: campaigns, statistics, reach, banners (9 endpoints): implement
+- [x] 86 ‚Äî `3.h.iii.zo` promotion: tests and records
+- [x] 87 ‚Äî `3.h.iv.zi` pages: bio, links, press kits, projects, statistics (3 endpoints): implement
+- [x] 88 ‚Äî `3.h.iv.zo` pages: tests and records
+- [x] 89 ‚Äî `3.h.v.zi` videos and video-mix (2 endpoints): implement
+- [x] 90 ‚Äî `3.h.v.zo` videos and video-mix: tests and records
 
 **Phase 4 ‚Äî Consistency and final audit**
 
@@ -180,7 +180,7 @@ _Active until "101 done of 101". Owner directive 2026-10-03; **rescoped twice on
 - [ ] 100 ‚Äî `5.b.i.zo` Owner steps document
 - [ ] 101 ‚Äî `5.b.ii.zi` Owner confirms the first CI run published the image and it pulls and runs _(owner's leaf)_
 
-**Done so far: 14 of 101.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** after the bundle evidence showed 201 endpoints the spec never described; **raised to 101 on 2026-10-15** (`2.b.i.zo`) after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 344 endpoints with a verb for all of them and a real response shape for 265. Phase 3 was resplit from 26 domains / 52 leaves into 40 domains / 80 leaves (12 → 52 → 80), and Phase 4/5 renumbered behind it. No parent was superseded, so no leaf ID was retired.
+**Done so far: 90 of 101.** History of M: set at 47 on 2026-10-03; **raised to 73 on 2026-10-15** after the bundle evidence showed 201 endpoints the spec never described; **raised to 101 on 2026-10-15** (`2.b.i.zo`) after the APK evidence (`docs/research/APK-EVIDENCE.md`) showed the true surface is 344 endpoints with a verb for all of them and a real response shape for 265. Phase 3 was resplit from 26 domains / 52 leaves into 40 domains / 80 leaves (12 → 52 → 80), and Phase 4/5 renumbered behind it. No parent was superseded, so no leaf ID was retired.
 
 **Reporting rule:** a session that completes a leaf ends its final message with `N done ‚úÖ of M`, read off this checklist **after** the session. One that completes none says `No new leaf completed ‚Äî still N done of M`, with the reason. The tick, the count, Current position and the ledger line go in the leaf's own final commit, so the patch and the count can never disagree.
 
@@ -189,15 +189,15 @@ _Active until "101 done of 101". Owner directive 2026-10-03; **rescoped twice on
 ## 1a. Current position
 
 ```yaml
-CURRENT_LEAF: 3.a.iii.zi
-CURRENT_LEAF_TITLE: tracks: artist and m4a download — implement
-CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "3.a.iii.zi"  (read docs/handover/RESOURCE-DESIGN.md and docs/research/APK-EVIDENCE.md first)
-FOCUS_RUN: "14 done of 101"
-LAST_COMPLETED_LEAF: 3.a.ii.zi
-MARKER_COMMIT_SUBJECT_PREFIX: "3.a.ii.zi:"
-SUB_PHASE: 3.1 (OPEN - push-gated; leaves 11-40, 125 endpoints; do NOT push until all 30 leaves DONE)
+CURRENT_LEAF: 4.a.i.zi
+CURRENT_LEAF_TITLE: tighten the remaining request bodies where a capture supplies them
+CURRENT_LEAF_SPEC: docs/handover/TASKS.md  ->  "4.a.i.zi"  (read docs/handover/RESOURCE-DESIGN.md and docs/research/APK-EVIDENCE.md first)
+FOCUS_RUN: "90 done of 101"
+LAST_COMPLETED_LEAF: 3.h.v.zo
+MARKER_COMMIT_SUBJECT_PREFIX: "4.a.i.zi:"
+SUB_PHASE: 4.1 (Phase 3 COMPLETE - leaves 11-90 DONE; Phase 4 leaves 91-94 next)
 STATUS: READY
-BLOCKERS: none blocking. Leaves 11-14 are DONE. `3.a.i.zi` (commit 8598258 on `origin/main`) added `songs.forks` and `songs.retrieveInviteLink`, typed the song invites list, and fixed a real defect: `songs.listPosts`, `songs.invites.listInvites` and `songs.invites.sendInvites` were calling the singular `/song/...` route, which has no matching route on the server. `3.a.ii.zi` (local, unpushed - the 3.1 gate) added 9 revisions methods. Coverage is now 134 rows, no drift. Known limits, recorded so no session overclaims - (1) REQUEST BODIES are evidenced only where the app method takes a `@c74` body parameter whose model is in the descriptor set; the rest stay `unknown` under D12 and are marked `apk-path-only`. 95 of 102 body models are obfuscated and unrecoverable from the APK; leaf `4.a.i.zi` closes them only when a capture arrives. (2) `@lik` = PUT is the one verb with realistic doubt (15/28 direct, resolved by in-file coherence); rows using it are flagged. (3) 79 of 344 paths have a verb but no response shape. (4) The AI/ML host groups (`SMART_COMPOSE`, `MIDI_GENERATE`, `AUTO_MIX`, `AUDIO_TO_MIDI`, `VOICE_CLEANER`, `OPEN_MIC`, `FX`, `REALTIME`, `AUDIO_SONG_STARTER`) are evidenced but their deployment host (staging vs production) is not. (5) `AMPLITUDE_*` and `BRANCH` host groups are third-party SDKs and are deliberately EXCLUDED. (6) Nothing has been run against BandLab; rows are `apk`, never `live-ok`. (7) `5.b.ii.zi` remains the owner's leaf. (8) OWNER-GATED: the REA/Chrome-CDP capture that would close (1) needs the owner's machine and account; deferred by the owner, no session should start it. (9) OUT OF SCOPE (D14): stripping ads or paywalls from the Android app and publishing a rebuilt APK is not done and will not be done - it is an entitlement bypass plus redistribution of proprietary software, and the gating is server-side so it would not work anyway. (10) PUSH GATE: Phase 3.1 is open, so local commits on `main` accumulate until all 30 leaves (11-40) are DONE; nothing is pushed before then (D10 exception).
+BLOCKERS: none blocking. **Phase 3 is COMPLETE** (leaves 11-90 DONE; the 3.3 bulk pass closed leaves 63-90). The whole evidenced surface is implemented: `scripts/research/evidence-coverage.py` reports 341 of 341 evidenced paths covered by a `this._client` call, `api.md` has 377 rows, the inventory matches with no drift, and 492 jest tests plus 51 python tests pass. Phase 4 (leaves 91-94) and Phase 5 (95-101) remain. Leaves 11-14 are DONE. `3.a.i.zi` (commit 8598258 on `origin/main`) added `songs.forks` and `songs.retrieveInviteLink`, typed the song invites list, and fixed a real defect: `songs.listPosts`, `songs.invites.listInvites` and `songs.invites.sendInvites` were calling the singular `/song/...` route, which has no matching route on the server. Coverage is now 377 `api.md` rows and 341 of 341 evidenced paths covered, no drift. Known limits, recorded so no session overclaims - (1) REQUEST BODIES are evidenced only where the app method takes a `@c74` body parameter whose model is in the descriptor set; the rest stay `unknown` under D12 and are marked `apk-path-only`. 95 of 102 body models are obfuscated and unrecoverable from the APK; leaf `4.a.i.zi` closes them only when a capture arrives. (2) `@lik` = PUT is the one verb with realistic doubt (15/28 direct, resolved by in-file coherence); rows using it are flagged. (3) 79 of 344 paths have a verb but no response shape. (4) The AI/ML host groups (`SMART_COMPOSE`, `MIDI_GENERATE`, `AUTO_MIX`, `AUDIO_TO_MIDI`, `VOICE_CLEANER`, `OPEN_MIC`, `FX`, `REALTIME`, `AUDIO_SONG_STARTER`) are evidenced but their deployment host (staging vs production) is not. (5) `AMPLITUDE_*` and `BRANCH` host groups are third-party SDKs and are deliberately EXCLUDED. (6) Nothing has been run against BandLab; rows are `apk`, never `live-ok`. (7) `5.b.ii.zi` remains the owner's leaf. (8) OWNER-GATED: the REA/Chrome-CDP capture that would close (1) needs the owner's machine and account; deferred by the owner, no session should start it. (9) OUT OF SCOPE (D14): stripping ads or paywalls from the Android app and publishing a rebuilt APK is not done and will not be done - it is an entitlement bypass plus redistribution of proprietary software, and the gating is server-side so it would not work anyway. (10) PUSH GATE: CLOSED. Phase 3 (leaves 11-90) is complete, so the 3.1/3.2/3.3 work is committed and handed off on `main`; the earlier gate that held local commits until all 30 leaves of 3.1 were DONE no longer applies.
 ```
 
 **Shape rule (added 2026-10-15, revised 2026-10-15 after the APK evidence, see rule D12).** Evidence proves a _path_; the APK also proves a _shape_ wherever a kotlinx.serialization descriptor names the field. A session therefore types a response with the real field names when `docs/research/apk-shapes.tsv` has them, and uses `unknown` with status `apk-path-only` when it does not. A session must **not** invent field names, required flags, enum values or nested types. Request bodies are typed only where a `@c74` body model is in the descriptor set.

@@ -66,6 +66,12 @@ export {
   type Provider,
   type AuthorizationCreateSessionKeyResponse,
   type AuthorizationCreateSessionKeyParams,
+  type TwoFactorAuthEmailResponse,
+  type TwoFactorSendCodeResponse,
+  type Session,
+  type NonceToken,
+  type AuthorizationListTwoFactorMethodsParams,
+  type AuthorizationRetrieveExternalTokenParams,
 } from './authorizations';
 export { Badges, type Badge, type BadgeListResponse } from './badges';
 export {
@@ -119,7 +125,7 @@ export {
   type UnSavedPreset,
 } from './effects';
 export { Feedback, type FeedbackCreateParams } from './feedback';
-export { Genres, type Genre, type GenreListResponse } from './genres';
+export { Genres, type Genre, type GenreListResponse, type GenreListTrendingPostsParams } from './genres';
 export { Images, type ImageCreatePostParams } from './images';
 export { Invites, type InviteBatch, type InviteSendParams } from './invites';
 export { Labels, type LabelListResponse } from './labels';
@@ -159,6 +165,7 @@ export {
   type PasswordChangeParams,
   type PasswordResetParams,
   type PasswordSendRestoreEmailParams,
+  type PasswordResetPasswordParams,
 } from './passwords';
 export {
   Posts,
@@ -188,6 +195,19 @@ export {
   type SearchSearchCollectionsParams,
   type SearchSearchSongsParams,
   type SearchSearchUsersParams,
+  type SearchLocationResult,
+  type SearchLocationResultList,
+  type Hashtag,
+  type HashtagList,
+  type SearchSuggestionDto,
+  type SearchSuggestionDtoList,
+  type SearchListHashtagPostsParams,
+  type SearchListPlacesParams,
+  type SearchSearchAlbumsParams,
+  type SearchSearchCommunitiesParams,
+  type SearchSearchTagsParams,
+  type SearchListSuggestionsParams,
+  type SearchListTagsParams,
 } from './search';
 export { Settings } from './settings/settings';
 export { Skills, type Skill, type SkillListResponse } from './skills';
@@ -285,14 +305,102 @@ export {
   type UserListPostsParams,
   type UserListSongsParams,
 } from './users/users';
-export { Validation, type ValidationValidateResponse, type ValidationValidateParams } from './validation';
+export {
+  Validation,
+  type ValidationValidateResponse,
+  type ValidationValidateParams,
+  type FieldValidationResponse,
+} from './validation';
 export {
   Versions,
   type VersionRetrieveResponse,
   type VersionValidateResponse,
   type VersionValidateParams,
 } from './versions';
-export { Videos, type VideoCreatePostParams } from './videos';
+export {
+  Videos,
+  type VideoCreatePostParams,
+  type StickerListResponse,
+  type VideoFile,
+  type VideoListStickersParams,
+  type VideoRetrieveParams,
+} from './videos';
 export * from './messaging/index';
 export { Library } from './library';
 export { Feeds } from './feeds';
+export { Streaks, type FeedStreaksData } from './streaks';
+export {
+  Membership,
+  type TokensBalanceDTO,
+  type MembershipStatusShort,
+  type SurveyQuestion,
+  type MembershipStatus,
+  type AiTokenBalance,
+} from './membership';
+export { Payments, type PaymentIntent, type SubsPurchaseStamp, type PaymentConfirmParams } from './payments';
+export {
+  Beats,
+  type Beat,
+  type BeatList,
+  type BeatsCollection,
+  type BeatsCollectionList,
+  type FreeBeatsQuota,
+  type BeatUserPreferences,
+  type BeatListParams,
+  type BeatListCollectionsParams,
+  type BeatListFreeParams,
+  type BeatListByGenreParams,
+  type BeatListLimitedParams,
+  type BeatListMembersOnlyParams,
+  type BeatListPromoCarouselParams,
+  type BeatListPromoHeaderParams,
+  type BeatMarkPlayedParams,
+  type BeatListPreferredParams,
+  type BeatSaveParams,
+} from './beats';
+export {
+  Distro,
+  type AiGalleryItem,
+  type AiGalleryItemList,
+  type ArtistProfiles,
+  type FormOptions,
+  type DistroProject,
+  type DistroProjectList,
+  type DistroQuotas,
+  type CreateReleaseDetailsResponse,
+  type ReleaseDetails,
+  type GenerateCoversResponse,
+  type UpdateReleaseCoverArtResponse,
+  type UpdatedReleaseSongs,
+  type UserRevisions,
+  type InitiateUploadResponse,
+  type DistroListAiCoversParams,
+  type DistroListProjectsParams,
+  type DistroRetrieveReleaseParams,
+  type DistroGenerateAiCoversParams,
+  type DistroSelectAiCoverParams,
+  type DistroUpdateCoverArtParams,
+  type DistroUpdateSongsParams,
+  type DistroUpdateReleaseStateParams,
+} from './distro';
+export {
+  Promote,
+  type BeatsMemPromo,
+  type BeatsMemPromoList,
+  type OpportunitiesBanner,
+  type OpportunitiesBannerList,
+  type BoostCredits,
+  type SubscriberState,
+  type UserPayoutMethodRequired,
+  type PackSectionsDto,
+  type FxPromoCampaign,
+  type FxPromoCampaignList,
+  type AvailablePromoCarousel,
+  type AvailablePromoCarouselList,
+  type PromoteListBeatsPromoBannersParams,
+  type PromoteListOpportunitiesBannersParams,
+  type PromoteRetrieveFanReachParams,
+  type PromoteRetrievePromoParams,
+  type PromoteListPromoCampaignsParams,
+} from './promote';
+export { Pages, type DuplicateSongResponse, type BioPage, type BioPageState } from './pages';

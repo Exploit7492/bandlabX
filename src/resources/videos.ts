@@ -45,6 +45,61 @@ export class Videos extends APIResource {
   ): APIPromise<PostsAPI.Post> {
     return this._client.post(path`/videos/${videoID}/posts`, { body, ...options });
   }
+
+  /**
+   * Lists the video-mix stickers
+   *
+   * Evidence: `apk` — `VideoMixerStickerService`, `GET video-mix/stickers`. Response typed from
+   * `com.bandlab.videomixer.sticker.api.StickerListResponse`.
+   */
+  listStickers(
+    query: VideoListStickersParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<StickerListResponse> {
+    return this._client.get('/video-mix/stickers', { query, ...options });
+  }
+
+  /**
+   * Returns a video file at a resolution
+   *
+   * Evidence: `apk` — `VideoMixerService`, `GET videos/{id}?resolution=Standard`. Response typed
+   * from `com.bandlab.videomixer.service.utils.VideoFile`.
+   */
+  retrieve(
+    videoID: string,
+    query: VideoRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<VideoFile> {
+    return this._client.get(path`/videos/${videoID}`, { query, ...options });
+  }
+}
+
+/**
+ * Evidence: `apk` — `com.bandlab.videomixer.sticker.api.StickerListResponse`.
+ */
+export interface StickerListResponse {
+  stickers?: unknown;
+}
+
+/**
+ * Evidence: `apk` — `com.bandlab.videomixer.service.utils.VideoFile`.
+ */
+export interface VideoFile {
+  url?: string;
+}
+
+export interface VideoListStickersParams {
+  after?: string;
+
+  before?: string;
+
+  limit?: number;
+
+  offset?: number;
+}
+
+export interface VideoRetrieveParams {
+  resolution?: string;
 }
 
 export interface VideoCreatePostParams {
@@ -74,5 +129,11 @@ export interface VideoCreatePostParams {
 }
 
 export declare namespace Videos {
-  export { type VideoCreatePostParams as VideoCreatePostParams };
+  export {
+    type VideoCreatePostParams as VideoCreatePostParams,
+    type StickerListResponse as StickerListResponse,
+    type VideoFile as VideoFile,
+    type VideoListStickersParams as VideoListStickersParams,
+    type VideoRetrieveParams as VideoRetrieveParams,
+  };
 }

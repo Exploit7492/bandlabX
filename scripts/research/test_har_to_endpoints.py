@@ -115,11 +115,14 @@ class PathTest(unittest.TestCase):
         table = ex.load_sdk_table(STATUS)
         # 123 at the pre-Phase-3 baseline; +2 from leaf 3.a.i.zi (songs.forks,
         # songs.retrieveInviteLink); +8 from leaf 3.a.ii.zi; +110 from the Phase 3.1 domains
-        # that landed after it. endpoint-status.md has 244 rows but the loader keys by
-        # verb+path, and 27 rows share a key with another row (the same route serving two
-        # operations, e.g. `GET /revisions/{id}` plain vs `?format=m4a`), so 217 keys remain.
+        # that landed after it; +110 from the Phase 3.2 and 3.3 bulk pass (messaging, library,
+        # feeds, streaks, membership, payments, beats, distro, promote, pages and the extended
+        # search/authorizations/validation/genres/videos/passwords/collection-likes methods).
+        # endpoint-status.md has 365 rows but the loader keys by verb+path, and 47 rows share a
+        # key with another row (the same route serving two operations, e.g. `GET /revisions/{id}`
+        # plain vs `?format=m4a`), so 318 keys remain.
         # Bump this when a leaf adds a row to endpoint-status.md.
-        self.assertEqual(len(table), 217)
+        self.assertEqual(len(table), 318)
         self.assertEqual(table[ex.normalise("get", "/users/{id}/followers")], "client.users.followers.list()")
         self.assertEqual(table[ex.normalise("PUT", "/passwords")], "client.passwords.change()")
         self.assertNotIn(ex.normalise("get", "/messages"), table)
