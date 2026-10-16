@@ -100,3 +100,68 @@ engagement, and no evasion logic, because none are needed: promotion on your own
 feature, not an attack. The offline-bandit selection and uCB scheduling studied earlier remain
 unimplemented — if a personalisation model is wanted, it belongs here, in a §8 that chooses
 exploration adaptively rather than by a fixed `ε`.
+
+## 8. 60-minute budget and the recommended config
+
+At the original config (`α=200`, gate `0.65`, quota `40`), a new upload receives **40
+impressions and 40 plays in its first hour**, and its estimate stalls at `0.508` — it never
+reaches explore. The cause is arithmetic: a `q=0.80` track needs 150 plays to begin winning
+organic slots and 267 to clear the gate, against a quota of 40.
+
+A sweep shows the lane is a dead end as tuned:
+
+| α       | gate     | plays to clear (`q=0.80`) | fits 60 min? |
+| ------- | -------- | ------------------------- | ------------ |
+| 200     | 0.65     | 267                       | no           |
+| 150     | 0.65     | 200                       | yes          |
+| 100     | 0.65     | 134                       | yes          |
+| **100** | **0.60** | **75**                    | **yes**      |
+| 50      | 0.60     | 38                        | yes          |
+
+**Recommended: `α=100`, gate `0.60`, quota `200`.** Re-run:
+
+| true q | plays @60min | est_q @60min | explore? |
+| ------ | ------------ | ------------ | -------- |
+| 0.55   | 158          | 0.511        | no       |
+| 0.65   | 158          | 0.572        | no       |
+| 0.70   | 158          | 0.603        | yes      |
+| 0.80   | 158          | 0.664        | yes      |
+| 0.90   | 158          | 0.725        | yes      |
+
+The window was never the constraint; the prior was. Note that weak tracks still fail — that is
+the quality floor working, not a limitation.
+
+## 9. Capacity at 100,000 users
+
+`scripts/research/platform_100k.py`. Assumes 30% DAU, 5 feed loads per session, 2,400
+uploads/day.
+
+| Quantity                      | Value            |
+| ----------------------------- | ---------------- |
+| daily actives                 | 30,000           |
+| requests/min                  | 104.2            |
+| cold lane slots/min           | 312              |
+| uploads/hour                  | 100              |
+| impressions per track, hour 1 | 188              |
+| tracks fully surfaced/day     | 2,250            |
+| coverage of uploads           | 94%              |
+| lane saturation               | ~94 uploads/hour |
+| uploads clearing hour 1       | 71%              |
+
+**The lane saturates at ~94 uploads/hour.** Below that every upload receives its full quota;
+above it, fair share falls below 200 and discovery thins. At 100k users with 100 uploads/hour
+the platform sits just past saturation, which is the operating point to watch.
+
+Hour-1 outcome at 188 impressions:
+
+| true q | est_q | explore? |
+| ------ | ----- | -------- |
+| 0.55   | 0.515 | no       |
+| 0.65   | 0.580 | no       |
+| 0.70   | 0.613 | yes      |
+| 0.90   | 0.743 | yes      |
+
+Lane capacity and upload volume both scale linearly with users, so the ratio holds across
+10k–1M. What changes is absolute cost: at 1M users the lane serves roughly 10× the impressions.
+
+All figures are design estimates from the model, not measurements.
