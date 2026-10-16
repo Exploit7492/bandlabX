@@ -106,6 +106,39 @@ def min_n_for(p_d, target=0.9998, cap=20_000_000):
     return lo
 
 
+# --- section 7.1: detection as a function of clique density -------------------
+def p_detect(N, E0):
+    """p_d = 1 - exp(-E(N)/E0), E(N) = N(N-1)/2 fully cross-engaging accounts."""
+    return 1.0 - exp(-(N * (N - 1) / 2.0) / E0)
+
+
+def n_eff_density(N, E0):
+    """Effective reach the engine actually counts."""
+    return N * (1.0 - p_detect(N, E0))
+
+
+def peak_n_eff(E0, cap=200_000):
+    """Max n_eff over N, and the argmax. Closed form: N* = sqrt(E0)."""
+    best, best_n = 0.0, 1
+    for N in range(1, cap + 1):
+        v = n_eff_density(N, E0)
+        if v > best:
+            best, best_n = v, N
+    return best, best_n
+
+
+def e0_threshold(floor_=FLOOR_N, cap=10_000_000):
+    """Smallest E0 for which the peak reaches the floor."""
+    lo, hi = 1, cap
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if peak_n_eff(mid)[0] >= floor_:
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
+
+
 # --- section 9: reality rates -------------------------------------------------
 def beta_cdf(x, a, b, steps=20000):
     def f(t):
@@ -162,6 +195,14 @@ def main():
     print('  for any p_d>0 and target<1, N is finite; target=1 -> N diverges.')
     for pd in (0.01, 0.05, 0.10):
         print(f'  p_d={pd:<5} 99.999% needs N={min_n_for(pd, target=0.99999)}')
+
+    rule('7.1 density model: n_eff(N) = N*exp(-N(N-1)/(2*E0))')
+    print('  N* = sqrt(E0);  peak = 0.607*sqrt(E0)')
+    print(f'  E0 threshold = {e0_threshold():,}  (clique of ~{sqrt(e0_threshold()):.0f} accounts)')
+    print(f"  {'E0':>10} | {'peak n_eff':>10} | {'at N*':>7} | clears?")
+    for E0 in (5000, 10000, 20000, 35900, 100000, 1000000):
+        pk, pn = peak_n_eff(E0)
+        print(f'  {E0:>10,} | {pk:>10.1f} | {pn:>7,} | {"YES" if pk >= FLOOR_N else "no"}')
 
     rule('9 reality rates P(true completion >= q*)')
     for name, (a, b) in DISTS.items():

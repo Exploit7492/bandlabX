@@ -227,6 +227,65 @@ sufficient.
 **Legitimate reading.** These are defence parameters. The adversarial population exists in the
 model to select `d`, not to be deployed.
 
+### 7.1 Detection as a function of clique density (sharper model)
+
+The fixed-`d` sweep above is a coarse model. Treating detection as monotone in clique density
+gives a closed form. A fully cross-engaging population of `N` accounts has
+
+```text
+E(N)   = N(N−1)/2                  edges (every pair interacts)
+p_d(N) = 1 − exp(−E(N)/E₀)         E₀ = detector strength
+n_eff(N) = N·(1 − p_d) = N·exp(−N(N−1)/(2E₀))
+```
+
+`n_eff` is what the engine counts; `N` is not. Maximising:
+
+```text
+dn_eff/dN = 0   →   N* = √E₀
+peak n_eff      =   √E₀ · e^(−1/2) = 0.607·√E₀
+```
+
+So the effective reach is **a hump, not a ramp**: it rises, crests at `N* = √E₀`, then decays
+to zero. Past the peak, adding accounts _reduces_ effective reach.
+
+The condition for the path to clear the exploration floor is `peak ≥ α/1.75 = 114.3`, i.e.
+`0.607·√E₀ ≥ 114.3` ⇒ `E₀ ≳ 35,900` analytically, or **35,760** from the integer search in the
+reproducer (a discrete peak can sit marginally above the continuous maximum). Either way the
+requirement is a clique of **≈ 189 accounts**.
+
+```text
+E₀ ≥ ≈ 35,800        (equivalently, a clique of ≈ √E₀ ≈ 189 accounts)
+```
+
+| E₀         | Peak `n_eff` | at `N*` | Clears floor? | Detector class |
+| ---------- | ------------ | ------- | ------------- | -------------- |
+| 5,000      | 43.2         | 71      | no            | strong         |
+| 10,000     | 61.0         | 100     | no            | strong         |
+| 20,000     | 86.1         | 142     | no            | very weak      |
+| **35,900** | **115.2**    | **190** | **yes**       | very weak      |
+| 100,000    | 192.1        | 316     | yes           | implausible    |
+| 1,000,000  | 606.8        | 1,000   | yes           | implausible    |
+
+**Two consequences.**
+
+1. The requirement is **topological, not numerical**. It is not "some count of accounts"; it is
+   a _densely mutual clique_, which is exactly the signature a coordination classifier looks
+   for. Sparser topologies generate fewer edges per account and raise `E₀` further.
+2. The optimum is finite and small relative to the floor it must clear. At realistic detector
+   strength (`E₀ ≤ 10,000`) the peak is `≤ 61` — below the floor, so the path never clears at
+   any count.
+
+This supersedes the fixed-`d` table above where the two disagree (the fixed sweep showed
+`d = 0.9` clearing at `n = 1000`; under density-dependent detection that population drives
+`E(N) ≈ 5×10⁵ edges` and `n_eff → 0`). The density model is the one to use.
+
+**Plain reading.** Adding accounts is a hump, not a ladder. They help, then they stop helping,
+then they actively hurt — because the more accounts there are, the more obvious the circle is.
+For the effort to pay off at all, roughly 190 accounts would each have to engage every other
+one, which is the most detectable shape a group can take. Real listeners don't do that; they
+arrive independently, from different places, without a pattern. That is why "how many" has no
+useful answer: the useful quantity is completion, and it has a threshold of about 60%.
+
 ---
 
 ## 8. Negative control: an undefended engine
@@ -234,12 +293,12 @@ model to select `d`, not to be deployed.
 `camel-ai/oasis` is a public social simulator (Apache-2.0). Its recommender was read at source
 for calibration only:
 
-| Property       | Value                       | Consequence               |
-| -------------- | --------------------------- | ------------------------- | --------------------------- | ------------------------ |
-| Hot score      | `sign(s)·log10(max(         | s                         | ,1)) + epoch_seconds/45000` | Reddit-style, likes-only |
-| Interest score | `cosine_similarity · score` | no prior                  |
-| Shrinkage      | **none** → `α = 0`          | 3 likes counts as 3 likes |
-| Feed           | `[top_post_ids] * n_users`  | not personalised          |
+| Property       | Value                                      | Consequence               |
+| -------------- | ------------------------------------------ | ------------------------- |
+| Hot score      | `sign(s)·log10(max(abs(s),1)) + epoch/45k` | Reddit-style, likes-only  |
+| Interest score | `cosine_similarity · score`                | no prior                  |
+| Shrinkage      | **none** → `α = 0`                         | 3 likes counts as 3 likes |
+| Feed           | `[top_post_ids] * n_users`                 | not personalised          |
 
 At `α = 0` the floor is 0, so **any** small population clears. This is why a simulator can
 appear to confirm a seeding strategy: it is confirming the absence of a prior, not the
