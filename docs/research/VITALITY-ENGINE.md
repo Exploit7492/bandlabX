@@ -350,3 +350,120 @@ implemented here, and it will not be. Two reasons, both recorded plainly:
 
 So the seeder/booster path is both out of scope and arithmetically dominated. The engine and
 its defence are the deliverable.
+
+---
+
+## 12. Research methodology (simulator concept)
+
+This section formalises §7 as a study, so the model is reproducible and reviewable. All inputs
+are **estimates** — design values, not measurements. Nothing here is validated against a live
+platform, and it is not intended to be.
+
+### 12.1 Research question
+
+Given a ranking gate with a shrinkage prior `α` and a coordination detector of strength `E₀`,
+what effective sample size `n_eff` can a coordinated population achieve, and does it clear the
+gate? Equivalently: **which defence parameters make the gate unwinnable by coordination?**
+
+The framing is defensive. The adversary exists in the model as a controlled input, in the same
+way a penetration test targets the system it protects.
+
+### 12.2 Threat model (formal)
+
+State the adversary as a capability class, not a plan:
+
+| Capability  | Formalisation                                                 |
+| ----------- | ------------------------------------------------------------- |
+| Population  | `N` accounts, all mutually engaged                            |
+| Graph shape | complete (density 1.0); sparser shapes are a parameter sweep  |
+| Window      | all activity within `W` minutes                               |
+| Signal set  | whatever the target's tracker observes (§2, row 1)            |
+| Knowledge   | the gate is unknown to the adversary; `α` and `E₀` are hidden |
+
+Two properties follow directly and are the point of the model:
+
+1. Density is the adversary's dominant exposure. A complete graph is the most detectable shape
+   available, and any deviation reduces edges per account.
+2. Window compression raises exposure. `W → 0` maximises detection.
+
+### 12.3 Simulator
+
+The estimator under test (`scripts/research/vitality_model.py`):
+
+```text
+n_eff(N) = N · exp( −N(N−1) / (2·E₀) )        §7.1
+N*       = √E₀                                 argmax
+peak     = 0.607·√E₀                           max n_eff
+clears   ⟺  peak ≥ α/1.75                      §5.2 floor
+```
+
+Assumptions, stated so they can be attacked:
+
+- detection is monotone in clique density and saturates to 1;
+- `E₀` is constant, i.e. the detector does not adapt within the window;
+- the population's signals are indistinguishable from organic ones per-impression;
+- `α = 200` and the gate values in §3 are design estimates, not measured.
+
+### 12.4 Variables
+
+| Role        | Variable     | Range                     |
+| ----------- | ------------ | ------------------------- |
+| Independent | `N`          | 1 – 10⁵                   |
+| Independent | `E₀`         | 5×10³ – 10⁶               |
+| Independent | `W` (window) | 60 min – 24 h             |
+| Response    | `n_eff`      | effective impressions     |
+| Response    | clears?      | boolean against the floor |
+
+### 12.5 Protocol
+
+1. Fix `α`, the gate triple, and the prior from §3.
+2. Sweep `N` for each `E₀`; record `n_eff`, `N*`, and the peak.
+3. Repeat with a window-compression factor on the detection term.
+4. Compare each peak against the floor `α/1.75`.
+5. Report the `E₀` threshold above which the gate is reachable, if any.
+
+Run contained; the coordination population is synthetic and stays in the simulator. If a
+generative simulator is used to produce the population, it is instantiated in its own sandbox
+and its output is used only to label data for the detector in step 6.
+
+6. **Defence calibration.** Feed the labelled coordination traces to the detector and measure
+   its discrimination. The deliverable of the study is this measurement, not the population.
+
+### 12.6 Expected output
+
+- a table of `peak n_eff` vs `E₀` (§7.1) with the floor marked;
+- the `E₀` threshold for reachability (`≈ 35.8k` at `α = 200`);
+- a window-compression curve showing detection rising as `W` shrinks;
+- detector discrimination metrics from step 6.
+
+Window-compression curve at `E₀ = 10,000` (floor = 114.3, never reached):
+
+| `W` (min) | compression vs 24 h | peak `n_eff` | clears? |
+| --------- | ------------------- | ------------ | ------- |
+| 1,440     | 1×                  | 60.96        | no      |
+| 720       | 2×                  | 43.19        | no      |
+| 360       | 4×                  | 30.63        | no      |
+| 120       | 12×                 | 17.82        | no      |
+| **60**    | **24×**             | **12.69**    | **no**  |
+| 30        | 48×                 | 9.06         | no      |
+
+The curve is monotone decreasing: **tightening the window strictly lowers the achievable
+`n_eff`.** The 60-minute case is 4.8× further from the floor than a full day. This is the
+central quantitative result of the study, and it is counter to the intuition that a faster
+push helps.
+
+All values above are **estimates** from the model, not measurements.
+
+### 12.7 Limitations
+
+- `α` and `E₀` are estimates; neither is observed. §10 records how `α` could be measured.
+- The content-quality distributions in §9 are illustrative.
+- The model is a two-parameter abstraction of a real ranker. It is a falsifiable hypothesis,
+  not a description.
+- No live testing was performed, and none is proposed.
+
+### 12.8 Scope
+
+This is a defensive study. It models coordination to select defence parameters, and its output
+is a detector calibration. It does not specify, and is not intended to produce, a means of
+influencing any live ranking system. §11 applies.

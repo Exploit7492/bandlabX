@@ -204,6 +204,19 @@ def main():
         pk, pn = peak_n_eff(E0)
         print(f'  {E0:>10,} | {pk:>10.1f} | {pn:>7,} | {"YES" if pk >= FLOOR_N else "no"}')
 
+    rule('12.6 window compression: peak n_eff vs burst window (E0=10,000)')
+    print('  compression factor = 1440 / W_minutes (vs a full day)')
+    print(f"  {'W (min)':>8} | {'factor':>7} | {'peak n_eff':>11} | clears?")
+    for W in (1440, 720, 360, 120, 60, 30):
+        f = 1440.0 / W
+        # apply the compression factor inside the detection term
+        best, best_n = 0.0, 1
+        for N in range(1, 20001):
+            v = N * exp(-(N * (N - 1) / 2.0) / 10000.0 * f)
+            if v > best:
+                best, best_n = v, N
+        print(f'  {W:>8} | {f:>7.1f} | {best:>11.4f} | {"YES" if best >= FLOOR_N else "no"}')
+
     rule('9 reality rates P(true completion >= q*)')
     for name, (a, b) in DISTS.items():
         print(f'  {name} (Beta({a},{b}))')
