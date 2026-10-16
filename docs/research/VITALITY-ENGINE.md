@@ -467,3 +467,55 @@ All values above are **estimates** from the model, not measurements.
 This is a defensive study. It models coordination to select defence parameters, and its output
 is a detector calibration. It does not specify, and is not intended to produce, a means of
 influencing any live ranking system. §11 applies.
+
+---
+
+## 13. Retention analysis
+
+Completion is the quantity the gate measures (§5.1), so a post's drop-off profile is the one
+input that moves it across rungs. The client already reports what is needed (§2, row 1):
+
+| Field                  | Use                           |
+| ---------------------- | ----------------------------- |
+| `duration`             | track length, the denominator |
+| `playStartedPosition`  | where the listener began      |
+| `lastPlayedPosition`   | where they stopped            |
+| `actualPlayedDuration` | reported seconds, fallback    |
+
+`scripts/research/retention_analysis.py` consumes a CSV of sessions (`start,last,seconds`,
+plus a `duration` column) and reports raw completion, the shrunken estimate, the gate outcome,
+and a drop-off histogram by tenth of the track. With no argument it uses a built-in synthetic
+profile so the tool is runnable without data.
+
+**Synthetic example** (400 sessions, 150 s track, a simulated weak second verse):
+
+| Tenth     | Sessions stopping |
+| --------- | ----------------- |
+| 0–15 s    | 60                |
+| 60–120 s  | 190               |
+| 135–150 s | 150               |
+
+```text
+raw completion     0.668
+shrunken (α=200)   0.595   vs gate 0.65  ->  does not clear
+raw needed         0.750
+```
+
+**Interpretation.** Raw completion of 0.668 looks strong, but at `n = 400` with `α = 200` the
+shrunken estimate is 0.595 — below the gate. The histogram locates the loss in the 60–120 s
+band, which is the actionable finding: the shortfall is concentrated, not diffuse. Improving
+that section is worth more than improving the whole track uniformly.
+
+All figures are estimates from the synthetic profile, not measurements.
+
+**Estimated 24 h trajectory** (design estimates, §5):
+
+| Raw completion | Explore? | Before    | After      | 24 h       |
+| -------------- | -------- | --------- | ---------- | ---------- |
+| 0.55           | no       | 2,250     | 0          | 2,250      |
+| 0.60           | no       | 2,250     | 0          | 2,250      |
+| **0.65**       | **yes**  | **2,250** | **10,000** | **12,250** |
+| 0.70           | yes      | 2,250     | 10,000     | 12,250     |
+
+The step between 0.60 and 0.65 is the gate. Below it the ladder stops at rung 2; above it the
+explore window opens.
