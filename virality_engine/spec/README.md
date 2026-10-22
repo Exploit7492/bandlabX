@@ -41,15 +41,16 @@ All run directly with `python3 <file>` from this directory.
 | `pod_arithmetic.py` | Minimum viable pod size, and the α relationship. |
 | `reconcile.py` | The spec-vs-engine α discrepancy, quantified. |
 
-**APK evidence** — require the `docs/research/` tree, so they exit non-zero when
-run from this flattened directory. The evidence files themselves
-(`APK-EVIDENCE.md`, `apk-endpoints.md`, `apk-shapes.tsv`, `BUNDLE-EVIDENCE.md`,
-`bundle-endpoints.md`) are present.
+**APK evidence** — `evidence-coverage.py` and `apk-to-endpoints.py` resolve the
+evidence file in either this directory or the original `docs/research/` layout,
+so both run here. The evidence files themselves (`APK-EVIDENCE.md`,
+`apk-endpoints.md`, `apk-shapes.tsv`, `BUNDLE-EVIDENCE.md`, `bundle-endpoints.md`)
+are present. Note `evidence-coverage.py` **exits 1 when it finds uncovered
+evidenced paths** — that is a coverage report, not a failure.
 
-`apk-to-endpoints.py`, `evidence-coverage.py`, `test_apk_to_endpoints.py` run
-here; the `gen-*.py`, `har-to-endpoints.py`, `scrub-har.py`,
-`sync-endpoint-status.py`, `test_har_to_endpoints.py`, `test_scrub_har.py` and
-`open-leaves.py` scripts expect repo-root-relative paths.
+The `gen-*.py`, `har-to-endpoints.py`, `scrub-har.py`, `sync-endpoint-status.py`,
+`test_har_to_endpoints.py`, `test_scrub_har.py` and `open-leaves.py` scripts
+expect repo-root-relative paths and exit non-zero here.
 
 ## The engine itself
 

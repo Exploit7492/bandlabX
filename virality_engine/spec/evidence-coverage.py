@@ -12,6 +12,20 @@ import os
 import sys
 
 EVIDENCE = 'docs/research/apk-endpoints.md'
+
+
+def _evidence_path():
+    """Locate the evidence file, preferring the script's own directory.
+
+    The archive ships the evidence flattened next to this script, while the
+    original repo layout keeps it under docs/research/. Accept either so the
+    script runs from both.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    for candidate in (os.path.join(here, 'apk-endpoints.md'), EVIDENCE):
+        if os.path.exists(candidate):
+            return candidate
+    return EVIDENCE
 ROW = re.compile(r'^\|\s*`(GET|POST|PUT|PATCH|DELETE)`\s*\|\s*(yes|no)\s*\|\s*`([^`]+)`')
 
 
@@ -52,7 +66,7 @@ def client_calls():
 
 def evidenced():
     rows = set()
-    for line in io.open(EVIDENCE, encoding='utf-8'):
+    for line in io.open(_evidence_path(), encoding='utf-8'):
         m = ROW.match(line.strip())
         if m:
             rows.add((m.group(1), norm(m.group(3))))
