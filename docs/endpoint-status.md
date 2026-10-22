@@ -16,6 +16,10 @@ To check that `api.md` still matches the inventory snapshot, run `./scripts/cove
 
 **454 endpoints: 266 `apk`, 73 `apk-path-only`, 115 `spec`.**
 
+No row here is `live-ok`. The signup wall that blocks the first authenticated run, and the live
+`POST /authorizations` login path that is ready behind it, are recorded in
+`docs/research/AUTH-EVIDENCE.md`.
+
 | Status          | Verb   | Path                                                                                                                        | SDK call                                                           | Source                                          |
 | --------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
 | `apk`           | GET    | `/preview`                                                                                                                  | `client.ai.retrievePreview()`                                      | `src/resources/ai/ai.ts`                        |
