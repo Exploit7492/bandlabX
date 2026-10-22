@@ -62,5 +62,8 @@ sequencing and rules.
   GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`King-Fisher000`).
   See `docs/handover/CONTAINER.md`.
 - `docs/handover/LEDGER.md` is append-only; never reorder lines.
-- Pushing needs `GITHUB_PUSH_TOKEN`; the default `GITHUB_TOKEN` is not authorized for this repo.
-  Restore the plain remote URL after pushing.
+- Pushing needs the owner token: the `Gh_token` secret authenticates as `King-Fisher000` (admin,
+  `push: true`). The default `GITHUB_TOKEN` authenticates as `Erudite885` and is **pull-only** on
+  this repo, so a push with it fails `403 Permission ... denied to Erudite885`. Push as
+  `git push https://x-access-token:${Gh_token}@github.com/King-Fisher000/bandlabX.git HEAD:main`
+  and leave the plain remote URL in place afterwards.
