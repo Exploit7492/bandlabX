@@ -59,7 +59,7 @@ sequencing and rules.
   rows rather than raw text for exactly this reason.
 - The container image is built by `.github/workflows/container.yml`. Buildx rejects `push` and
   `load` together, so the job builds into the local daemon, smoke-tests it, then pushes the tags.
-  GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`Zapier-codes`).
+  GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`King-Fisher000`).
   See `docs/handover/CONTAINER.md`.
 - `docs/handover/LEDGER.md` is append-only; never reorder lines.
 - Pushing needs `GITHUB_PUSH_TOKEN`; the default `GITHUB_TOKEN` is not authorized for this repo.

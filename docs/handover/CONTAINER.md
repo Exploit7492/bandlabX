@@ -16,7 +16,7 @@ the built package and nothing else: no `node_modules`, no TypeScript toolchain, 
 | Runtime stage   | `node:24-alpine` (output is pure JS, nothing links against glibc) |
 | Default command | `node container-smoke.js`                                         |
 | Compressed size | ~250 MB (the Alpine base; the Debian-slim runtime was ~337 MB)    |
-| Image path      | `ghcr.io/zapier-codes/bandlab-sdk-typescript`                     |
+| Image path      | `ghcr.io/king-fisher000/bandlab-sdk-typescript`                   |
 
 The image is **not** a server and **not** a CLI. It exists so the SDK can be run, and its default
 command is a self-check that proves the built package loads and routes a request to the right URL.
