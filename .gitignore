@@ -16,3 +16,8 @@ docs/research/raw/
 
 # python bytecode from scripts/research
 __pycache__/
+
+# test-account credentials are secrets under rule D11/D16 - never commit them
+.bandlab-account.json
+*.credentials.json
+.bandlab-account.local/
