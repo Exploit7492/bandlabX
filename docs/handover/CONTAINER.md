@@ -74,7 +74,7 @@ Verified on 2026-10-15, in the sandbox, with a real Docker daemon:
 | Check                                      | Result                                                     |
 | ------------------------------------------ | ---------------------------------------------------------- |
 | `docker build`                             | succeeds (both stages, ~4 s of build after install)        |
-| `docker run --rm bandlabx:smoke`        | exit 0, prints the two URLs above                          |
+| `docker run --rm bandlabx:smoke`           | exit 0, prints the two URLs above                          |
 | `SKIP_BUILD=1 ./scripts/container-smoke`   | exit 0, "image is clean"                                   |
 | Image contains no `node_modules`           | confirmed by the smoke script                              |
 | Runtime dependencies in the image          | none                                                       |
