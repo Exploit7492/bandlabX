@@ -22,10 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # GHCR rejects uppercase in image paths, and repository owners are not always lowercase.
+      # The image is named bandlabX, not after the repository, and GHCR rejects uppercase
+      # paths, so the owner is lowercased. Repository owners are not always lowercase.
       - name: Compute the image name
         id: image
-        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/bandlabx" >> "$GITHUB_OUTPUT"
 
       - name: Set up Buildx
         uses: docker/setup-buildx-action@v3

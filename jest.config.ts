@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^bandlab-sdk$': '<rootDir>/src/index.ts',
-    '^bandlab-sdk/(.*)$': '<rootDir>/src/$1',
+    '^bandlabx$': '<rootDir>/src/index.ts',
+    '^bandlabx/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

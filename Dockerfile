@@ -1,4 +1,4 @@
-# Multi-stage build for the BandLab TypeScript SDK.
+# Multi-stage build for bandlabX, an unofficial TypeScript client for the BandLab API.
 #
 # The SDK has no runtime dependencies, so the final image carries the compiled package only: no
 # node_modules, no toolchain, no sources. `scripts/container-smoke` builds this and runs its default

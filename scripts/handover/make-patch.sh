@@ -58,6 +58,6 @@ echo "Patch: $OUT"
 echo "(Apply ONLY this one. Delete older .patch files.)"
 echo
 echo "Run on the phone:"
-echo "  cd ~/bandlab-sdk-typescript"
+echo "  cd ~/bandlabX"
 echo "  git am ~/storage/downloads/$NAME.patch"
 echo "  git push"

@@ -16,7 +16,7 @@ the built package and nothing else: no `node_modules`, no TypeScript toolchain, 
 | Runtime stage   | `node:24-alpine` (output is pure JS, nothing links against glibc) |
 | Default command | `node container-smoke.js`                                         |
 | Compressed size | ~250 MB (the Alpine base; the Debian-slim runtime was ~337 MB)    |
-| Image path      | `ghcr.io/king-fisher000/bandlab-sdk-typescript`                   |
+| Image path      | `ghcr.io/king-fisher000/bandlabx`                                 |
 
 The image is **not** a server and **not** a CLI. It exists so the SDK can be run, and its default
 command is a self-check that proves the built package loads and routes a request to the right URL.
@@ -24,14 +24,14 @@ command is a self-check that proves the built package loads and routes a request
 ## Build and run it yourself
 
 ```bash
-docker build --tag bandlab-sdk:local .
-docker run --rm bandlab-sdk:local
+docker build --tag bandlabx:local .
+docker run --rm bandlabx:local
 ```
 
 Expected output:
 
 ```
-bandlab-sdk container smoke OK (17 exports)
+bandlabx container smoke OK (17 exports)
   http://127.0.0.1:9/validation/user
   http://127.0.0.1:9/users/some-user
 ```
@@ -42,7 +42,7 @@ no runtime dependencies:
 ```bash
 ./scripts/container-smoke                # build, run, verify
 SKIP_BUILD=1 ./scripts/container-smoke   # run an image that already exists
-IMAGE=bandlab-sdk:local ./scripts/container-smoke
+IMAGE=bandlabx:local ./scripts/container-smoke
 ```
 
 The smoke check stubs `fetch`, so it makes **no network calls** and needs no credentials. It asserts
@@ -74,7 +74,7 @@ Verified on 2026-10-15, in the sandbox, with a real Docker daemon:
 | Check                                      | Result                                                     |
 | ------------------------------------------ | ---------------------------------------------------------- |
 | `docker build`                             | succeeds (both stages, ~4 s of build after install)        |
-| `docker run --rm bandlab-sdk:smoke`        | exit 0, prints the two URLs above                          |
+| `docker run --rm bandlabx:smoke`        | exit 0, prints the two URLs above                          |
 | `SKIP_BUILD=1 ./scripts/container-smoke`   | exit 0, "image is clean"                                   |
 | Image contains no `node_modules`           | confirmed by the smoke script                              |
 | Runtime dependencies in the image          | none                                                       |

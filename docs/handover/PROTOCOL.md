@@ -5,8 +5,8 @@ The rules and the checklist are in `HANDOVER.md` (Sections 0 to 3). This file ho
 ## 1. Session start
 
 ```bash
-git clone https://github.com/King-Fisher000/bandlab-sdk-typescript.git
-cd bandlab-sdk-typescript
+git clone https://github.com/King-Fisher000/bandlabX.git
+cd bandlabX
 git config user.name  "Claude Session"            # only if not already set
 git config user.email "claude-session@users.noreply.github.com"
 git fetch origin

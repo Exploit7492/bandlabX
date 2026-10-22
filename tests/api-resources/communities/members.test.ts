@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   bearerToken: 'My Bearer Token',

@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "bandlab-sdk/*": ["./dist/src/*"],
-      "bandlab-sdk": ["./dist/src/index.ts"]
+      "bandlabx/*": ["./dist/src/*"],
+      "bandlabx": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

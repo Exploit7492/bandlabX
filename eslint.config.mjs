@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^bandlab-sdk(/.*)?',
+              regex: '^bandlabx(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],

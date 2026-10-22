@@ -5,7 +5,7 @@
 // `songs.invites` used the singular `/song/...` route, which the live API answers with the
 // framework 404 page. The APK, the route probe and the model-binding error all use `/songs/...`.
 
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const SONG_ID = '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e';
 

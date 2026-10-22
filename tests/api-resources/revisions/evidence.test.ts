@@ -5,7 +5,7 @@
 // route collision on `/revisions/{id}`: `retrieve` and `retrieveDownload` share a path and are
 // told apart by the `format` query parameter, which is exactly what the app does.
 
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const REVISION_ID = '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e';
 

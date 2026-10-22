@@ -1,8 +1,12 @@
-# Bandlab SDK TypeScript API Library
+# bandlabX
 
-[![NPM version](<https://img.shields.io/npm/v/bandlab-sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/bandlab-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/bandlab-sdk)
+An unofficial TypeScript client for the BandLab REST API, for server-side TypeScript or JavaScript.
 
-This library provides convenient access to the Bandlab SDK REST API from server-side TypeScript or JavaScript.
+> **Not affiliated with BandLab.** bandlabX is an independent, unofficial project, published for
+> software testing automation and educational research. It is not produced, endorsed, sponsored by,
+> or otherwise associated with BandLab Technologies or the BandLab music platform, and it accepts
+> no responsibility or liability for any misuse of it or for any violation of terms of service or
+> law by anyone who uses it. You alone are responsible for how you use it. See [NOTICE.md](NOTICE.md).
 
 The full API of this library can be found in [api.md](api.md).
 
@@ -11,7 +15,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install bandlab-sdk
+npm install bandlabx
 ```
 
 ## Usage
@@ -20,7 +24,7 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   bearerToken: process.env['BANDLAB_SDK_BEARER_TOKEN'], // This is the default and can be omitted
@@ -38,7 +42,7 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   bearerToken: process.env['BANDLAB_SDK_BEARER_TOKEN'], // This is the default and can be omitted
@@ -161,7 +165,7 @@ The log level can be configured in two ways:
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   logLevel: 'debug', // Show all log messages
@@ -189,7 +193,7 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 import pino from 'pino';
 
 const logger = pino();
@@ -258,7 +262,7 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 import fetch from 'my-fetch';
 
 const client = new BandlabSDK({ fetch });
@@ -269,7 +273,7 @@ const client = new BandlabSDK({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   fetchOptions: {
@@ -286,7 +290,7 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
@@ -300,7 +304,7 @@ const client = new BandlabSDK({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 const client = new BandlabSDK({
   fetchOptions: {
@@ -312,7 +316,7 @@ const client = new BandlabSDK({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import BandlabSDK from 'npm:bandlab-sdk';
+import BandlabSDK from 'npm:bandlabx';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new BandlabSDK({
@@ -334,7 +338,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/King-Fisher000/bandlab-sdk-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/King-Fisher000/bandlabX/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
@@ -360,7 +364,7 @@ If you are interested in other runtime environments, please open or upvote an is
 A prebuilt image is published to GitHub Container Registry:
 
 ```bash
-docker run --rm ghcr.io/king-fisher000/bandlab-sdk-typescript:latest
+docker run --rm ghcr.io/king-fisher000/bandlabx:latest
 ```
 
 The SDK has no runtime dependencies, so the image carries the compiled package only — no
@@ -368,7 +372,7 @@ The SDK has no runtime dependencies, so the image carries the compiled package o
 and asserts that a call reaches the right URL, so a successful run prints:
 
 ```
-bandlab-sdk container smoke OK (17 exports)
+bandlabx container smoke OK (17 exports)
   http://127.0.0.1:9/validation/user
   http://127.0.0.1:9/users/some-user
 ```

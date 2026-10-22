@@ -7,7 +7,7 @@
 
 const assert = require('node:assert');
 
-const BandlabSDK = require('bandlab-sdk');
+const BandlabSDK = require('bandlabx');
 
 const calls = [];
 
@@ -26,11 +26,11 @@ globalThis.fetch = async (input) => {
   assert.ok(calls[0].includes('/validation/user'), `unexpected first URL: ${calls[0]}`);
   assert.ok(calls[1].includes('/users/some-user'), `unexpected second URL: ${calls[1]}`);
 
-  console.log(`bandlab-sdk container smoke OK (${Object.keys(BandlabSDK).length} exports)`);
+  console.log(`bandlabx container smoke OK (${Object.keys(BandlabSDK).length} exports)`);
   console.log(`  ${calls[0]}`);
   console.log(`  ${calls[1]}`);
 })().catch((err) => {
-  console.error('bandlab-sdk container smoke FAILED');
+  console.error('bandlabx container smoke FAILED');
   console.error(err);
   process.exit(1);
 });

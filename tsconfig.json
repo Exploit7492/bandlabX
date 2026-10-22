@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "bandlab-sdk/*": ["./src/*"],
-      "bandlab-sdk": ["./src/index.ts"]
+      "bandlabx/*": ["./src/*"],
+      "bandlabx": ["./src/index.ts"]
     },
     "noEmit": true,
 

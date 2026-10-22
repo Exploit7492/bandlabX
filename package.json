@@ -1,12 +1,12 @@
 {
-  "name": "bandlab-sdk",
+  "name": "bandlabx",
   "version": "0.0.2",
-  "description": "The official TypeScript library for the Bandlab SDK API",
+  "description": "bandlabX - an unofficial, independent TypeScript client for the BandLab API. Published for software testing automation and educational research. Not affiliated with, endorsed by, or associated with BandLab Technologies.",
   "author": "Bandlab SDK <>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:King-Fisher000/bandlab-sdk-typescript",
+  "repository": "github:King-Fisher000/bandlabX",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [

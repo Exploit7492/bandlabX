@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'bandlab-sdk/core/api-promise';
+import { APIPromise } from 'bandlabx/core/api-promise';
 
 import util from 'node:util';
-import BandlabSDK from 'bandlab-sdk';
-import { APIUserAbortError } from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
+import { APIUserAbortError } from 'bandlabx';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

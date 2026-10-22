@@ -4,7 +4,7 @@
 // docs/research/apk-endpoints.md. Each test calls the method and inspects the URL that actually
 // reaches `fetch`, so a rename or a route regression fails here rather than in production.
 
-import BandlabSDK from 'bandlab-sdk';
+import BandlabSDK from 'bandlabx';
 
 function makeClient(): BandlabSDK {
   return new BandlabSDK({ bearerToken: 'My Bearer Token', baseURL: 'http://127.0.0.1:4010' });

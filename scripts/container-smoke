@@ -5,7 +5,7 @@
 #
 # Usage:
 #   ./scripts/container-smoke              # build + run the default command
-#   IMAGE=bandlab-sdk:dev ./scripts/container-smoke
+#   IMAGE=bandlabx:dev ./scripts/container-smoke
 #   SKIP_BUILD=1 ./scripts/container-smoke # run an image that already exists
 
 set -euo pipefail
@@ -13,7 +13,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 DOCKER=${DOCKER:-docker}
-IMAGE=${IMAGE:-bandlab-sdk:smoke}
+IMAGE=${IMAGE:-bandlabx:smoke}
 
 if ! command -v "$DOCKER" >/dev/null 2>&1; then
   echo "ERROR: $DOCKER is not on PATH" >&2

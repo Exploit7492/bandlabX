@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'bandlab-sdk/internal/uploads';
-import { toFile } from 'bandlab-sdk/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'bandlabx/internal/uploads';
+import { toFile } from 'bandlabx/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
