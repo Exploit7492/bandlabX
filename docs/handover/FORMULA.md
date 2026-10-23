@@ -1,6 +1,6 @@
 # The Splitting Formula — adopted from D-Store, adapted for this repo
 
-Source read: `github.com/Zapier-codes/D-Store`, `HANDOVER.md` (Sections 0, 1 and 3, the Focus run 3 checklist, and the 13h4 split), at its `master` head `c4e3711`. Only the method is borrowed; none of D-Store's content applies here.
+Source read: `github.com/christiana-angel/D-Store`, `HANDOVER.md` (Sections 0, 1 and 3, the Focus run 3 checklist, and the 13h4 split), at its `master` head `c4e3711`. Only the method is borrowed; none of D-Store's content applies here.
 
 ## What the formula is
 

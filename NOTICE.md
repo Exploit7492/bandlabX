@@ -52,5 +52,5 @@ content, marks, or data. Nothing here is legal advice.
 
 Some files under `docs/handover/` (`LEDGER.md`, `sessions/`, `FORMULA.md`), `CHANGELOG.md`, and
 `HANDOVER.md` are append-only historical records. They preserve the names this project used earlier
-in its life — `Zapier-codes`, `unityaisolutions`, and `bandlab-sdk-typescript`. Those names appear
+in its life — `Exploit7492`, `unityaisolutions`, and `bandlab-sdk-typescript`. Those names appear
 there as history, not as current references.
