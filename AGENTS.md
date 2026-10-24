@@ -59,11 +59,11 @@ sequencing and rules.
   rows rather than raw text for exactly this reason.
 - The container image is built by `.github/workflows/container.yml`. Buildx rejects `push` and
   `load` together, so the job builds into the local daemon, smoke-tests it, then pushes the tags.
-  GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`King-Fisher000`).
+  GHCR rejects uppercase image paths, so the job lowercases `github.repository` (`Exploit7492`).
   See `docs/handover/CONTAINER.md`.
 - `docs/handover/LEDGER.md` is append-only; never reorder lines.
-- Pushing needs the owner token: the `Gh_token` secret authenticates as `King-Fisher000` (admin,
+- Pushing needs the owner token: the `Exploit_token` secret authenticates as `Exploit7492` (admin,
   `push: true`). The default `GITHUB_TOKEN` authenticates as `Erudite885` and is **pull-only** on
   this repo, so a push with it fails `403 Permission ... denied to Erudite885`. Push as
-  `git push https://x-access-token:${Gh_token}@github.com/King-Fisher000/bandlabX.git HEAD:main`
+  `git push https://x-access-token:${Exploit_token}@github.com/Exploit7492/bandlabX.git HEAD:main`
   and leave the plain remote URL in place afterwards.
