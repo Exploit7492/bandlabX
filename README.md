@@ -364,7 +364,7 @@ If you are interested in other runtime environments, please open or upvote an is
 A prebuilt image is published to GitHub Container Registry:
 
 ```bash
-docker run --rm ghcr.io/king-fisher000/bandlabx:latest
+docker run --rm ghcr.io/exploit7492/bandlabx:latest
 ```
 
 The SDK has no runtime dependencies, so the image carries the compiled package only — no
